@@ -1,4 +1,4 @@
-module com.example.bale2 {
+module com.example {
     requires javafx.controls;
     requires javafx.fxml;
 
