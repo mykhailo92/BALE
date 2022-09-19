@@ -3,8 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script language='javascript'>
+        function changeBgColor()  {
+            var color= document.getElementById('color').value;
+            document.body.style.backgroundColor= color;
+            document.getElementsByTagName('aufgabe');
+        }
+    </script>
 </head>
 <body>
+    <div class="section">
+        <div class="text">Das ist Tim </div>
+<!--        <img (Bild von Tim einfügen)>-->
+    </div>
+    <div class="section">
+        Tim ist 10 Jahre alt und geht in die 4. Klasse.
+        Er sitzt im Klassenraum in der letzten Reihe.
+        Er hat oft Kopfschmerzen.
+        Ständig kneift er die Augen zusammen.
+        Seine Lehrerin bittet ihn, zum Augenarzt zu gehen.
+        <div class="task">
+            Warum soll Tim zum Augenarzt gehen? Schreibe auf. 
+        </div>
+        <input type="text" class="input"/>
+    </div>
+
+
+    <div>-------TEMPORÄR--------</div>
+   <h2>This is Html content</h2>
+   <b>Enter Color:</b>
+   <input id='color' value='yellow' />
+   <button onclick='changeBgColor();'>Change Bg Color</button>
 
 </body>
 </html>
