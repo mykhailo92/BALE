@@ -9,9 +9,9 @@
 
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.FlowPane?>
-<FlowPane orientation="VERTICAL" style="-fx-background-color: red" xmlns:fx="http://javafx.com/fxml"
+<FlowPane orientation="VERTICAL" xmlns:fx="http://javafx.com/fxml"
           fx:controller="com.example.HelloController">
-    <WebView minWidth="-Infinity" fx:id="learningUnit"/>
+    <WebView fx:id="learningUnit"/>
     <HBox alignment="BOTTOM_CENTER" style="-fx-background-color: black">
         <Button fx:id="getSections" onAction="#getSections">Sections</Button>
     </HBox>
