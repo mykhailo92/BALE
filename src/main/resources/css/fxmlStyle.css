@@ -1,0 +1,10 @@
+.bottom-nav-button {
+    -fx-font-size: 1.5em;
+    -fx-padding: 0.3em 1em 0.3em 1em;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+
+}
+.bottom-nav {
+    -fx-background-color: white
+}
