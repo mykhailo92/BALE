@@ -9,10 +9,22 @@
 
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.FlowPane?>
-<FlowPane orientation="VERTICAL" xmlns:fx="http://javafx.com/fxml"
+<?import javafx.scene.layout.TilePane?>
+
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<GridPane xmlns:fx="http://javafx.com/fxml"
           fx:controller="com.example.HelloController">
-    <WebView fx:id="learningUnit"/>
-    <HBox alignment="BOTTOM_CENTER" style="-fx-background-color: black">
+    <columnConstraints>
+        <ColumnConstraints percentWidth="100" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints percentHeight="100"/>
+        <RowConstraints percentHeight="1"/>
+    </rowConstraints>
+    <WebView GridPane.columnIndex="0" GridPane.rowIndex="0" fx:id="learningUnit"/>
+    <HBox GridPane.columnIndex="0" GridPane.rowIndex="1" alignment="CENTER" style="-fx-background-color: white">
         <Button fx:id="getSections" onAction="#getSections">Sections</Button>
     </HBox>
-</FlowPane>
+</GridPane>
