@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Beispiel Lerneinheit</title>
+    <link rel="stylesheet" href="../../css/learningUnit.css">
     <script language='javascript'>
         function changeBgColor() {
-            var color = document.getElementById('color').value;
-            document.body.style.backgroundColor = color;
+            document.body.style.backgroundColor = document.getElementById('color').value;
             document.getElementsByTagName('aufgabe');
         }
     </script>
@@ -16,29 +16,28 @@
 <div class="section">
     <div class="text">
         <button class="reading">Vorlesen</button>
-        Das ist Tim
-        <img src="../../testImages/tim.png">
+        Das ist Tim.
+        <img src="../../testImages/tim.png" alt="">
     </div>
 </div>
 
 <div class="section">
     <div class="text">
-        Tim ist 10 Jahre alt und geht in die 4. Klasse.
-        Er sitzt im Klassenraum in der letzten Reihe.
-        Er hat oft Kopfschmerzen.
-        Ständig kneift er die Augen zusammen.
+        Tim ist 10 Jahre alt und geht in die 4. Klasse. Er sitzt im Klassenraum in der letzten Reihe.
+        Er hat oft Kopfschmerzen. Ständig kneift er die Augen zusammen.
         Seine Lehrerin bittet ihn, zum Augenarzt zu gehen.
     </div>
     <div class="task">
         Warum soll Tim zum Augenarzt gehen? Schreibe auf.
     </div>
-    <input type="text" class="input"/>
+    <input type="text" id="answer" name="answer">
+    <input class="submit" type="submit" value="Bestätigen">
 </div>
 
 <div class="chapter">
     <div class="section">
         <h1>1 Der Aufbau des menschlichen Auges</h1>
-        <img src="../../testImages/Auge_Klein.png"/>
+        <img class="picture" src="../../testImages/Auge_Klein.png" alt="1"/>
         <!--    TODO: Bild beim nächsten section als Wasserzeichen-->
     </div>
     <div class="watermark">
@@ -69,7 +68,7 @@
                 Lederhaut</b>
                 <!--TODO: Wie werden Begriffe platziert?        -->
             </div>
-            <img src="../../testImages/Auge_Groß.png"/>
+            <img src="../../testImages/Auge_Groß.png" alt=""/>
         </div>
 
         <div class="information">
