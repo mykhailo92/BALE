@@ -12,6 +12,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class HelloController {
+    public Button getSections;
     @FXML
     private WebView learningUnit =new WebView();
     WebEngine engine;
@@ -24,6 +25,11 @@ public class HelloController {
         engine.load(file.toString());
     }
 
+    @FXML
+    private void getSections() {
+        Object b = engine.executeScript("getSections();");
+        System.out.println(b.getClass());
+    }
     @FXML
     private void changeColorFunction(ActionEvent event) {
         engine.executeScript("changeBgColor();");

@@ -9,6 +9,13 @@
             document.body.style.backgroundColor = document.getElementById('color').value;
             document.getElementsByTagName('aufgabe');
         }
+
+        /**
+         * @return: All Sections in the current HTML
+         */
+        function getSections() {
+            return document.getElementsByClassName('section');
+        }
     </script>
 </head>
 
@@ -161,7 +168,7 @@
         <img src="../../testImages/Tim_Taschenlampe.png"/>
         <img src="../../testImages/Tür.png"/>
     </div>
-    <div class="infokasten">
+    <div class="information">
         <div class="section">
             <div class="text">
                 Unsere Augen sind Lichtempfänger. Wir sehen unsere Umwelt, weil die Gegenstände das Licht reflektieren
