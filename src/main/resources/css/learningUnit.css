@@ -105,6 +105,9 @@ input[type=submit]:hover {
     background-image: url("../testImages/Wald.png");
 }
 
+.wrap-figure {
+    float: right;
+}
 .chapter{
 
 }
