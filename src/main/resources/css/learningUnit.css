@@ -2,24 +2,25 @@ body {
     padding-left: 10%;
     padding-right: 10%;
 }
+
 * {
     padding-left: 10px;
     padding-right: 15px;
     margin: 0;
 }
 
-.section{
+.section {
     padding: 10px;
 }
 
-.text{
+.text {
     text-align: justify;
     padding: 15px;
     font-size: 1.5em;
     font-family: 'Optima', cursive;
 }
 
-.task{
+.task {
     width: 100%;
     padding: 10px;
     margin-left: 10px;
@@ -33,7 +34,7 @@ body {
     border-radius: 7px;
 }
 
-.information{
+.information {
     width: 100%;
     background-color: #ffe4b5;
     border-style: solid;
@@ -43,7 +44,7 @@ body {
     padding: 5px;
 }
 
-.reading{
+.reading {
     display: inline-block;
     padding: 5px 15px;
     margin: 10px;
@@ -58,7 +59,10 @@ body {
     border-radius: 10px;
     box-shadow: 0 5px #D3D3D3;
 }
-.reading:hover {background-color: #45a049}
+
+.reading:hover {
+    background-color: #45a049
+}
 
 .reading:active {
     background-color: #3e8e41;
@@ -96,16 +100,16 @@ input[type=submit]:hover {
     transform: translateY(2px);
 }
 
-.tim{
+.tim {
     height: 300px;
 
 }
 
-.eye-small{
+.eye-small {
     height: 100px;
 }
 
-#text_forest{
+#text_forest {
     background-image: url("../testImages/Wald.png");
 }
 
@@ -116,6 +120,12 @@ input[type=submit]:hover {
 .wrap-text {
     display: flex;
 }
-.chapter{
+
+.table-bottom {
+    height:10vh;
+    vertical-align: bottom;
+}
+
+.chapter {
 
 }
