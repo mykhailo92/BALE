@@ -8,18 +8,34 @@
     padding: 10px;
 }
 
-.text, .task{
+.text{
     text-align: justify;
     padding: 15px;
-    font-size: 1.3em;
+    font-size: 1.5em;
     font-family: 'Optima', cursive;
 }
 
+.task{
+    width: 100%;
+    padding: 10px;
+    margin-left: 10px;
+    text-align: justify;
+    font-size: 1.2em;
+    font-family: 'Optima', cursive;
+    border-style: double;
+    border-color: #cccccc;
+    background-color: #D3D3D3;
+    border-width: 2px;
+    border-radius: 7px;
+}
+
 .information{
+    width: 100%;
     background-color: #ffe4b5;
     border-style: solid;
     border-color: darkgreen;
-    border-width: 5px;
+    border-width: 2px;
+    border-radius: 7px;
     padding: 5px;
 }
 
@@ -36,7 +52,7 @@
     background-color: #4CAF50;
     border: none;
     border-radius: 10px;
-    box-shadow: 0 5px #999;
+    box-shadow: 0 5px #D3D3D3;
 }
 .reading:hover {background-color: #45a049}
 
@@ -76,8 +92,17 @@ input[type=submit]:hover {
     transform: translateY(2px);
 }
 
-.picture{
+.tim{
+    height: 300px;
 
+}
+
+.eye-small{
+    height: 100px;
+}
+
+#text_forest{
+    background-image: url("../testImages/Wald.png");
 }
 
 .chapter{
