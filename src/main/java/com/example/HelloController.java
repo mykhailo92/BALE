@@ -25,8 +25,8 @@ public class HelloController {
 
     @FXML
     private void getSections() {
-        JSObject b = (JSObject) engine.executeScript("getSections();");
-        System.out.println(b.getClass());
+        JSObject sectionList = (JSObject) engine.executeScript("getSections();");
+        System.out.println(sectionList.getSlot(1));
     }
 
     @FXML
