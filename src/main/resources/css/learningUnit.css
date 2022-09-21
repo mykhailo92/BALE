@@ -13,6 +13,7 @@
     padding: 15px;
     font-size: 1.5em;
     font-family: 'Optima', cursive;
+    display: flex;
 }
 
 .task{
