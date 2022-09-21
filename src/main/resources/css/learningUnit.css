@@ -1,5 +1,6 @@
 * {
-    padding: 0;
+    padding-left: 10px;
+    padding-right: 15px;
     margin: 0;
 }
 
@@ -12,6 +13,14 @@
     padding: 15px;
     font-size: 1.3em;
     font-family: 'Optima', cursive;
+}
+
+.information{
+    background-color: #ffe4b5;
+    border-style: solid;
+    border-color: darkgreen;
+    border-width: 5px;
+    padding: 5px;
 }
 
 .reading{
@@ -38,7 +47,7 @@
 }
 
 input[type=text], select {
-    width: 90%;
+    width: 50%;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
@@ -48,11 +57,11 @@ input[type=text], select {
 }
 
 input[type=submit] {
-    width: 90%;
+    width: 30%;
     background-color: #4CAF50;
     color: white;
     padding: 14px 20px;
-    margin: 8px 0;
+    margin-left: 10px;
     border: none;
     border-radius: 4px;
     cursor: pointer;

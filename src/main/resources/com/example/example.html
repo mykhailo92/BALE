@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Beispiel Lerneinheit</title>
-    <link rel="stylesheet" href="../../css/learningUnit.css">
+    <link rel="stylesheet" href="../../css/learningUnit.css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
     <script language='javascript'>
         function changeBgColor() {
             document.body.style.backgroundColor = document.getElementById('color').value;
@@ -30,8 +33,14 @@
     <div class="task">
         Warum soll Tim zum Augenarzt gehen? Schreibe auf.
     </div>
-    <input type="text" id="answer" name="answer">
-    <input class="submit" type="submit" value="Bestätigen">
+
+    <i class="fa fa-keyboard-o" style="font-size:36px"></i>
+    <br>
+    <label>
+        <input class="w3-input w3-border w3-animate-input" type="text" style="width:30%">
+    </label>
+    <br>
+    <input class="submit" type="submit" value="Speichern">
 </div>
 
 <div class="chapter">
@@ -161,7 +170,7 @@
         <img src="../../testImages/Tim_Taschenlampe.png"/>
         <img src="../../testImages/Tür.png"/>
     </div>
-    <div class="infokasten">
+    <div class="information">
         <div class="section">
             <div class="text">
                 Unsere Augen sind Lichtempfänger. Wir sehen unsere Umwelt, weil die Gegenstände das Licht reflektieren
