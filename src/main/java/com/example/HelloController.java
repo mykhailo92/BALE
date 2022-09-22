@@ -22,30 +22,42 @@ public class HelloController {
     private WebEngine engine;
     private final File startPage = new File(String.valueOf(getClass().getResource("/com/example/example.html")));
     private Element[] sections;
+    private int currentSectionIndicator = 0;
 
     /**
-     * Starte die Webengine und lade das Beispiel
+     * Start the WebEngine with example.html
+     * <p>
+     * Add a StateListener to set Element[] Sections when load is finished
      */
     @FXML
     private void initialize() {
         engine = learningUnit.getEngine();
         engine.load(startPage.toString());
         engine.getLoadWorker().stateProperty().addListener(
-                (observableValue, oldSate, newState) -> {
+                (observableValue, oldState, newState) -> {
                     if (!newState.equals(Worker.State.SUCCEEDED)) {
                         return;
+                    } else if (oldState.equals(Worker.State.RUNNING)) {
+                        sections = getSectionsFromDocument();
+                        disableAllSections();
                     }
-//                    sections=getSectionsFromDocument();
                 }
         );
+    }
+
+    private void disableAllSections() {
+        for (Element e : sections) {
+            e.setAttribute("style", "display: none;");
+        }
     }
 
     /**
      * Executes JavaScript to get and prepare an Array of all Sections in the Learningunit
      * We need to convert to a List structure first, since the length of the JSObject is unknown.
+     *
      * @return Array of all Section in the current Learningunit in order of appierence
      */
-    @FXML
+
     private Element[] getSectionsFromDocument() {
         JSObject sectionList = (JSObject) engine.executeScript("getSections();");
         int slotCounter = 0;
@@ -59,6 +71,14 @@ public class HelloController {
             elementArray[i] = elementList.get(i);
         }
         return elementArray;
+    }
+
+    @FXML
+    private void displayNextSection() {
+        if (currentSectionIndicator < sections.length) {
+            sections[currentSectionIndicator++].setAttribute("style", "display:block;");
+        }
+
     }
 
     /**
