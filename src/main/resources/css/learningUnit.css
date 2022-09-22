@@ -34,6 +34,12 @@ body {
     border-radius: 7px;
 }
 
+.task-image {
+    /*margin: auto;*/
+    /*display: block;*/
+    text-align: center;
+}
+
 .information {
     width: 100%;
     background-color: #ffe4b5;
@@ -121,7 +127,7 @@ input[type=submit]:hover {
 }
 
 .table-bottom {
-    height:10vh;
+    height: 10vh;
     vertical-align: bottom;
 }
 
@@ -129,7 +135,7 @@ input[type=submit]:hover {
 
 }
 
- /*region Make Sections Visible...*/
+/*region Make Sections Visible...*/
 
 
 .section {
@@ -137,7 +143,9 @@ input[type=submit]:hover {
     border-style: dashed;
     border-width: 2px;
 }
+
 table {
     border-collapse: collapse
 }
+
 /*endregion*/
