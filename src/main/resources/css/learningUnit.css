@@ -183,7 +183,7 @@ table {
     display: none;
 }
 .watermark{
-    background-image: url("../testImages/Auge_Wattermark Kopie.png");
+    background-image: url("../testImages/Auge_Watermark.png");
     background-repeat: no-repeat;
     background-position: center;
     backface-visibility: inherit;
