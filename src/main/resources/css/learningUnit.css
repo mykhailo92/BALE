@@ -157,15 +157,15 @@ input[type=submit]:hover {
 /*region Make Sections Visible...*/
 
 
-.section {
-    border-color: darkred;
-    border-style: dashed;
-    border-width: 2px;
-}
+/*.section {*/
+/*    border-color: darkred;*/
+/*    border-style: dashed;*/
+/*    border-width: 2px;*/
+/*}*/
 
-table {
-    border-collapse: collapse
-}
+/*table {*/
+/*    border-collapse: collapse*/
+/*}*/
 
 /*endregion*/
 
