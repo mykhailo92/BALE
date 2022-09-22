@@ -59,6 +59,7 @@ textarea {
     border-width: 2px;
     border-radius: 7px;
     padding: 5px;
+    position: relative;
 }
 
 .reading {
@@ -144,6 +145,12 @@ input[type=submit]:hover {
 
 .chapter {
 
+}
+
+.image-series {
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 /*region Make Sections Visible...*/
