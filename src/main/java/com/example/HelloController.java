@@ -1,13 +1,15 @@
 package com.example;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
+import org.w3c.dom.Element;
+
 import java.io.File;
+import java.util.ArrayList;
 
 public class HelloController {
     @FXML
@@ -29,14 +31,25 @@ public class HelloController {
     }
 
     /**
-     * Executes JavaScript to get and prepare a List of all Sections in the Learningunit
-     * @return List of all Section in the current Learningunit in order of appierence
+     * Executes JavaScript to get and prepare an Array of all Sections in the Learningunit
+     * We need to convert to a List structure first, since the length of the JSObject is unknown.
+     * @return Array of all Section in the current Learningunit in order of appierence
      */
     @FXML
-    private JSObject getSections() {
+    private Element[] getSectionsFromDocument() {
         JSObject sectionList = (JSObject) engine.executeScript("getSections();");
-        System.out.println(sectionList.getSlot(1));
-        return sectionList;
+        int slotCounter = 0;
+        ArrayList<Element> elementList = new ArrayList<>();
+        while (!sectionList.getSlot(slotCounter).equals("undefined")) {
+            Element element = (Element) sectionList.getSlot(slotCounter);
+            elementList.add(element);
+            System.out.println(sectionList.getSlot(slotCounter++));
+        }
+        Element[] elementArray = new Element[elementList.size()];
+        for (int i = 0; i < elementArray.length; i++) {
+            elementArray[i] = elementList.get(i);
+        }
+        return elementArray;
     }
 
     /**

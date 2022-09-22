@@ -17,7 +17,7 @@
     </rowConstraints>
     <WebView GridPane.columnIndex="0" GridPane.rowIndex="0" fx:id="learningUnit"/>
     <HBox GridPane.columnIndex="0" GridPane.rowIndex="1" alignment="CENTER" styleClass="bottom-nav">
-        <Button styleClass="bottom-nav-button" fx:id="nextButton" onAction="#getSections">
+        <Button styleClass="bottom-nav-button" fx:id="nextButton" onAction="#getSectionsFromDocument">
             Weiter
         </Button>
 <!--        TODO Zweiter Knopf damit man den Style besser machen kann und die App beendet-->
