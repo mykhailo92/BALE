@@ -16,8 +16,8 @@
         /**
          * @return: All Sections in the current HTML
          */
-        function getSections() {
-            return document.getElementsByClassName('section');
+        function getContainer() {
+            return document.querySelectorAll(".section,.information");
         }
     </script>
 </head>
@@ -114,47 +114,47 @@
     </div>
     <br>
     <div class="information">
-        <div class="section">
-            <div class="text">
-                <img src="../../testImages/lightbulb.png" style="max-width: 3%">
-                Damit das Sehen funktioniert, sind besonders die Iris und die Pupille, die Linse und die Netzhaut
-                erforderlich. Die Linse und die Netzhaut sind von außen nicht sichtbar.
+        <div class="clearfix">
+            <div class="section">
+                <div class="text ">
+                    <img src="../../testImages/lightbulb.png" style="max-width: 3%">
+                    Damit das Sehen funktioniert, sind besonders die Iris und die Pupille, die Linse und die Netzhaut
+                    erforderlich. Die Linse und die Netzhaut sind von außen nicht sichtbar.
+                </div>
+                <div class="diashow-image" target="diashow1">
+                    <img src="../../testImages/Aufbau_Auge.png"/>
+                </div>
+                <div class="diashow-target" id="diashow1">
+                    <img src="../../testImages/Aufbau_Auge.png"/>
+                    <!--        TODO: Beschriftung entfernen in diesem Bild-->
+                    <img src="../../testImages/Aufbau_Auge_Beschriftung_1.png"/>
+                    <!--        TODO: Die Beschriftungen sollen zsm mit dem Text eingeblendet werden-->
+                    <img src="../../testImages/Aufbau_Auge_Beschriftung_2.png"/>
+                    <!--        TODO: Die Beschriftungen sollen zsm mit dem Text eingeblendet werden-->
+                    <img src="../../testImages/Aufbau_Auge_Beschriftung_3.png" alt="1"/>
+                    <!--        TODO: Die Beschriftungen sollen zsm mit dem Text eingeblendet werden-->
+                </div>
             </div>
-        </div>
-        <div class="diashow-target" id="diashow1">
-            <img src="../../testImages/Aufbau_Auge.png"/>
-            <!--        TODO: Beschriftung entfernen in diesem Bild-->
-            <img src="../../testImages/Aufbau_Auge_Beschriftung_1.png"/>
-            <!--        TODO: Die Beschriftungen sollen zsm mit dem Text eingeblendet werden-->
-            <img src="../../testImages/Aufbau_Auge_Beschriftung_2.png"/>
-            <!--        TODO: Die Beschriftungen sollen zsm mit dem Text eingeblendet werden-->
-            <img src="../../testImages/Aufbau_Auge_Beschriftung_3.png" alt="1"/>
-            <!--        TODO: Die Beschriftungen sollen zsm mit dem Text eingeblendet werden-->
-        </div>
-        <div class="section">
-            <div class="diashow-image" target="diashow1">
-                <img src="../../testImages/Aufbau_Auge.png"/>
+            <div class="section">
+                <div class="text">
+                    In dem Querschnitt des Augapfels ist die Pupille als Loch in der Iris deutlich zu erkennen.
+                </div>
             </div>
-        </div>
-        <div class="section">
-            <div class="text">
-                In dem Querschnitt des Augapfels ist die Pupille als Loch in der Iris deutlich zu erkennen.
-            </div>
-        </div>
 
-        <div class="section">
-            <div class="text">
-                Hinter der Pupille befindet sich die Linse, die dafür sorgt, dass wir Gegenstände deutlich sehen
-                können.
+            <div class="section">
+                <div class="text">
+                    Hinter der Pupille befindet sich die Linse, die dafür sorgt, dass wir Gegenstände deutlich sehen
+                    können.
+                </div>
             </div>
-        </div>
 
-        <div class="section">
-            <div class="text">
-                Die Netzhaut ist dafür zuständig, das gesehene Bild wahrzunehmen und die Informationen über den
-                Sehnerv
-                an
-                das Gehirn weiterzuleiten. Der Sehnerv ist ebenfalls von außen nicht sichtbar.
+            <div class="section">
+                <div class="text">
+                    Die Netzhaut ist dafür zuständig, das gesehene Bild wahrzunehmen und die Informationen über den
+                    Sehnerv
+                    an
+                    das Gehirn weiterzuleiten. Der Sehnerv ist ebenfalls von außen nicht sichtbar.
+                </div>
             </div>
         </div>
     </div>
@@ -177,7 +177,7 @@
     <div class="information">
         <div class="section">
             <div class="text wrap-text">
-                <img src="../../testImages/lightbulb.png" style="max-width: 3%; height: 3%" >
+                <img src="../../testImages/lightbulb.png" style="max-width: 3%; height: 3%">
                 Licht breitet sich immer geradlinig aus.<br>
                 Das kann man besonders gut beobachten, wenn die Lichtstrahlen der Sonne durch die Bäume eines Waldes
                 fallen.

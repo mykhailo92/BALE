@@ -8,9 +8,10 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.*;
 
 public class HelloController {
     @FXML
@@ -21,8 +22,8 @@ public class HelloController {
     private WebView learningUnit = new WebView();
     private WebEngine engine;
     private final File startPage = new File(String.valueOf(getClass().getResource("/com/example/example.html")));
-    private Element[] sections;
-    private int currentSectionIndicator = 0;
+    private Element[] container;
+    private int currentContainerIndicator = 0;
 
     /**
      * Start the WebEngine with example.html
@@ -38,16 +39,16 @@ public class HelloController {
                     if (!newState.equals(Worker.State.SUCCEEDED)) {
                         return;
                     } else if (oldState.equals(Worker.State.RUNNING)) {
-                        sections = getSectionsFromDocument();
-                        disableAllSections();
+                        container = getContainersFromDocument();
+                        disableAllContainer();
                     }
                 }
         );
     }
 
-    private void disableAllSections() {
-        for (Element e : sections) {
-            e.setAttribute("style", "display: none;");
+    private void disableAllContainer() {
+        for (Element sectiont : container) {
+            disableElement(sectiont);
         }
     }
 
@@ -58,12 +59,16 @@ public class HelloController {
      * @return Array of all Section in the current Learningunit in order of appierence
      */
 
-    private Element[] getSectionsFromDocument() {
-        JSObject sectionList = (JSObject) engine.executeScript("getSections();");
+    private Element[] getContainersFromDocument() {
+        JSObject sectionList = (JSObject) engine.executeScript("getContainer();");
+        return createArrayFromJSObject(sectionList);
+    }
+
+    private Element[] createArrayFromJSObject(JSObject jsObjectList) {
         int slotCounter = 0;
         ArrayList<Element> elementList = new ArrayList<>();
-        while (!sectionList.getSlot(slotCounter).equals("undefined")) {
-            Element element = (Element) sectionList.getSlot(slotCounter++);
+        while (!jsObjectList.getSlot(slotCounter).equals("undefined")) {
+            Element element = (Element) jsObjectList.getSlot(slotCounter++);
             elementList.add(element);
         }
         Element[] elementArray = new Element[elementList.size()];
@@ -75,10 +80,29 @@ public class HelloController {
 
     @FXML
     private void displayNextSection() {
-        if (currentSectionIndicator < sections.length) {
-            sections[currentSectionIndicator++].setAttribute("style", "display:block;");
+        if (currentContainerIndicator < container.length) {
+            Element currentContainer = container[currentContainerIndicator];
+            if (getClasses(currentContainer).contains("information")) {
+                enableElement(container[currentContainerIndicator++]);
+            }
+            enableElement(container[currentContainerIndicator++]);
         }
+    }
 
+    private List<String> getClasses(Element element) {
+        NamedNodeMap elementAttributes = element.getAttributes();
+        if (elementAttributes.getNamedItem("class") != null) {
+            return Arrays.asList(elementAttributes.getNamedItem("class").getNodeValue().split(" "));
+        }
+        return Collections.singletonList("none");
+    }
+
+    private void disableElement(Element disableElement) {
+        disableElement.setAttribute("style", "display:none");
+    }
+
+    private void enableElement(Element enableElement) {
+        enableElement.setAttribute("style", "display:block");
     }
 
     /**

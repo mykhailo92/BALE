@@ -172,7 +172,6 @@ table {
 .diashow-image {
     float: right;
 }
-
 .diashow-target{
     display: none;
 }
@@ -182,4 +181,13 @@ table {
     background-position: center;
     backface-visibility: inherit;
     background-size: 45%;
+}
+
+.clearfix {
+    overflow: auto;
+}
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
 }
