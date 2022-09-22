@@ -35,7 +35,7 @@ public class HelloController {
                     if (!newState.equals(Worker.State.SUCCEEDED)) {
                         return;
                     }
-                    sections=getSectionsFromDocument();
+//                    sections=getSectionsFromDocument();
                 }
         );
     }
