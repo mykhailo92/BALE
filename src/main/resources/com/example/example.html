@@ -19,11 +19,20 @@
         function getContainer() {
             return document.querySelectorAll(".section,.information");
         }
+        function disablePreamble() {
+            document.getElementById('preamble').setAttribute('style','display:none');
+        }
     </script>
 </head>
 
 <body>
 
+<div class="preamble" id="preamble">
+    <div class="text">
+        Hallo alle zusammen, dies ist ein Test für die Bachelorarbeit für digitale Lerninhalte!
+    </div>
+    <button class="nav-button" onclick="disablePreamble()">Verstanden!</button>
+</div>
 <div class="chapter">
 
     <!--    <table>-->

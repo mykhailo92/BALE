@@ -192,3 +192,37 @@ input[type=submit]:hover {
     clear: both;
     display: table;
 }
+
+.nav-button {
+    display: inline-block;
+    padding: 5px 15px;
+    margin: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: DodgerBlue;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 5px #D3D3D3;
+}
+.nav-button:hover {
+    background-color: #0066cc
+}
+.nav-button:active {
+    /*background-color: #3e8e41;*/
+    box-shadow: 0 3px #666;
+    transform: translateY(2px);;
+}
+
+.preamble {
+    position: absolute;
+    width: 80%;
+    height: 100%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
