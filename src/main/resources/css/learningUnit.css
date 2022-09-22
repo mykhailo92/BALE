@@ -59,7 +59,6 @@ textarea {
     border-width: 2px;
     border-radius: 7px;
     padding: 5px;
-    position: relative;
 }
 
 .reading {
@@ -147,8 +146,16 @@ input[type=submit]:hover {
 
 }
 
+.diashow {
+    position: relative;
+    float: right;
+    width: 200px;
+    top: 0;
+    right: 0;
+}
 .image-series {
     position: absolute;
+    width: 100%;
     top: 0;
     right: 0;
 }
