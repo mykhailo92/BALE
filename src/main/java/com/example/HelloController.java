@@ -53,7 +53,6 @@ public class HelloController {
         while (!sectionList.getSlot(slotCounter).equals("undefined")) {
             Element element = (Element) sectionList.getSlot(slotCounter);
             elementList.add(element);
-            System.out.println(sectionList.getSlot(slotCounter++));
         }
         Element[] elementArray = new Element[elementList.size()];
         for (int i = 0; i < elementArray.length; i++) {
