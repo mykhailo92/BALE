@@ -175,6 +175,13 @@ table {
 
 /*endregion*/
 
+.diashow-image {
+    float: right;
+}
+
+.diashow-target{
+    display: none;
+}
 .watermark{
     background-image: url("../testImages/Auge_Wattermark Kopie.png");
     background-repeat: no-repeat;
