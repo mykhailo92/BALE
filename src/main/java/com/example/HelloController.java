@@ -40,6 +40,7 @@ public class HelloController {
                         return;
                     } else if (oldState.equals(Worker.State.RUNNING)) {
                         container = getContainersFromDocument();
+                        JSBridge jsBridge = new JSBridge(engine);
                         disableAllContainer();
                     }
                 }
