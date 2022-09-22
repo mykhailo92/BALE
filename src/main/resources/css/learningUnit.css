@@ -128,3 +128,16 @@ input[type=submit]:hover {
 .chapter {
 
 }
+
+ /*region Make Sections Visible...*/
+
+
+.section {
+    border-color: darkred;
+    border-style: dashed;
+    border-width: 2px;
+}
+table {
+    border-collapse: collapse
+}
+/*endregion*/

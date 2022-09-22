@@ -3,8 +3,12 @@
     -fx-padding: 0.3em 1em 0.3em 1em;
     -fx-border-insets: 5px;
     -fx-background-insets: 5px;
-
+    -fx-background-color: DodgerBlue;
+    -fx-background-radius: 20px;
+    -fx-effect: DropShadow(gaussian, #D3D3D3,10,0.1,0,5);
+    -fx-text-fill: white;
 }
 .bottom-nav {
-    -fx-background-color: white
+    -fx-background-color: white;
+    -fx-border-color: black;
 }
