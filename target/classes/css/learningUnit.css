@@ -59,6 +59,7 @@ textarea {
     border-width: 2px;
     border-radius: 7px;
     padding: 5px;
+    position: relative;
 }
 
 .reading {
@@ -146,16 +147,8 @@ input[type=submit]:hover {
 
 }
 
-.diashow {
-    position: relative;
-    float: right;
-    width: 200px;
-    top: 0;
-    right: 0;
-}
 .image-series {
     position: absolute;
-    width: 100%;
     top: 0;
     right: 0;
 }
@@ -176,9 +169,7 @@ table {
 /*endregion*/
 
 .watermark{
-    background-image: url("../testImages/Auge_Wattermark.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    backface-visibility: inherit;
-    background-size: 45%;
+    background-image: url("../testImages/Auge_Klein.png");
+    opacity: 0.2;
+    height: 100px;
 }
