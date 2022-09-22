@@ -1,6 +1,7 @@
 package com.example;
 
 import javafx.application.Platform;
+import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.web.WebEngine;
@@ -18,8 +19,9 @@ public class HelloController {
     public Button closeButton;
     @FXML
     private WebView learningUnit = new WebView();
-    WebEngine engine;
-    File file = new File(String.valueOf(getClass().getResource("/com/example/example.html")));
+    private WebEngine engine;
+    private final File startPage = new File(String.valueOf(getClass().getResource("/com/example/example.html")));
+    private Element[] sections;
 
     /**
      * Starte die Webengine und lade das Beispiel
@@ -27,7 +29,15 @@ public class HelloController {
     @FXML
     private void initialize() {
         engine = learningUnit.getEngine();
-        engine.load(file.toString());
+        engine.load(startPage.toString());
+        engine.getLoadWorker().stateProperty().addListener(
+                (observableValue, oldSate, newState) -> {
+                    if (!newState.equals(Worker.State.SUCCEEDED)) {
+                        return;
+                    }
+                    sections=getSectionsFromDocument();
+                }
+        );
     }
 
     /**
