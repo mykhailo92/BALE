@@ -48,16 +48,16 @@ public class HelloController {
     }
 
     private void disableAllContainer() {
-        for (Element sectiont : container) {
-            disableElement(sectiont);
+        for (Element section : container) {
+            disableElement(section);
         }
     }
 
     /**
-     * Executes JavaScript to get and prepare an Array of all Sections in the Learningunit
+     * Executes JavaScript to get and prepare an Array of all Sections in the Learning-unit
      * We need to convert to a List structure first, since the length of the JSObject is unknown.
      *
-     * @return Array of all Section in the current Learningunit in order of appierence
+     * @return Array of all Section in the current Learning-unit in order of appearance
      */
 
     private Element[] getContainersFromDocument() {
@@ -107,7 +107,7 @@ public class HelloController {
     }
 
     /**
-     * Temporary fix to close the App in Fullscreenmode
+     * Temporary fix to close the App in Fullscreen-mode
      */
     @FXML
     private void closeApp() {
