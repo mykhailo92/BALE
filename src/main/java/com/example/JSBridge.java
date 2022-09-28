@@ -6,8 +6,11 @@ import org.w3c.dom.Element;
 
 public class JSBridge {
 
-    private WebEngine engine;
+    private final WebEngine engine;
 
+    /**
+     * Public Class which holds function that can be called from JavaScript
+     */
     public class Bridge {
         public void disablePreamble() {
             try {
@@ -22,7 +25,16 @@ public class JSBridge {
 
     JSBridge(WebEngine engine) {
         this.engine = engine;
+
+    }
+
+    /**
+     * Register a JSBridge, which can be any public Class
+     *
+     * @param bridgeName Name by which the Bridge can be called from JS
+     */
+    void registerBridge(String bridgeName) {
         JSObject bridgeCreator = (JSObject) engine.executeScript("window");
-        bridgeCreator.setMember("javaBridge", new Bridge());
+        bridgeCreator.setMember(bridgeName, new Bridge());
     }
 }

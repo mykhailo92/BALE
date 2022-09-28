@@ -28,7 +28,8 @@ public class HelloController {
     /**
      * Start the WebEngine with example.html
      * <p>
-     * Add a StateListener to set Element[] Sections when load is finished
+     * When load is finished:
+     * Add a StateListener to set Element[] container and register a JSBridge
      */
     @FXML
     private void initialize() {
@@ -36,20 +37,21 @@ public class HelloController {
         engine.load(startPage.toString());
         engine.getLoadWorker().stateProperty().addListener(
                 (observableValue, oldState, newState) -> {
-                    if (!newState.equals(Worker.State.SUCCEEDED)) {
-                        return;
-                    } else if (oldState.equals(Worker.State.RUNNING)) {
-                        container = getContainersFromDocument();
-                        JSBridge jsBridge = new JSBridge(engine);
-                        disableAllContainer();
+                    if (oldState.equals(Worker.State.RUNNING) && newState.equals(Worker.State.SUCCEEDED)) {
+                        container = getContainerFromDocument();
+                        new JSBridge(engine).registerBridge("javaBridge");
+                        setAllContainerInvisible();
                     }
                 }
         );
     }
 
-    private void disableAllContainer() {
-        for (Element section : container) {
-            disableElement(section);
+    /**
+     * Sets the Display of all Container to invisible
+     */
+    private void setAllContainerInvisible() {
+        for (Element containerElement : container) {
+            setInvisible(containerElement);
         }
     }
 
@@ -60,11 +62,17 @@ public class HelloController {
      * @return Array of all Section in the current Learning-unit in order of appearance
      */
 
-    private Element[] getContainersFromDocument() {
+    private Element[] getContainerFromDocument() {
         JSObject sectionList = (JSObject) engine.executeScript("getContainer();");
         return createArrayFromJSObject(sectionList);
     }
 
+    /**
+     * Casts a JavaScript response Object to an Array of Elements
+     *
+     * @param jsObjectList JSObject which holds a Liststructure
+     * @return Array of Elements which were held by the jsObjectList
+     */
     private Element[] createArrayFromJSObject(JSObject jsObjectList) {
         int slotCounter = 0;
         ArrayList<Element> elementList = new ArrayList<>();
@@ -79,17 +87,24 @@ public class HelloController {
         return elementArray;
     }
 
+    /**
+     * Sets the Display of the next invisible Container to visible
+     */
     @FXML
     private void displayNextSection() {
         if (currentContainerIndicator < container.length) {
             Element currentContainer = container[currentContainerIndicator];
             if (getClasses(currentContainer).contains("information")) {
-                enableElement(container[currentContainerIndicator++]);
+                setVisible(container[currentContainerIndicator++]);
             }
-            enableElement(container[currentContainerIndicator++]);
+            setVisible(container[currentContainerIndicator++]);
         }
     }
 
+    /**
+     * @param element HTML DOM Element
+     * @return String list of all HTML Classes that element has. Returns "none" when the Element has no HTML CLass.
+     */
     private List<String> getClasses(Element element) {
         NamedNodeMap elementAttributes = element.getAttributes();
         if (elementAttributes.getNamedItem("class") != null) {
@@ -98,11 +113,11 @@ public class HelloController {
         return Collections.singletonList("none");
     }
 
-    private void disableElement(Element disableElement) {
+    private void setInvisible(Element disableElement) {
         disableElement.setAttribute("style", "display:none");
     }
 
-    private void enableElement(Element enableElement) {
+    private void setVisible(Element enableElement) {
         enableElement.setAttribute("style", "display:block");
     }
 
