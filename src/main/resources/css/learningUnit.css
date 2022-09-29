@@ -226,3 +226,14 @@ input[type=submit]:hover {
     align-items: center;
     justify-content: center;
 }
+
+.draggable-card {
+    background-color: darkblue;
+    color: white;
+    display: inline-block;
+    margin: 1px 1px 1px 1px;
+    border-radius: 5px;
+    font-size: 25px;
+    align-content: center;
+    padding: .5% .5% .5% .5%;
+}
