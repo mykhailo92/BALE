@@ -239,6 +239,5 @@ input[type=submit]:hover {
 }
 
 .task-icon {
-    max-height: 3%;
-    max-width: 3%;
+    max-height: 3%
 }
