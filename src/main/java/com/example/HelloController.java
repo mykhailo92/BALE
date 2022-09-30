@@ -70,7 +70,7 @@ public class HelloController {
     /**
      * Casts a JavaScript response Object to an Array of Elements
      *
-     * @param jsObjectList JSObject which holds a Liststructure
+     * @param jsObjectList JSObject which holds a List-structure
      * @return Array of Elements which were held by the jsObjectList
      */
     private Element[] createArrayFromJSObject(JSObject jsObjectList) {
