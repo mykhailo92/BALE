@@ -1,13 +1,9 @@
 package de.bale.ui;
 
-import javafx.scene.web.WebEngine;
-import org.w3c.dom.Element;
-
 import java.util.LinkedList;
 import java.util.List;
 
 public class LearningUnitModel {
-    private WebEngine engine;
     private int containerIndicator = 0;
     private boolean firstFlag=true;
 
