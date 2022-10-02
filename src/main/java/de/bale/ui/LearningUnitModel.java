@@ -13,7 +13,7 @@ import org.w3c.dom.NamedNodeMap;
 import java.io.File;
 import java.util.*;
 
-public class HelloController {
+public class LearningUnitModel {
     @FXML
     public Button nextButton;
     @FXML
