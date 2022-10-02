@@ -12,4 +12,6 @@ module com.example {
     exports de.bale.ui;
     exports de.bale;
     opens de.bale to javafx.fxml;
+    exports de.bale.ui.interfaces;
+    opens de.bale.ui.interfaces to javafx.fxml;
 }

@@ -1,5 +1,8 @@
 package de.bale.ui;
 
+import de.bale.language.Localizations;
+import de.bale.ui.interfaces.IController;
+import de.bale.ui.interfaces.ILearningUnitModel;
 import javafx.application.Platform;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
@@ -13,8 +16,8 @@ import org.w3c.dom.NamedNodeMap;
 import java.io.File;
 import java.util.*;
 
-public class LearningUnitController {
-    //region Variables
+public class LearningUnitController implements IController {
+
     @FXML
     public Button nextButton;
     @FXML
@@ -23,9 +26,8 @@ public class LearningUnitController {
     private WebView learningUnit = new WebView();
     private WebEngine engine;
     private final File startPage = new File(String.valueOf(getClass().getResource("/example.html")));
-    private Element[] container;
-    private LearningUnitModel model;
-    //endregion
+    private ILearningUnitModel model;
+
 
     /**
      * Start the WebEngine with example.html
@@ -40,12 +42,18 @@ public class LearningUnitController {
         engine.getLoadWorker().stateProperty().addListener(
                 (observableValue, oldState, newState) -> {
                     if (oldState.equals(Worker.State.RUNNING) && newState.equals(Worker.State.SUCCEEDED)) {
-                        container = getContainerFromDocument();
+                        model.setContainer(getContainerFromDocument());
                         new JSBridge(engine).registerBridge("javaBridge");
                         setAllContainerInvisible();
                     }
                 }
         );
+        createControlLabels();
+    }
+
+    private void createControlLabels() {
+        nextButton.setText(Localizations.getLocalizedString("nextButton"));
+        closeButton.setText(Localizations.getLocalizedString("closeButton"));
     }
 
     /**
@@ -89,9 +97,9 @@ public class LearningUnitController {
         if (model.isFirstFlag()) {
             model.setContainerIndicator(0);
             model.setFirstFlag(false);
-        } else if (model.getContainerIndicator() < container.length - 1) {
+        } else if (model.getContainerIndicator() < model.getContainer().length - 1) {
             model.setContainerIndicator(model.getContainerIndicator() + 1);
-            Element currentContainer = container[model.getContainerIndicator()];
+            Element currentContainer = model.getContainer()[model.getContainerIndicator()];
             if (getClasses(currentContainer).contains("information")) {
                 model.setContainerIndicator(model.getContainerIndicator() + 1);
             }
@@ -118,27 +126,33 @@ public class LearningUnitController {
         Platform.exit();
     }
 
-
-    public void setModel(LearningUnitModel learningUnitModel) {
+    /**
+     * Set a Model for the Controller and add a Listener that is fired whenever the Model gets updated
+     *
+     * @param learningUnitModel A Model which holds Information important for the Controller
+     */
+    @Override
+    public void setModel(ILearningUnitModel learningUnitModel) {
         model = learningUnitModel;
-        model.addListener((listenedModel) -> {
-            setVisible(container[listenedModel.getContainerIndicator()]);
-        });
+        model.addListener((listenedModel) ->
+                setVisible(model.getContainer()[listenedModel.getContainerIndicator()])
+        );
     }
 
     /**
      * Sets the Display of all Container to invisible
      */
     private void setAllContainerInvisible() {
-        for (Element containerElement : container) {
+        for (Element containerElement : model.getContainer()) {
             setInvisible(containerElement);
         }
     }
-    void setInvisible(Element disableElement) {
+
+    private void setInvisible(Element disableElement) {
         disableElement.setAttribute("style", "display:none");
     }
 
-    void setVisible(Element enableElement) {
+    private void setVisible(Element enableElement) {
         enableElement.setAttribute("style", "display:block");
     }
 }
