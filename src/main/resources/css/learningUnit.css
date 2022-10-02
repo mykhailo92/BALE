@@ -146,14 +146,6 @@ input[type=submit]:hover {
 
 }
 
-.diashow {
-    position: relative;
-    float: right;
-    width: 200px;
-    top: 0;
-    right: 0;
-}
-
 /*region Make Sections Visible...*/
 
 
@@ -169,14 +161,23 @@ input[type=submit]:hover {
 
 /*endregion*/
 
-.diashow-image {
+.diashow {
     float: right;
+    width: 650px;
+    height: 380px;
+    position: relative;
 }
 
-.diashow-target{
-    display: none;
+.slide {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 10px;
 }
-.watermark{
+
+.watermark {
     background-image: url("../testImages/Auge_Watermark.png");
     background-repeat: no-repeat;
     background-position: center;

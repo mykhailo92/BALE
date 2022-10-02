@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../../css/learningUnit.css">
 
     <script>
+
         function changeBgColor() {
             document.body.style.backgroundColor = document.getElementById('color').value;
             document.getElementsByTagName('aufgabe');
@@ -16,7 +17,11 @@
          * @return: All Sections in the current HTML
          */
         function getContainer() {
-            return document.querySelectorAll(".section,.information");
+            return document.querySelectorAll(".section,.information,.info_and_slide,.slide_vorschau");
+        }
+
+        function getSlides() {
+            return document.querySelectorAll(".slide");
         }
 
     </script>
@@ -132,30 +137,35 @@
                     Damit das Sehen funktioniert, sind besonders die Iris und die Pupille, die Linse und die Netzhaut
                     erforderlich. Die Linse und die Netzhaut sind von außen nicht sichtbar.
                 </div>
-                <div class="diashow-image">
-                    <img src="../../testImages/Aufbau_Auge.png" alt=""/>
+                <div class="slide_vorschau"></div>
+                <div class="diashow">
+                    <div class="slide">
+                        <img src="../../testImages/Aufbau_Auge.png" alt=""/>
+                    </div>
+                    <div class="slide">
+                        <img src="../../testImages/Aufbau_Auge_Beschriftung_1.png" alt=""/>
+                    </div>
+                    <div class="slide">
+                        <img src="../../testImages/Aufbau_Auge_Beschriftung_2.png" alt=""/>
+                    </div>
+                    <div class="slide">
+                        <img src="../../testImages/Aufbau_Auge_Beschriftung_3.png" alt=""/>
+                    </div>
                 </div>
-                <div class="diashow-target" id="diashow1">
-                    <img src="../../testImages/Aufbau_Auge.png" alt=""/>
-                    <img src="../../testImages/Aufbau_Auge_Beschriftung_1.png" alt=""/>
-                    <img src="../../testImages/Aufbau_Auge_Beschriftung_2.png" alt=""/>
-                    <img src="../../testImages/Aufbau_Auge_Beschriftung_3.png" alt=""/>
-                </div>
-            </div>
-            <div class="section">
+            <div class="info_and_slide">
                 <div class="text">
                     In dem Querschnitt des Augapfels ist die Pupille als Loch in der Iris deutlich zu erkennen.
                 </div>
             </div>
 
-            <div class="section">
+            <div class="info_and_slide">
                 <div class="text">
                     Hinter der Pupille befindet sich die Linse, die dafür sorgt, dass wir Gegenstände deutlich sehen
                     können.
                 </div>
             </div>
 
-            <div class="section">
+            <div class="info_and_slide">
                 <div class="text">
                     Die Netzhaut ist dafür zuständig, das gesehene Bild wahrzunehmen und die Informationen über den
                     Sehnerv
@@ -166,7 +176,7 @@
         </div>
     </div>
 </div>
-
+</div>
 <div class="chapter">
     <div class="section">
         <h1>2 Ausbreitung von Licht</h1>

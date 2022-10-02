@@ -23,7 +23,9 @@ public class HelloController {
     private WebEngine engine;
     private final File startPage = new File(String.valueOf(getClass().getResource("/com/example/example.html")));
     private Element[] container;
+    private Element[] slides;
     private int currentContainerIndicator = 0;
+    private int currentSlideIndicator = 0;
 
     /**
      * Start the WebEngine with example.html
@@ -39,6 +41,7 @@ public class HelloController {
                 (observableValue, oldState, newState) -> {
                     if (oldState.equals(Worker.State.RUNNING) && newState.equals(Worker.State.SUCCEEDED)) {
                         container = getContainerFromDocument();
+                        slides = getSlideFromDocument();
                         new JSBridge(engine).registerBridge("javaBridge");
                         setAllContainerInvisible();
                     }
@@ -53,6 +56,9 @@ public class HelloController {
         for (Element containerElement : container) {
             setInvisible(containerElement);
         }
+        for (Element slideElement : slides) {
+            setInvisible(slideElement);
+        }
     }
 
     /**
@@ -65,6 +71,11 @@ public class HelloController {
     private Element[] getContainerFromDocument() {
         JSObject sectionList = (JSObject) engine.executeScript("getContainer();");
         return createArrayFromJSObject(sectionList);
+    }
+
+    private Element[] getSlideFromDocument() {
+        JSObject slidesList = (JSObject) engine.executeScript("getSlides();");
+        return createArrayFromJSObject(slidesList);
     }
 
     /**
@@ -96,6 +107,13 @@ public class HelloController {
             Element currentContainer = container[currentContainerIndicator];
             if (getClasses(currentContainer).contains("information")) {
                 setVisible(container[currentContainerIndicator++]);
+            } else if (getClasses(currentContainer).contains("slide_vorschau")) {
+                setVisible(slides[currentSlideIndicator++]);
+            } else if (getClasses(currentContainer).contains("info_and_slide")) {
+                if (currentSlideIndicator > 0) {
+                    setInvisible(slides[currentSlideIndicator-1]);
+                }
+                setVisible(slides[currentSlideIndicator++]);
             }
             setVisible(container[currentContainerIndicator++]);
         }
