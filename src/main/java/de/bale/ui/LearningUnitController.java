@@ -27,7 +27,8 @@ public class LearningUnitController implements IController {
     private WebEngine engine;
     private final File startPage = new File(String.valueOf(getClass().getResource("/example.html")));
     private ILearningUnitModel model;
-
+    private Element[] slides;
+    private int currentSlideIndicator = 0;
 
     /**
      * Start the WebEngine with example.html
@@ -43,6 +44,7 @@ public class LearningUnitController implements IController {
                 (observableValue, oldState, newState) -> {
                     if (oldState.equals(Worker.State.RUNNING) && newState.equals(Worker.State.SUCCEEDED)) {
                         model.setContainer(getContainerFromDocument());
+                        slides = getSlideFromDocument();
                         new JSBridge(engine).registerBridge("javaBridge");
                         setAllContainerInvisible();
                     }
@@ -50,6 +52,17 @@ public class LearningUnitController implements IController {
         );
         createControlLabels();
     }
+
+    /**
+     * Sets the Display of all Container to invisible
+     */
+    private void setAllContainerInvisible() {
+        for (Element containerElement : model.getContainer()) {
+            setInvisible(containerElement);
+        }
+        for (Element slideElement : slides) {
+            setInvisible(slideElement);
+        }
 
     private void createControlLabels() {
         nextButton.setText(Localizations.getLocalizedString("nextButton"));
@@ -68,10 +81,15 @@ public class LearningUnitController implements IController {
         return createArrayFromJSObject(sectionList);
     }
 
+    private Element[] getSlideFromDocument() {
+        JSObject slidesList = (JSObject) engine.executeScript("getSlides();");
+        return createArrayFromJSObject(slidesList);
+    }
+
     /**
      * Casts a JavaScript response Object to an Array of Elements
      *
-     * @param jsObjectList JSObject which holds a Liststructure
+     * @param jsObjectList JSObject which holds a List-structure
      * @return Array of Elements which were held by the jsObjectList
      */
     private Element[] createArrayFromJSObject(JSObject jsObjectList) {
@@ -102,6 +120,14 @@ public class LearningUnitController implements IController {
             Element currentContainer = model.getContainer()[model.getContainerIndicator()];
             if (getClasses(currentContainer).contains("information")) {
                 model.setContainerIndicator(model.getContainerIndicator() + 1);
+                setVisible(container[currentContainerIndicator++]);
+            } else if (getClasses(currentContainer).contains("slide_vorschau")) {
+                setVisible(slides[currentSlideIndicator++]);
+            } else if (getClasses(currentContainer).contains("info_and_slide")) {
+                if (currentSlideIndicator > 0) {
+                    setInvisible(slides[currentSlideIndicator-1]);
+                }
+                setVisible(slides[currentSlideIndicator++]);
             }
         }
     }

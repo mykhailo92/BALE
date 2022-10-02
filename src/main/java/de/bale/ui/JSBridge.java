@@ -19,13 +19,11 @@ public class JSBridge {
             } catch (NullPointerException npe) {
                 System.err.println("Preamble not found!");
             }
-
         }
     }
 
     JSBridge(WebEngine engine) {
         this.engine = engine;
-
     }
 
     /**
