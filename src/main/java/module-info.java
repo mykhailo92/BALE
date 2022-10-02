@@ -8,6 +8,6 @@ module com.example {
     requires javafx.web;
     requires jdk.jsobject;
 
-    opens com.example to javafx.fxml;
-    exports com.example;
+    opens de.bale.ui to javafx.fxml;
+    exports de.bale.ui;
 }

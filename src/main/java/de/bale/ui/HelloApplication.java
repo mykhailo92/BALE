@@ -1,4 +1,4 @@
-package com.example;
+package de.bale.ui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

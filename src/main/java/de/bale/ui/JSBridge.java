@@ -1,4 +1,4 @@
-package com.example;
+package de.bale.ui;
 
 import javafx.scene.web.WebEngine;
 import netscape.javascript.JSObject;

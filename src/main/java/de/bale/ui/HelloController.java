@@ -1,4 +1,4 @@
-package com.example;
+package de.bale.ui;
 
 import javafx.application.Platform;
 import javafx.concurrent.Worker;
@@ -21,7 +21,7 @@ public class HelloController {
     @FXML
     private WebView learningUnit = new WebView();
     private WebEngine engine;
-    private final File startPage = new File(String.valueOf(getClass().getResource("/com/example/example.html")));
+    private final File startPage = new File(String.valueOf(getClass().getResource("/example.html")));
     private Element[] container;
     private int currentContainerIndicator = 0;
 
