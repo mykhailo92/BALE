@@ -56,6 +56,7 @@ public class LearningUnitController implements IController {
     /**
      * Sets the Display of all Container to invisible
      */
+
     private void setAllContainerInvisible() {
         for (Element containerElement : model.getContainer()) {
             setInvisible(containerElement);
@@ -63,6 +64,7 @@ public class LearningUnitController implements IController {
         for (Element slideElement : slides) {
             setInvisible(slideElement);
         }
+    }
 
     private void createControlLabels() {
         nextButton.setText(Localizations.getLocalizedString("nextButton"));
@@ -120,12 +122,11 @@ public class LearningUnitController implements IController {
             Element currentContainer = model.getContainer()[model.getContainerIndicator()];
             if (getClasses(currentContainer).contains("information")) {
                 model.setContainerIndicator(model.getContainerIndicator() + 1);
-                setVisible(container[currentContainerIndicator++]);
             } else if (getClasses(currentContainer).contains("slide_vorschau")) {
                 setVisible(slides[currentSlideIndicator++]);
             } else if (getClasses(currentContainer).contains("info_and_slide")) {
                 if (currentSlideIndicator > 0) {
-                    setInvisible(slides[currentSlideIndicator-1]);
+                    setInvisible(slides[currentSlideIndicator - 1]);
                 }
                 setVisible(slides[currentSlideIndicator++]);
             }
@@ -165,14 +166,6 @@ public class LearningUnitController implements IController {
         );
     }
 
-    /**
-     * Sets the Display of all Container to invisible
-     */
-    private void setAllContainerInvisible() {
-        for (Element containerElement : model.getContainer()) {
-            setInvisible(containerElement);
-        }
-    }
 
     private void setInvisible(Element disableElement) {
         disableElement.setAttribute("style", "display:none");
