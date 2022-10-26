@@ -166,7 +166,6 @@ public class LearningUnitController implements IController {
         );
     }
 
-
     private void setInvisible(Element disableElement) {
         disableElement.setAttribute("style", "display:none");
     }
