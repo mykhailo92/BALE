@@ -31,6 +31,7 @@ public class LearningUnitController implements IController {
     private ILearningUnitModel model;
     private Element[] slides;
     private int currentSlideIndicator = 0;
+    private Element[] chapterMarks;
 
     /**
      * Start the WebEngine with example.html
@@ -60,15 +61,20 @@ public class LearningUnitController implements IController {
 
     private void createChapterIndex() {
         Document document = engine.getDocument();
-        Element[] chapters = model.getChapter();
-        for (int i = 0; i < chapters.length; i++) {
+        Element[] chapterArray = model.getChapter();
+        chapterMarks = new Element[chapterArray.length + 1];
+        chapterMarks[0] = document.getElementById("chapter-select");
+        for (int i = 0; i < chapterArray.length; i++) {
             Element entry = document.createElement("a");
-            chapters[i].setAttribute("id", "chapter" + i);
-            entry.setAttribute("href", "#chapter"+i);
+            chapterArray[i].setAttribute("id", "chapter" + i);
+            entry.setAttribute("href", "#chapter" + i);
+            setInvisible(entry);
             entry.setTextContent(Localizations.getLocalizedString("chapter") + " " + i);
-            document.getElementById("chapter-select").appendChild(entry);
-            document.getElementById("chapter-select").appendChild(document.createElement("br"));
+            chapterMarks[i + 1] = entry;
+            chapterMarks[0].appendChild(entry);
+            chapterMarks[0].appendChild(document.createElement("br"));
         }
+        setInvisible(chapterMarks[0]);
     }
 
     private Element[] getChapterFromDocument() {
@@ -184,7 +190,25 @@ public class LearningUnitController implements IController {
             nextButton.setDisable(listenedModel.isNextButtonDisabled());
             setVisible(model.getContainer()[listenedModel.getContainerIndicator()]);
             scrollDown();
+            Platform.runLater(() -> {
+                checkChapter(model);
+            });
         });
+
+    }
+
+    private void checkChapter(ILearningUnitModel model) {
+        if (model.getChapterIndicator() < chapterMarks.length - 1) {
+            Integer height = (Integer) engine.executeScript("getElementHeightByID('chapter" + model.getChapterIndicator() + "');");
+            System.out.println(model.getChapterIndicator());
+            if (height > 20) {
+                if (model.getChapterIndicator() >= 0) {
+                    setVisible(chapterMarks[0]);
+                }
+                model.setChapterIndicator(model.getChapterIndicator() + 1);
+                setVisible(chapterMarks[model.getChapterIndicator()]);
+            }
+        }
     }
 
     private void setInvisible(Element disableElement) {

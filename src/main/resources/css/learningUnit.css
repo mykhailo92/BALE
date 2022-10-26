@@ -250,7 +250,7 @@ input[type=submit]:hover {
 #chapter-parent {
     position: absolute;
     height: 100%;
-    top: 0;
+    top: 2%;
     left: 0;
 }
 
@@ -258,4 +258,21 @@ input[type=submit]:hover {
     position: fixed;
     border: solid black;
     border-radius: 10px;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+#chapter-select.a:link {
+    color: blue;
+}
+
+#chapter-select.a:visited {
+    color: blue;
+}
+
+#chapter-select.a:hover {
+    color: blue;
+}
+#chapter-select.a:active {
+    color: blue;
 }

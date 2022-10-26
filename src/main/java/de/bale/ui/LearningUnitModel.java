@@ -13,6 +13,8 @@ public class LearningUnitModel implements ILearningUnitModel {
     private boolean nextButtonDisabled = true;
     private Element[] container;
     private Element[] chapter;
+    private int chapterIndicator = 0;
+
 
     @Override
     public void addListener(Listener listener) {
@@ -63,5 +65,14 @@ public class LearningUnitModel implements ILearningUnitModel {
     @Override
     public void setChapter(Element[] chapter) {
         this.chapter = chapter;
+    }
+
+    @Override
+    public void setChapterIndicator(int chapterIndicator) {
+        this.chapterIndicator = chapterIndicator;
+    }
+    @Override
+    public int getChapterIndicator() {
+        return chapterIndicator;
     }
 }

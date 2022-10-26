@@ -45,14 +45,12 @@
             return document.querySelectorAll(".chapter");
         }
 
-        function scrollTo() {
-            document.getElementById("debug").textContent+="test";
-            // document.getElementById(id).scrollIntoView();
+        function getElementHeightByID(id) {
+            return document.getElementById(id).offsetHeight;
         }
     </script>
 </head>
 
-<div class="debug"></div>
 <div id="chapter-parent">
     <div id="chapter-select">
     </div>
