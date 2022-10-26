@@ -12,4 +12,8 @@ public interface ILearningUnitModel {
 
     void setContainer(Element[] containerArray);
     Element[] getContainer();
+
+    boolean isNextButtonDisabled();
+
+    void setNextButtonDisabled(boolean nextButtonDisabled);
 }

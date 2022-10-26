@@ -17,10 +17,10 @@
     </rowConstraints>
     <WebView GridPane.columnIndex="0" GridPane.rowIndex="0" fx:id="learningUnit"/>
     <HBox GridPane.columnIndex="0" GridPane.rowIndex="1" alignment="CENTER" styleClass="bottom-nav">
-        <Button styleClass="bottom-nav-button" fx:id="nextButton" onMousePressed="#displayNextSection">
+        <Button styleClass="bottom-nav-button" fx:id="nextButton" onMousePressed="#displayNextSection" disable="true">
             Weiter
         </Button>
-<!--        TODO Zweiter Knopf damit man den Style besser machen kann und die App beendet-->
         <Button styleClass="bottom-nav-button" fx:id="closeButton" onMousePressed="#closeApp">BEENDEN (TEMPORÄR)</Button>
+        <Button styleClass="bottom-nav-button" fx:id="scrollDownButton" onMousePressed="#scrollDown">Nach unten</Button>
     </HBox>
 </GridPane>

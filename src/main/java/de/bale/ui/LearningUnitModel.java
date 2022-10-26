@@ -10,7 +10,7 @@ import java.util.List;
 public class LearningUnitModel implements ILearningUnitModel {
     private int containerIndicator = -1;
     private final List<Listener> listeners = new LinkedList<>();
-
+    private boolean nextButtonDisabled = true;
     private Element[] container;
 
     @Override
@@ -34,12 +34,23 @@ public class LearningUnitModel implements ILearningUnitModel {
     }
 
     @Override
+    public Element[] getContainer() {
+        return container;
+    }
+
+    @Override
     public void setContainer(Element[] containerArray) {
         container = containerArray;
     }
 
     @Override
-    public Element[] getContainer() {
-        return container;
+    public boolean isNextButtonDisabled() {
+        return nextButtonDisabled;
+    }
+
+    @Override
+    public void setNextButtonDisabled(boolean nextButtonDisabled) {
+        this.nextButtonDisabled = nextButtonDisabled;
+        notifyObserver();
     }
 }

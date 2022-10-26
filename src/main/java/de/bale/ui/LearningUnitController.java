@@ -22,6 +22,7 @@ public class LearningUnitController implements IController {
     public Button nextButton;
     @FXML
     public Button closeButton;
+    public Button scrollDownButton;
     @FXML
     private WebView learningUnit = new WebView();
     private WebEngine engine;
@@ -45,7 +46,7 @@ public class LearningUnitController implements IController {
                     if (oldState.equals(Worker.State.RUNNING) && newState.equals(Worker.State.SUCCEEDED)) {
                         model.setContainer(getContainerFromDocument());
                         slides = getSlideFromDocument();
-                        new JSBridge(engine).registerBridge("javaBridge");
+                        new JSBridge(model,engine).registerBridge("javaBridge");
                         setAllContainerInvisible();
                     }
                 }
@@ -69,6 +70,7 @@ public class LearningUnitController implements IController {
     private void createControlLabels() {
         nextButton.setText(Localizations.getLocalizedString("nextButton"));
         closeButton.setText(Localizations.getLocalizedString("closeButton"));
+        scrollDownButton.setText(Localizations.getLocalizedString("scrollDownButton"));
     }
 
     /**
@@ -156,9 +158,11 @@ public class LearningUnitController implements IController {
     @Override
     public void setModel(ILearningUnitModel learningUnitModel) {
         model = learningUnitModel;
-        model.addListener((listenedModel) ->
-                setVisible(model.getContainer()[listenedModel.getContainerIndicator()])
-        );
+        model.addListener(listenedModel -> {
+            nextButton.setDisable(listenedModel.isNextButtonDisabled());
+            setVisible(model.getContainer()[listenedModel.getContainerIndicator()]);
+            scrollDown();
+        });
     }
 
     private void setInvisible(Element disableElement) {
@@ -167,5 +171,9 @@ public class LearningUnitController implements IController {
 
     private void setVisible(Element enableElement) {
         enableElement.setAttribute("style", "display:block");
+    }
+
+    public void scrollDown() {
+        engine.executeScript("scrollToBottom();");
     }
 }

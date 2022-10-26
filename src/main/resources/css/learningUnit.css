@@ -243,3 +243,7 @@ input[type=submit]:hover {
     max-height: 5vh;
     max-width: 5vw;
 }
+
+.chapter-select {
+    background-color: red;
+}
