@@ -114,10 +114,7 @@ public class LearningUnitController implements IController {
      */
     @FXML
     private void displayNextSection() {
-        if (model.isFirstFlag()) {
-            model.setContainerIndicator(0);
-            model.setFirstFlag(false);
-        } else if (model.getContainerIndicator() < model.getContainer().length - 1) {
+            if (model.getContainerIndicator() < model.getContainer().length - 1) {
             model.setContainerIndicator(model.getContainerIndicator() + 1);
             Element currentContainer = model.getContainer()[model.getContainerIndicator()];
             if (getClasses(currentContainer).contains("information")) {

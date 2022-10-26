@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class LearningUnitModel implements ILearningUnitModel {
-    private int containerIndicator = 0;
+    private int containerIndicator = -1;
     private boolean firstFlag = true;
     private final List<Listener> listeners = new LinkedList<>();
 
