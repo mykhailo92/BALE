@@ -9,7 +9,6 @@ import java.util.List;
 
 public class LearningUnitModel implements ILearningUnitModel {
     private int containerIndicator = -1;
-    private boolean firstFlag = true;
     private final List<Listener> listeners = new LinkedList<>();
 
     private Element[] container;
@@ -31,17 +30,6 @@ public class LearningUnitModel implements ILearningUnitModel {
     @Override
     public void setContainerIndicator(int currentContainerIndicator) {
         this.containerIndicator = currentContainerIndicator;
-        notifyObserver();
-    }
-
-    @Override
-    public boolean isFirstFlag() {
-        return firstFlag;
-    }
-
-    @Override
-    public void setFirstFlag(boolean firstFlag) {
-        this.firstFlag = firstFlag;
         notifyObserver();
     }
 

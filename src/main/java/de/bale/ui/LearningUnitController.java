@@ -114,12 +114,10 @@ public class LearningUnitController implements IController {
      */
     @FXML
     private void displayNextSection() {
-            if (model.getContainerIndicator() < model.getContainer().length - 1) {
+        if (model.getContainerIndicator() < model.getContainer().length - 1) {
             model.setContainerIndicator(model.getContainerIndicator() + 1);
             Element currentContainer = model.getContainer()[model.getContainerIndicator()];
-            if (getClasses(currentContainer).contains("information")) {
-                model.setContainerIndicator(model.getContainerIndicator() + 1);
-            } else if (getClasses(currentContainer).contains("slide_vorschau")) {
+            if (getClasses(currentContainer).contains("slide_vorschau")) {
                 setVisible(slides[currentSlideIndicator++]);
             } else if (getClasses(currentContainer).contains("info_and_slide")) {
                 if (currentSlideIndicator > 0) {
