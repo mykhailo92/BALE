@@ -16,4 +16,8 @@ public interface ILearningUnitModel {
     boolean isNextButtonDisabled();
 
     void setNextButtonDisabled(boolean nextButtonDisabled);
+
+    Element[] getChapter();
+
+    void setChapter(Element[] chapter);
 }

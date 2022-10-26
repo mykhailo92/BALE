@@ -28,21 +28,36 @@
             let target = document.body.scrollHeight;
             let delta = target - current;
             const duration = 300;
-            const steps = duration/10;
+            const steps = duration / 10;
             const stepSize = delta / steps;
 
             for (let i = 0; i < steps; i++) {
                 window.scrollBy(0, stepSize);
-                await sleep(duration/steps);
+                await sleep(duration / steps);
             }
         }
 
         function sleep(milliseconds) {
             return new Promise(resolve => setTimeout(resolve, milliseconds));
         }
+
+        function getChapter() {
+            return document.querySelectorAll(".chapter");
+        }
+
+        function scrollTo() {
+            document.getElementById("debug").textContent+="test";
+            // document.getElementById(id).scrollIntoView();
+        }
     </script>
 </head>
 
+<div class="debug"></div>
+<div id="chapter-parent">
+    <div id="chapter-select">
+    </div>
+</div>
+<div id="debug"></div>
 <body>
 <div class="preamble" id="preamble">
     <div class="text">
@@ -50,10 +65,7 @@
     </div>
     <button class="nav-button" onclick="javaBridge.disablePreamble();">Verstanden!</button>
 </div>
-<div id="chapter-select">
-
-</div>
-<div id="chap0" class="chapter">
+<div class="chapter">
     <div class="clearfix">
         <div class="section">
             <img class="wrap-figure tim" src="testImages/tim.png" alt="TEST">
@@ -85,7 +97,7 @@
     <input class="submit" type="submit" value="Speichern">
 </div>
 
-<div id="chap1" class="chapter">
+<div class="chapter">
     <div class="section">
         <h1>1 Der Aufbau des menschlichen Auges</h1>
         <img class="eye-small" src="testImages/Auge_Klein.png" alt=""/>
@@ -182,7 +194,7 @@
         </div>
     </div>
 </div>
-<div id="chap2" class="chapter">
+<div class="chapter">
     <div class="section">
         <h1>2 Ausbreitung von Licht</h1>
         <div class="text">
@@ -209,7 +221,7 @@
     </div>
 </div>
 
-<div id="chap3" class="chapter">
+<div class="chapter">
     <div class="section">
         <h1>3 Der Weg des Lichts</h1>
         <div class="text">

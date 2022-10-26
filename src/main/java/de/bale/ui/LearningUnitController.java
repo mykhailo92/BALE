@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
@@ -36,6 +37,7 @@ public class LearningUnitController implements IController {
      * <p>
      * When load is finished:
      * Add a StateListener to set Element[] container and register a JSBridge
+     * Also Initializes ChapterSelection
      */
     @FXML
     private void initialize() {
@@ -46,12 +48,32 @@ public class LearningUnitController implements IController {
                     if (oldState.equals(Worker.State.RUNNING) && newState.equals(Worker.State.SUCCEEDED)) {
                         model.setContainer(getContainerFromDocument());
                         slides = getSlideFromDocument();
-                        new JSBridge(model,engine).registerBridge("javaBridge");
+                        new JSBridge(model, engine).registerBridge("javaBridge");
                         setAllContainerInvisible();
+                        model.setChapter(getChapterFromDocument());
+                        createChapterIndex();
                     }
                 }
         );
         createControlLabels();
+    }
+
+    private void createChapterIndex() {
+        Document document = engine.getDocument();
+        Element[] chapters = model.getChapter();
+        for (int i = 0; i < chapters.length; i++) {
+            Element entry = document.createElement("a");
+            chapters[i].setAttribute("id", "chapter" + i);
+            entry.setAttribute("href", "#chapter"+i);
+            entry.setTextContent(Localizations.getLocalizedString("chapter") + " " + i);
+            document.getElementById("chapter-select").appendChild(entry);
+            document.getElementById("chapter-select").appendChild(document.createElement("br"));
+        }
+    }
+
+    private Element[] getChapterFromDocument() {
+        JSObject sectionList = (JSObject) engine.executeScript("getChapter();");
+        return createArrayFromJSObject(sectionList);
     }
 
     /**

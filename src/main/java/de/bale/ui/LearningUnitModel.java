@@ -12,6 +12,7 @@ public class LearningUnitModel implements ILearningUnitModel {
     private final List<Listener> listeners = new LinkedList<>();
     private boolean nextButtonDisabled = true;
     private Element[] container;
+    private Element[] chapter;
 
     @Override
     public void addListener(Listener listener) {
@@ -52,5 +53,15 @@ public class LearningUnitModel implements ILearningUnitModel {
     public void setNextButtonDisabled(boolean nextButtonDisabled) {
         this.nextButtonDisabled = nextButtonDisabled;
         notifyObserver();
+    }
+
+    @Override
+    public Element[] getChapter() {
+        return chapter;
+    }
+
+    @Override
+    public void setChapter(Element[] chapter) {
+        this.chapter = chapter;
     }
 }
