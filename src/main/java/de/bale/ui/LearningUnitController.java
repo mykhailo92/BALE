@@ -27,8 +27,6 @@ public class LearningUnitController implements IController {
     private WebEngine engine;
     private final File startPage = new File(String.valueOf(getClass().getResource("/example.html")));
     private ILearningUnitModel model;
-    private Element[] slides;
-    private int currentSlideIndicator = 0;
 
     /**
      * Start the WebEngine with example.html
@@ -44,7 +42,7 @@ public class LearningUnitController implements IController {
                 (observableValue, oldState, newState) -> {
                     if (oldState.equals(Worker.State.RUNNING) && newState.equals(Worker.State.SUCCEEDED)) {
                         model.setContainer(getContainerFromDocument());
-                        slides = getSlideFromDocument();
+                        model.setSlides(getSlideFromDocument());
                         new JSBridge(engine).registerBridge("javaBridge");
                         setAllContainerInvisible();
                     }
@@ -61,7 +59,7 @@ public class LearningUnitController implements IController {
         for (Element containerElement : model.getContainer()) {
             setInvisible(containerElement);
         }
-        for (Element slideElement : slides) {
+        for (Element slideElement : model.getSlides()) {
             setInvisible(slideElement);
         }
     }
@@ -116,19 +114,17 @@ public class LearningUnitController implements IController {
     private void displayNextSection() {
         if (model.isFirstFlag()) {
             model.setContainerIndicator(0);
+            model.setCurrentSlideIndicator(0);
             model.setFirstFlag(false);
         } else if (model.getContainerIndicator() < model.getContainer().length - 1) {
             model.setContainerIndicator(model.getContainerIndicator() + 1);
             Element currentContainer = model.getContainer()[model.getContainerIndicator()];
             if (getClasses(currentContainer).contains("information")) {
                 model.setContainerIndicator(model.getContainerIndicator() + 1);
-            } else if (getClasses(currentContainer).contains("slide_preview")) {
-                setVisible(slides[currentSlideIndicator++]);
+            } else if (getClasses(model.getContainer()[model.getContainerIndicator() - 1]).contains("diashow")) {
+                model.setCurrentSlideIndicator(model.getCurrentSlideIndicator() + 1);
             } else if (getClasses(currentContainer).contains("info_and_slide")) {
-                if (currentSlideIndicator > 0) {
-                    setInvisible(slides[currentSlideIndicator - 1]);
-                }
-                setVisible(slides[currentSlideIndicator++]);
+                model.setCurrentSlideIndicator(model.getCurrentSlideIndicator() + 1);
             }
         }
     }
@@ -163,6 +159,9 @@ public class LearningUnitController implements IController {
         model = learningUnitModel;
         model.addListener((listenedModel) ->
                 setVisible(model.getContainer()[listenedModel.getContainerIndicator()])
+        );
+        model.addListener((listenedModel) ->
+                setVisible(model.getSlides()[listenedModel.getCurrentSlideIndicator()])
         );
     }
 

@@ -14,6 +14,10 @@ public class LearningUnitModel implements ILearningUnitModel {
 
     private Element[] container;
 
+    private Element[] slides;
+
+    private int currentSlideIndicator = 0;
+
     @Override
     public void addListener(Listener listener) {
         listeners.add(listener);
@@ -33,7 +37,6 @@ public class LearningUnitModel implements ILearningUnitModel {
         this.containerIndicator = currentContainerIndicator;
         notifyObserver();
     }
-
     @Override
     public boolean isFirstFlag() {
         return firstFlag;
@@ -47,11 +50,22 @@ public class LearningUnitModel implements ILearningUnitModel {
 
     @Override
     public void setContainer(Element[] containerArray) {
-        container = containerArray;
+        this.container = containerArray;
     }
 
     @Override
     public Element[] getContainer() {
         return container;
+    }
+
+    public void setSlides(Element[] slidesArray) { this.slides = slidesArray; }
+
+    public Element[] getSlides() { return slides; }
+
+    public int getCurrentSlideIndicator() { return currentSlideIndicator; }
+
+    public void setCurrentSlideIndicator(int currentSlideIndicator) {
+        this.currentSlideIndicator = currentSlideIndicator;
+        notifyObserver();
     }
 }

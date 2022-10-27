@@ -14,5 +14,14 @@ public interface ILearningUnitModel {
     void addListener(Listener listener);
 
     void setContainer(Element[] containerArray);
+
     Element[] getContainer();
+
+    void setSlides(Element[] slidesArray);
+
+    Element[] getSlides();
+
+    int getCurrentSlideIndicator();
+
+    void setCurrentSlideIndicator(int indicator);
 }
