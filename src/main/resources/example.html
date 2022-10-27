@@ -17,15 +17,18 @@
          * @return: All Sections in the current HTML
          */
         function getContainer() {
-            return document.querySelectorAll(".section,.information,.info_and_slide,.diashow");
+            return document.querySelectorAll(".section,.information,.info-and-slide,.diashow");
         }
 
         function getSlides() {
             return document.querySelectorAll(".slide");
         }
 
-        function saveInput() {
+//        document.querySelector('.submit').onclick = getInput;
+        document.querySelector('.submit').addEventListener('click', getInputText);
 
+        function getInputText() {
+            return document.querySelector('.text-area').value;
         }
 
     </script>
@@ -80,11 +83,11 @@
     <br>
     <form>
         <label>
-            <textarea></textarea>
+            <textarea class="text-area"></textarea>
         </label>
     </form>
     <br>
-    <input class="submit" type="submit" value="Speichern" onclick="saveInput()">
+    <input class="submit" type="submit" value="Speichern">
 </div>
 
 <div class="chapter">
@@ -155,20 +158,20 @@
                         <img src="testImages/Aufbau_Auge_Beschriftung_3.png" alt=""/>
                     </div>
                 </div>
-            <div class="info_and_slide">
+            <div class="info-and-slide">
                 <div class="text">
                     In dem Querschnitt des Augapfels ist die Pupille als Loch in der Iris deutlich zu erkennen.
                 </div>
             </div>
 
-            <div class="info_and_slide">
+            <div class="info-and-slide">
                 <div class="text">
                     Hinter der Pupille befindet sich die Linse, die dafür sorgt, dass wir Gegenstände deutlich sehen
                     können.
                 </div>
             </div>
 
-            <div class="info_and_slide">
+            <div class="info-and-slide">
                 <div class="text">
                     Die Netzhaut ist dafür zuständig, das gesehene Bild wahrzunehmen und die Informationen über den
                     Sehnerv

@@ -123,7 +123,7 @@ public class LearningUnitController implements IController {
                 model.setContainerIndicator(model.getContainerIndicator() + 1);
             } else if (getClasses(model.getContainer()[model.getContainerIndicator() - 1]).contains("diashow")) {
                 model.setCurrentSlideIndicator(model.getCurrentSlideIndicator() + 1);
-            } else if (getClasses(currentContainer).contains("info_and_slide")) {
+            } else if (getClasses(currentContainer).contains("info-and-slide")) {
                 model.setCurrentSlideIndicator(model.getCurrentSlideIndicator() + 1);
             }
         }
