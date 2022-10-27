@@ -31,7 +31,7 @@ public class LearningUnitController implements IController {
     private ILearningUnitModel model;
     private Element[] slides;
     private int currentSlideIndicator = 0;
-    private Element[] chapterMarks;
+
 
     /**
      * Start the WebEngine with example.html
@@ -51,18 +51,21 @@ public class LearningUnitController implements IController {
                         slides = getSlideFromDocument();
                         new JSBridge(model, engine).registerBridge("javaBridge");
                         setAllContainerInvisible();
-                        model.setChapter(getChapterFromDocument());
-                        createChapterIndex();
+                        prepareChapterIndex();
                     }
                 }
         );
         createControlLabels();
     }
 
-    private void createChapterIndex() {
+    /**
+     * prepares Index and Jump Marks to the Chapters
+     */
+    private void prepareChapterIndex() {
+        model.setChapter(getChapterFromDocument());
         Document document = engine.getDocument();
         Element[] chapterArray = model.getChapter();
-        chapterMarks = new Element[chapterArray.length + 1];
+        Element[] chapterMarks = new Element[chapterArray.length + 1];
         chapterMarks[0] = document.getElementById("chapter-select");
         for (int i = 0; i < chapterArray.length; i++) {
             Element entry = document.createElement("a");
@@ -74,9 +77,16 @@ public class LearningUnitController implements IController {
             chapterMarks[0].appendChild(entry);
             chapterMarks[0].appendChild(document.createElement("br"));
         }
+        model.setChapterMarks(chapterMarks);
         setInvisible(chapterMarks[0]);
     }
 
+    /**
+     * Executes JavaScript to get and prepare an Array of all Chapter in the Learning-unit
+     * We need to convert to a List structure first, since the length of the JSObject is unknown.
+     *
+     * @return Array of all Chapter in the current Learning-unit in order of appearance
+     */
     private Element[] getChapterFromDocument() {
         JSObject sectionList = (JSObject) engine.executeScript("getChapter();");
         return createArrayFromJSObject(sectionList);
@@ -95,6 +105,9 @@ public class LearningUnitController implements IController {
         }
     }
 
+    /**
+     * Create localized Labels for JavaFX Control Elements
+     */
     private void createControlLabels() {
         nextButton.setText(Localizations.getLocalizedString("nextButton"));
         closeButton.setText(Localizations.getLocalizedString("closeButton"));
@@ -188,25 +201,33 @@ public class LearningUnitController implements IController {
         model = learningUnitModel;
         model.addListener(listenedModel -> {
             nextButton.setDisable(listenedModel.isNextButtonDisabled());
-            setVisible(model.getContainer()[listenedModel.getContainerIndicator()]);
-            scrollDown();
+            if (listenedModel.getContainerIndicator() >=0) {
+                setVisible(model.getContainer()[listenedModel.getContainerIndicator()]);
+            }
+            scrollToBottom();
+            setVisible(model.getChapterMarks()[model.getChapterIndicator()]);
             Platform.runLater(() -> {
-                checkChapter(model);
+                checkChapter(listenedModel);
             });
         });
 
     }
 
+    /**
+     * Checks if a Chapter is made Visible by looking at its Height by using JavaScript
+     * If the Threshold is met, we increment the chapterIndicator of the model
+     * If the chapterIndicator is 0 we set the Indicator to 0 to display the border
+     *
+     * @param model Model which is listened to
+     */
     private void checkChapter(ILearningUnitModel model) {
-        if (model.getChapterIndicator() < chapterMarks.length - 1) {
+        if (model.getChapterIndicator() < model.getChapterMarks().length - 1) {
             Integer height = (Integer) engine.executeScript("getElementHeightByID('chapter" + model.getChapterIndicator() + "');");
-            System.out.println(model.getChapterIndicator());
-            if (height > 20) {
-                if (model.getChapterIndicator() >= 0) {
-                    setVisible(chapterMarks[0]);
+            if (height > 20) { // Height threshold which counts as displayed Chapter
+                if (model.getChapterIndicator() == 0) {
+                    model.setChapterIndicator(0);
                 }
                 model.setChapterIndicator(model.getChapterIndicator() + 1);
-                setVisible(chapterMarks[model.getChapterIndicator()]);
             }
         }
     }
@@ -219,7 +240,10 @@ public class LearningUnitController implements IController {
         enableElement.setAttribute("style", "display:block");
     }
 
-    public void scrollDown() {
+    /**
+     * Executes JavaScript to smoothly scroll to the Bottom of the Webview
+     */
+    public void scrollToBottom() {
         engine.executeScript("scrollToBottom();");
     }
 }

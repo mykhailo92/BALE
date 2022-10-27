@@ -259,18 +259,22 @@ input[type=submit]:hover {
     padding: 2vh;
 }
 
-#chapter-select.a:link {
+#chapter-select a:link {
     color: blue;
+    text-decoration: none;
 }
 
-#chapter-select.a:visited {
+#chapter-select a:visited {
     color: blue;
+    text-decoration: none;
 }
 
-#chapter-select.a:hover {
+#chapter-select a:hover {
     color: blue;
+    text-decoration: none;
 }
 
-#chapter-select.a:active {
+#chapter-select a:active {
     color: blue;
+    text-decoration: none;
 }

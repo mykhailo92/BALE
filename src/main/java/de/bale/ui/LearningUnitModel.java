@@ -14,7 +14,7 @@ public class LearningUnitModel implements ILearningUnitModel {
     private Element[] container;
     private Element[] chapter;
     private int chapterIndicator = 0;
-
+    private Element[] chapterMarks; //First Element should be the Container of the Elements
 
     @Override
     public void addListener(Listener listener) {
@@ -71,8 +71,20 @@ public class LearningUnitModel implements ILearningUnitModel {
     public void setChapterIndicator(int chapterIndicator) {
         this.chapterIndicator = chapterIndicator;
     }
+
     @Override
     public int getChapterIndicator() {
         return chapterIndicator;
+    }
+
+    @Override
+    public Element[] getChapterMarks() {
+        return chapterMarks;
+    }
+
+    @Override
+    public void setChapterMarks(Element[] chapterMarks) {
+        this.chapterMarks = chapterMarks;
+        notifyObserver();
     }
 }

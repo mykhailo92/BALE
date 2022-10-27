@@ -24,4 +24,8 @@ public interface ILearningUnitModel {
     void setChapterIndicator(int chapterIndicator);
 
     int getChapterIndicator();
+
+    Element[] getChapterMarks();
+
+    void setChapterMarks(Element[] chapterMarks);
 }
