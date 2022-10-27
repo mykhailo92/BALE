@@ -122,7 +122,7 @@ public class LearningUnitController implements IController {
             Element currentContainer = model.getContainer()[model.getContainerIndicator()];
             if (getClasses(currentContainer).contains("information")) {
                 model.setContainerIndicator(model.getContainerIndicator() + 1);
-            } else if (getClasses(currentContainer).contains("slide_vorschau")) {
+            } else if (getClasses(currentContainer).contains("slide_preview")) {
                 setVisible(slides[currentSlideIndicator++]);
             } else if (getClasses(currentContainer).contains("info_and_slide")) {
                 if (currentSlideIndicator > 0) {
