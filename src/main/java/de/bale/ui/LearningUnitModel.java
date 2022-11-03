@@ -8,11 +8,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class LearningUnitModel implements ILearningUnitModel {
-    private int containerIndicator = 0;
-    private boolean firstFlag = true;
+    private int containerIndicator = -1;
     private final List<Listener> listeners = new LinkedList<>();
-
+    private boolean nextButtonDisabled = true;
     private Element[] container;
+    private Element[] chapter;
+    private int chapterIndicator = 0;
+    private Element[] chapterMarks; //First Element should be the Container of the Elements
 
     @Override
     public void addListener(Listener listener) {
@@ -35,14 +37,8 @@ public class LearningUnitModel implements ILearningUnitModel {
     }
 
     @Override
-    public boolean isFirstFlag() {
-        return firstFlag;
-    }
-
-    @Override
-    public void setFirstFlag(boolean firstFlag) {
-        this.firstFlag = firstFlag;
-        notifyObserver();
+    public Element[] getContainer() {
+        return container;
     }
 
     @Override
@@ -51,7 +47,44 @@ public class LearningUnitModel implements ILearningUnitModel {
     }
 
     @Override
-    public Element[] getContainer() {
-        return container;
+    public boolean isNextButtonDisabled() {
+        return nextButtonDisabled;
+    }
+
+    @Override
+    public void setNextButtonDisabled(boolean nextButtonDisabled) {
+        this.nextButtonDisabled = nextButtonDisabled;
+        notifyObserver();
+    }
+
+    @Override
+    public Element[] getChapter() {
+        return chapter;
+    }
+
+    @Override
+    public void setChapter(Element[] chapter) {
+        this.chapter = chapter;
+    }
+
+    @Override
+    public void setChapterIndicator(int chapterIndicator) {
+        this.chapterIndicator = chapterIndicator;
+    }
+
+    @Override
+    public int getChapterIndicator() {
+        return chapterIndicator;
+    }
+
+    @Override
+    public Element[] getChapterMarks() {
+        return chapterMarks;
+    }
+
+    @Override
+    public void setChapterMarks(Element[] chapterMarks) {
+        this.chapterMarks = chapterMarks;
+        notifyObserver();
     }
 }

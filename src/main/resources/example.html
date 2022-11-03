@@ -4,31 +4,14 @@
     <meta charset="UTF-8">
     <title>Beispiel Lerneinheit</title>
     <link rel="stylesheet" href="css/learningUnit.css">
-
-    <script>
-
-        function changeBgColor() {
-            document.body.style.backgroundColor = document.getElementById('color').value;
-            document.getElementsByTagName('aufgabe');
-            return 'test';
-        }
-
-        /**
-         * @return: All Sections in the current HTML
-         */
-        function getContainer() {
-            return document.querySelectorAll(".section,.information,.info_and_slide,.slide_vorschau");
-        }
-
-        function getSlides() {
-            return document.querySelectorAll(".slide");
-        }
-
-    </script>
 </head>
 
-<body>
+<!--<div id="debug"></div>-->
 
+<body>
+<div id="chapter-select">
+    <h1 id="index"></h1>
+</div>
 <div class="preamble" id="preamble">
     <div class="text">
         Hallo alle zusammen, dies ist ein Test für die Bachelorarbeit für digitale Lerninhalte!
@@ -36,22 +19,6 @@
     <button class="nav-button" onclick="javaBridge.disablePreamble();">Verstanden!</button>
 </div>
 <div class="chapter">
-
-    <!--    <table>-->
-    <!--        <tr class="section">-->
-    <!--            <td class="text table-bottom">Das ist Tim.</td>-->
-    <!--            <td rowspan="2"><img class="tim" src="../../testImages/tim.png" alt=""></td>-->
-    <!--        </tr>-->
-    <!--        <tr class="section">-->
-    <!--            <td class="text">-->
-    <!--                <button class="reading">Vorlesen</button>-->
-    <!--                <br>-->
-    <!--                Tim ist 10 Jahre alt und geht in die 4. Klasse. Er sitzt im Klassenraum in der letzten Reihe.-->
-    <!--                Er hat oft Kopfschmerzen. Ständig kneift er die Augen zusammen.-->
-    <!--                Seine Lehrerin bittet ihn, zum Augenarzt zu gehen.-->
-    <!--            </td>-->
-    <!--        </tr>-->
-    <!--    </table>-->
     <div class="clearfix">
         <div class="section">
             <img class="wrap-figure tim" src="testImages/tim.png" alt="TEST">
@@ -129,12 +96,13 @@
         </div>
     </div>
     <br>
-    <div class="information">
-        <div class="clearfix">
-            <div class="section">
+    <div class="section">
+        <div class="information">
+            <div class="clearfix">
                 <div class="text ">
                     <img src="testImages/lightbulb.png" class="task-icon" alt="">
-                    Damit das Sehen funktioniert, sind besonders die Iris und die Pupille, die Linse und die Netzhaut
+                    Damit das Sehen funktioniert, sind besonders die Iris und die Pupille, die Linse und die
+                    Netzhaut
                     erforderlich. Die Linse und die Netzhaut sind von außen nicht sichtbar.
                 </div>
                 <div class="slide_vorschau"></div>
@@ -152,30 +120,32 @@
                         <img src="testImages/Aufbau_Auge_Beschriftung_3.png" alt=""/>
                     </div>
                 </div>
-            <div class="info_and_slide">
-                <div class="text">
-                    In dem Querschnitt des Augapfels ist die Pupille als Loch in der Iris deutlich zu erkennen.
+                <div class="info_and_slide">
+                    <div class="text">
+                        In dem Querschnitt des Augapfels ist die Pupille als Loch in der Iris deutlich zu erkennen.
+                    </div>
                 </div>
-            </div>
 
-            <div class="info_and_slide">
-                <div class="text">
-                    Hinter der Pupille befindet sich die Linse, die dafür sorgt, dass wir Gegenstände deutlich sehen
-                    können.
+                <div class="info_and_slide">
+                    <div class="text">
+                        Hinter der Pupille befindet sich die Linse, die dafür sorgt, dass wir Gegenstände deutlich
+                        sehen
+                        können.
+                    </div>
                 </div>
-            </div>
 
-            <div class="info_and_slide">
-                <div class="text">
-                    Die Netzhaut ist dafür zuständig, das gesehene Bild wahrzunehmen und die Informationen über den
-                    Sehnerv
-                    an
-                    das Gehirn weiterzuleiten. Der Sehnerv ist ebenfalls von außen nicht sichtbar.
+                <div class="info_and_slide">
+                    <div class="text">
+                        Die Netzhaut ist dafür zuständig, das gesehene Bild wahrzunehmen und die Informationen über
+                        den
+                        Sehnerv
+                        an
+                        das Gehirn weiterzuleiten. Der Sehnerv ist ebenfalls von außen nicht sichtbar.
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 <div class="chapter">
     <div class="section">
@@ -191,8 +161,8 @@
             <img src="testImages/Taschenlampe.png" alt=""/>
         </div>
     </div>
-    <div class="information">
-        <div class="section">
+    <div class="section">
+        <div class="information">
             <div class="text wrap-text">
                 <img src="testImages/lightbulb.png" class="task-icon" alt="">
                 Licht breitet sich immer geradlinig aus.<br>
@@ -229,8 +199,8 @@
             <img src="testImages/Tür.png" alt=""/>
         </div>
     </div>
-    <div class="information">
-        <div class="section">
+    <div class="section">
+        <div class="information">
             <div class="text">
                 <img src="testImages/lightbulb.png" class="task-icon" alt=""/> Unsere Augen sind Lichtempfänger. Wir
                 sehen unsere Umwelt, weil die Gegenstände das Licht
@@ -240,12 +210,6 @@
         </div>
     </div>
 </div>
-
-<!--<div>-&#45;&#45;&#45;&#45;&#45;&#45;TEMPORÄR&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</div>-->
-<!--<h2>This is Html content</h2>-->
-<!--<b>Enter Color:</b>-->
-<!--<input id='color' value='yellow'/>-->
-<!--<button onclick='changeBgColor();'>Change Bg Color</button>-->
-
 </body>
 </html>
+<script src="learningUnit.js"></script>

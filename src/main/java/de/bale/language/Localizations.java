@@ -20,6 +20,7 @@ public class Localizations {
      * Set the Default Locale vor Localization and Load the ResourceBundle.
      * @param languageCode Identifier of the language in lower case, e.g. en, de
      * @param countryCode Identifier of the Country in upper case, e.g. US, DE
+     *                    TODO NON STATIC
      */
     public static void setLocale(String languageCode, String countryCode) {
         Locale.setDefault(new Locale(languageCode,countryCode));

@@ -3,9 +3,6 @@ package de.bale.ui.interfaces;
 import org.w3c.dom.Element;
 
 public interface ILearningUnitModel {
-    boolean isFirstFlag();
-
-    void setFirstFlag(boolean flag);
 
     int getContainerIndicator();
 
@@ -15,4 +12,20 @@ public interface ILearningUnitModel {
 
     void setContainer(Element[] containerArray);
     Element[] getContainer();
+
+    boolean isNextButtonDisabled();
+
+    void setNextButtonDisabled(boolean nextButtonDisabled);
+
+    Element[] getChapter();
+
+    void setChapter(Element[] chapter);
+
+    void setChapterIndicator(int chapterIndicator);
+
+    int getChapterIndicator();
+
+    Element[] getChapterMarks();
+
+    void setChapterMarks(Element[] chapterMarks);
 }
