@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
@@ -22,33 +23,72 @@ public class LearningUnitController implements IController {
     public Button nextButton;
     @FXML
     public Button closeButton;
+    public Button scrollDownButton;
     @FXML
     private WebView learningUnit = new WebView();
     private WebEngine engine;
     private final File startPage = new File(String.valueOf(getClass().getResource("/example.html")));
     private ILearningUnitModel model;
 
+
     /**
      * Start the WebEngine with example.html
      * <p>
      * When load is finished:
      * Add a StateListener to set Element[] container and register a JSBridge
+     * Also Initializes ChapterSelection
      */
     @FXML
     private void initialize() {
+        learningUnit.setContextMenuEnabled(false);
         engine = learningUnit.getEngine();
         engine.load(startPage.toString());
         engine.getLoadWorker().stateProperty().addListener(
                 (observableValue, oldState, newState) -> {
                     if (oldState.equals(Worker.State.RUNNING) && newState.equals(Worker.State.SUCCEEDED)) {
                         model.setContainer(getContainerFromDocument());
+                        new JSBridge(model, engine).registerBridge("javaBridge");
                         model.setSlides(getSlideFromDocument());
-                        new JSBridge(engine).registerBridge("javaBridge");
                         setAllContainerInvisible();
+                        prepareChapterIndex();
                     }
                 }
         );
         createControlLabels();
+    }
+
+    /**
+     * prepares Index and Jump Marks to the Chapters
+     */
+    private void prepareChapterIndex() {
+        model.setChapter(getChapterFromDocument());
+        Document document = engine.getDocument();
+        Element[] chapterArray = model.getChapter();
+        Element[] chapterMarks = new Element[chapterArray.length + 1];
+        chapterMarks[0] = document.getElementById("chapter-select");
+        for (int i = 0; i < chapterArray.length; i++) {
+            Element entry = document.createElement("a");
+            chapterArray[i].setAttribute("id", "chapter" + i);
+            entry.setAttribute("href", "#chapter" + i);
+            setInvisible(entry);
+            entry.setTextContent(Localizations.getLocalizedString("chapter") + " " + i);
+            chapterMarks[i + 1] = entry;
+            chapterMarks[0].appendChild(entry);
+            chapterMarks[0].appendChild(document.createElement("br"));
+        }
+        model.setChapterMarks(chapterMarks);
+        setInvisible(chapterMarks[0]);
+    }
+
+    /**
+     * Executes JavaScript to get and prepare an Array of all Chapter in the Learning-unit
+     * We need to convert to a List structure first, since the length of the JSObject is unknown.
+     *
+     * @return Array of all Chapter in the current Learning-unit in order of appearance
+     */
+    private Element[] getChapterFromDocument() {
+        JSObject sectionList = (JSObject) engine.executeScript("getChapter();");
+        return createArrayFromJSObject(sectionList);
     }
 
     /**
@@ -64,9 +104,13 @@ public class LearningUnitController implements IController {
         }
     }
 
+    /**
+     * Create localized Labels for JavaFX Control Elements
+     */
     private void createControlLabels() {
         nextButton.setText(Localizations.getLocalizedString("nextButton"));
         closeButton.setText(Localizations.getLocalizedString("closeButton"));
+        scrollDownButton.setText(Localizations.getLocalizedString("scrollDownButton"));
     }
 
     /**
@@ -112,16 +156,11 @@ public class LearningUnitController implements IController {
      */
     @FXML
     private void displayNextSection() {
-        if (model.isFirstFlag()) {
-            model.setContainerIndicator(0);
-            model.setCurrentSlideIndicator(0);
-            model.setFirstFlag(false);
-        } else if (model.getContainerIndicator() < model.getContainer().length - 1) {
+        if (model.getContainerIndicator() < model.getContainer().length - 1) {
             model.setContainerIndicator(model.getContainerIndicator() + 1);
+            model.setCurrentSlideIndicator(0);
             Element currentContainer = model.getContainer()[model.getContainerIndicator()];
-            if (getClasses(currentContainer).contains("information")) {
-                model.setContainerIndicator(model.getContainerIndicator() + 1);
-            } else if (getClasses(model.getContainer()[model.getContainerIndicator() - 1]).contains("diashow")) {
+            if (getClasses(model.getContainer()[model.getContainerIndicator() - 1]).contains("diashow")) {
                 model.setCurrentSlideIndicator(model.getCurrentSlideIndicator() + 1);
             } else if (getClasses(currentContainer).contains("info-and-slide")) {
                 model.setCurrentSlideIndicator(model.getCurrentSlideIndicator() + 1);
@@ -157,6 +196,18 @@ public class LearningUnitController implements IController {
     @Override
     public void setModel(ILearningUnitModel learningUnitModel) {
         model = learningUnitModel;
+        model.addListener(listenedModel -> {
+            nextButton.setDisable(listenedModel.isNextButtonDisabled());
+            if (listenedModel.getContainerIndicator() >=0) {
+                setVisible(model.getContainer()[listenedModel.getContainerIndicator()]);
+            }
+            scrollToBottom();
+            setVisible(model.getChapterMarks()[model.getChapterIndicator()]);
+            Platform.runLater(() -> {
+                checkChapter(listenedModel);
+            });
+        });
+
         model.addListener((listenedModel) ->
                 setVisible(model.getContainer()[listenedModel.getContainerIndicator()])
         );
@@ -165,6 +216,24 @@ public class LearningUnitController implements IController {
         );
     }
 
+    /**
+     * Checks if a Chapter is made Visible by looking at its Height by using JavaScript
+     * If the Threshold is met, we increment the chapterIndicator of the model
+     * If the chapterIndicator is 0 we set the Indicator to 0 to display the border
+     *
+     * @param model Model which is listened to
+     */
+    private void checkChapter(ILearningUnitModel model) {
+        if (model.getChapterIndicator() < model.getChapterMarks().length - 1) {
+            Integer height = (Integer) engine.executeScript("getElementHeightByID('chapter" + model.getChapterIndicator() + "');");
+            if (height > 20) { // Height threshold which counts as displayed Chapter
+                if (model.getChapterIndicator() == 0) {
+                    model.setChapterIndicator(0);
+                }
+                model.setChapterIndicator(model.getChapterIndicator() + 1);
+            }
+        }
+    }
 
     private void setInvisible(Element disableElement) {
         disableElement.setAttribute("style", "display:none");
@@ -172,5 +241,12 @@ public class LearningUnitController implements IController {
 
     private void setVisible(Element enableElement) {
         enableElement.setAttribute("style", "display:block");
+    }
+
+    /**
+     * Executes JavaScript to smoothly scroll to the Bottom of the Webview
+     */
+    public void scrollToBottom() {
+        engine.executeScript("scrollToBottom();");
     }
 }
