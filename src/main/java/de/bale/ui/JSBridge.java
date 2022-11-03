@@ -1,6 +1,7 @@
 package de.bale.ui;
 
 import de.bale.ui.interfaces.ILearningUnitModel;
+import javafx.application.Platform;
 import javafx.scene.web.WebEngine;
 import netscape.javascript.JSObject;
 import org.w3c.dom.Element;
@@ -16,10 +17,12 @@ public class JSBridge {
     public class Bridge {
         public void disablePreamble() {
             try {
-                Element preamble = engine.getDocument().getElementById("preamble");
-                preamble.setAttribute("style", "display:none");
-                model.setContainerIndicator(model.getContainerIndicator() + 1);
-                model.setNextButtonDisabled(false);
+                Platform.runLater(() -> {
+                    Element preamble = engine.getDocument().getElementById("preamble");
+                    preamble.setAttribute("style", "display:none");
+                    model.setContainerIndicator(model.getContainerIndicator() + 1);
+                    model.setNextButtonDisabled(false);
+                });
             } catch (NullPointerException npe) {
                 System.err.println("Preamble not found!");
             }
