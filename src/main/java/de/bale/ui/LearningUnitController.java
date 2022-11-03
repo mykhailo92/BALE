@@ -163,6 +163,7 @@ public class LearningUnitController implements IController {
                 model.setCurrentSlideIndicator(model.getCurrentSlideIndicator() + 1);
             } else if (getClasses(currentContainer).contains("info-and-slide")) {
                 model.setCurrentSlideIndicator(model.getCurrentSlideIndicator() + 1);
+
             }
         }
     }
@@ -205,9 +206,12 @@ public class LearningUnitController implements IController {
             Platform.runLater(() -> checkChapter(listenedModel));
         });
 
-        model.addListener((listenedModel) ->
-                setVisible(model.getSlides()[listenedModel.getCurrentSlideIndicator()])
-        );
+        model.addListener(listenedModel -> {
+            setVisible(model.getSlides()[listenedModel.getCurrentSlideIndicator()]);
+            if (listenedModel.getCurrentSlideIndicator() > 0) {
+                setInvisible(model.getSlides()[listenedModel.getCurrentSlideIndicator() - 1]);
+            }
+        });
     }
 
     /**
