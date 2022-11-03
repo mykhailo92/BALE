@@ -16,6 +16,7 @@ import java.io.IOException;
 public class MainApplication extends Application {
 
     String fxmlName = "hello-view.fxml";
+    String title = "title";
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -29,11 +30,10 @@ public class MainApplication extends Application {
         //Enable FullScreen and remove the Ability to close it with ESC (Default)
         stage.setFullScreen(true);
         stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        stage.setTitle(Localizations.getLocalizedString("title"));
+        stage.setTitle(Localizations.getLocalizedString(title));
         stage.setScene(scene);
         stage.show();
     }
-
 
     public static void main(String[] args) {
         launch();
