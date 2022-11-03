@@ -8,11 +8,18 @@ function changeBgColor() {
  * @return: All Sections in the current HTML
  */
 function getContainer() {
-    return document.querySelectorAll(".section,.info_and_slide,.slide_vorschau");
+    return document.querySelectorAll(".section,.information,.info-and-slide,.diashow");
 }
 
 function getSlides() {
     return document.querySelectorAll(".slide");
+}
+
+//        document.querySelector('.submit').onclick = getInput;
+document.querySelector('.submit').addEventListener('click', getInputText);
+
+function getInputText() {
+    return document.querySelector('.text-area').value;
 }
 
 async function scrollToBottom() {
