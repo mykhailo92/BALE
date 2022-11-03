@@ -8,7 +8,7 @@ function changeBgColor() {
  * @return: All Sections in the current HTML
  */
 function getContainer() {
-    return document.querySelectorAll(".section,.information,.info-and-slide,.diashow");
+    return document.querySelectorAll(".section,.info-and-slide,.diashow");
 }
 
 function getSlides() {

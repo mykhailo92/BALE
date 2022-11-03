@@ -158,7 +158,6 @@ public class LearningUnitController implements IController {
     private void displayNextSection() {
         if (model.getContainerIndicator() < model.getContainer().length - 1) {
             model.setContainerIndicator(model.getContainerIndicator() + 1);
-            model.setCurrentSlideIndicator(0);
             Element currentContainer = model.getContainer()[model.getContainerIndicator()];
             if (getClasses(model.getContainer()[model.getContainerIndicator() - 1]).contains("diashow")) {
                 model.setCurrentSlideIndicator(model.getCurrentSlideIndicator() + 1);
