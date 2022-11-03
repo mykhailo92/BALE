@@ -42,6 +42,7 @@ public class LearningUnitController implements IController {
      */
     @FXML
     private void initialize() {
+        learningUnit.setContextMenuEnabled(false);
         engine = learningUnit.getEngine();
         engine.load(startPage.toString());
         engine.getLoadWorker().stateProperty().addListener(
