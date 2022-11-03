@@ -15,9 +15,7 @@ public class LearningUnitModel implements ILearningUnitModel {
     private Element[] chapter;
     private int chapterIndicator = 0;
     private Element[] chapterMarks; //First Element should be the Container of the Elements
-
     private Element[] slides;
-
     private int currentSlideIndicator = 0;
 
     @Override
@@ -39,15 +37,15 @@ public class LearningUnitModel implements ILearningUnitModel {
         this.containerIndicator = currentContainerIndicator;
         notifyObserver();
     }
+
     @Override
     public Element[] getContainer() {
         return container;
     }
 
     @Override
-    public void setContainer(Element[] containerArray) {
-        container = containerArray;
-    }
+    public void setContainer(Element[] containerArray) { this.container = containerArray; }
+
 
     @Override
     public boolean isNextButtonDisabled() {
@@ -61,8 +59,6 @@ public class LearningUnitModel implements ILearningUnitModel {
     }
 
     @Override
-    public void setContainer(Element[] containerArray) {
-        this.container = containerArray;
     public Element[] getChapter() {
         return chapter;
     }
@@ -93,12 +89,16 @@ public class LearningUnitModel implements ILearningUnitModel {
         notifyObserver();
     }
 
+    @Override
     public void setSlides(Element[] slidesArray) { this.slides = slidesArray; }
 
+    @Override
     public Element[] getSlides() { return slides; }
 
+    @Override
     public int getCurrentSlideIndicator() { return currentSlideIndicator; }
 
+    @Override
     public void setCurrentSlideIndicator(int currentSlideIndicator) {
         this.currentSlideIndicator = currentSlideIndicator;
         notifyObserver();

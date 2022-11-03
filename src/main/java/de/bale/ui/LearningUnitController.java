@@ -203,14 +203,9 @@ public class LearningUnitController implements IController {
             }
             scrollToBottom();
             setVisible(model.getChapterMarks()[model.getChapterIndicator()]);
-            Platform.runLater(() -> {
-                checkChapter(listenedModel);
-            });
+            Platform.runLater(() -> checkChapter(listenedModel));
         });
 
-        model.addListener((listenedModel) ->
-                setVisible(model.getContainer()[listenedModel.getContainerIndicator()])
-        );
         model.addListener((listenedModel) ->
                 setVisible(model.getSlides()[listenedModel.getCurrentSlideIndicator()])
         );
