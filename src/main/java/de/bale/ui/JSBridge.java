@@ -10,6 +10,7 @@ public class JSBridge {
 
     private final WebEngine engine;
     private final ILearningUnitModel model;
+    private JSObject jsBridge;
 
     /**
      * Public Class which holds function that can be called from JavaScript
@@ -17,6 +18,7 @@ public class JSBridge {
     public class Bridge {
         public void disablePreamble() {
             try {
+                System.out.println("PRESSED");
                 Platform.runLater(() -> {
                     Element preamble = engine.getDocument().getElementById("preamble");
                     preamble.setAttribute("style", "display:none");
@@ -32,15 +34,13 @@ public class JSBridge {
     JSBridge(ILearningUnitModel model, WebEngine engine) {
         this.model = model;
         this.engine = engine;
+        this.jsBridge = (JSObject) engine.executeScript("window");
     }
 
     /**
      * Register a JSBridge, which can be any public Class
-     *
-     * @param bridgeName Name by which the Bridge can be called from JS
      */
-    void registerBridge(String bridgeName) {
-        JSObject bridgeCreator = (JSObject) engine.executeScript("window");
-        bridgeCreator.setMember(bridgeName, new Bridge());
+    void registerBridge() {
+        jsBridge.setMember("javaBridge", new Bridge());
     }
 }

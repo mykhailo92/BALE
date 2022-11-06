@@ -15,6 +15,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class LearningUnitController implements IController {
@@ -27,8 +29,12 @@ public class LearningUnitController implements IController {
     @FXML
     private WebView learningUnit = new WebView();
     private WebEngine engine;
-    private final File startPage = new File(String.valueOf(getClass().getResource("/example.html")));
+    private String startPage;
     private ILearningUnitModel model;
+    private JSBridge bridge;
+    public LearningUnitController(String filePath) {
+        startPage = "file:///" + filePath;
+    }
 
 
     /**
@@ -42,12 +48,14 @@ public class LearningUnitController implements IController {
     private void initialize() {
         learningUnit.setContextMenuEnabled(false);
         engine = learningUnit.getEngine();
-        engine.load(startPage.toString());
+        System.out.println(startPage);
+        engine.load(startPage);
         engine.getLoadWorker().stateProperty().addListener(
                 (observableValue, oldState, newState) -> {
                     if (oldState.equals(Worker.State.RUNNING) && newState.equals(Worker.State.SUCCEEDED)) {
                         model.setContainer(getContainerFromDocument());
-                        new JSBridge(model, engine).registerBridge("javaBridge");
+                        bridge = new JSBridge(model, engine);
+                        bridge.registerBridge();
                         model.setSlides(getSlideFromDocument());
                         setAllContainerInvisible();
                         prepareChapterIndex();
@@ -197,7 +205,7 @@ public class LearningUnitController implements IController {
         model = learningUnitModel;
         model.addListener(listenedModel -> {
             nextButton.setDisable(listenedModel.isNextButtonDisabled());
-            if (listenedModel.getContainerIndicator() >=0) {
+            if (listenedModel.getContainerIndicator() >= 0) {
                 setVisible(model.getContainer()[listenedModel.getContainerIndicator()]);
             }
             scrollToBottom();

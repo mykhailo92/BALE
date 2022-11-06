@@ -16,13 +16,14 @@ import java.io.IOException;
 public class MainApplication extends Application {
 
     String fxmlName = "hello-view.fxml";
+    static String filePath = "";
 
     @Override
     public void start(Stage stage) throws IOException {
         Localizations.setLocale("de", "DE");
         FXMLLoader fxmlLoader = new FXMLLoader(LearningUnitController.class.getResource(fxmlName));
         fxmlLoader.setLocation(LearningUnitController.class.getResource(fxmlName));
-        fxmlLoader.setController(new LearningUnitController());
+        fxmlLoader.setController(new LearningUnitController(filePath));
         Scene scene = new Scene(fxmlLoader.load());
         //Create Default Model and Controller and set the Model for the controller
         ILearningUnitModel learningUnitModel = new LearningUnitModel();
@@ -38,6 +39,13 @@ public class MainApplication extends Application {
 
 
     public static void main(String[] args) {
-        launch();
+        if (args.length > 0) {
+            filePath = args[0];
+            launch();
+        } else {
+            System.err.println("Bitte Dateipfad zu der .html Datei angeben!");
+            System.exit(1);
+        }
+
     }
 }
