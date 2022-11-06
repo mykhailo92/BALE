@@ -10,7 +10,7 @@ public class JSBridge {
 
     private final WebEngine engine;
     private final ILearningUnitModel model;
-    private JSObject jsBridge;
+    private Bridge jsBridge;
 
     /**
      * Public Class which holds function that can be called from JavaScript
@@ -34,13 +34,14 @@ public class JSBridge {
     JSBridge(ILearningUnitModel model, WebEngine engine) {
         this.model = model;
         this.engine = engine;
-        this.jsBridge = (JSObject) engine.executeScript("window");
+        this.jsBridge = new Bridge();
     }
 
     /**
      * Register a JSBridge, which can be any public Class
      */
     void registerBridge() {
-        jsBridge.setMember("javaBridge", new Bridge());
+        JSObject window = (JSObject) engine.executeScript("window");
+        window.setMember("javaBridge", jsBridge);
     }
 }
