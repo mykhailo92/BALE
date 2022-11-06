@@ -6,8 +6,7 @@
 
 
 <?import java.lang.String?>
-<GridPane xmlns:fx="http://javafx.com/fxml"
-          fx:controller="de.bale.ui.LearningUnitController" stylesheets="@../../../css/fxmlStyle.css">
+<GridPane xmlns:fx="http://javafx.com/fxml" stylesheets="@../../../css/fxmlStyle.css">
     <columnConstraints>
         <ColumnConstraints percentWidth="100"/>
     </columnConstraints>

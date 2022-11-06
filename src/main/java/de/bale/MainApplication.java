@@ -1,10 +1,10 @@
 package de.bale;
 
 import de.bale.language.Localizations;
+import de.bale.ui.LearningUnitModel;
 import de.bale.ui.interfaces.IController;
 import de.bale.ui.interfaces.ILearningUnitModel;
 import de.bale.ui.LearningUnitController;
-import de.bale.ui.LearningUnitModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -21,6 +21,8 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws IOException {
         Localizations.setLocale("de", "DE");
         FXMLLoader fxmlLoader = new FXMLLoader(LearningUnitController.class.getResource(fxmlName));
+        fxmlLoader.setLocation(LearningUnitController.class.getResource(fxmlName));
+        fxmlLoader.setController(new LearningUnitController());
         Scene scene = new Scene(fxmlLoader.load());
         //Create Default Model and Controller and set the Model for the controller
         ILearningUnitModel learningUnitModel = new LearningUnitModel();
