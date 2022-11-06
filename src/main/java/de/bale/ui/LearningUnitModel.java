@@ -10,7 +10,7 @@ import java.util.List;
 public class LearningUnitModel implements ILearningUnitModel {
     private int containerIndicator = -1;
     private final List<Listener> listeners = new LinkedList<>();
-    private boolean nextButtonDisabled = false;
+    private boolean nextButtonDisabled = true;
     private Element[] container;
     private Element[] chapter;
     private int chapterIndicator = 0;

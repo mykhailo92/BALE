@@ -18,7 +18,6 @@ public class JSBridge {
     public class Bridge {
         public void disablePreamble() {
             try {
-                System.out.println("PRESSED");
                 Platform.runLater(() -> {
                     Element preamble = engine.getDocument().getElementById("preamble");
                     preamble.setAttribute("style", "display:none");

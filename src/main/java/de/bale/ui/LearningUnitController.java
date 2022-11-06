@@ -48,7 +48,6 @@ public class LearningUnitController implements IController {
     private void initialize() {
         learningUnit.setContextMenuEnabled(false);
         engine = learningUnit.getEngine();
-        System.out.println(startPage);
         engine.load(startPage);
         engine.getLoadWorker().stateProperty().addListener(
                 (observableValue, oldState, newState) -> {
