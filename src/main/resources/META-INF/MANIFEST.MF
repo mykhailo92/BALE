@@ -1,3 +1,9 @@
 Manifest-Version: 1.0
 Main-Class: de.bale.Main
+Class-Path: javafx-controls-18.0.2-win.jar javafx-controls-18.0.2.jar ja
+ vafx-base-18.0.2-win.jar javafx-web-18.0.2.jar ikonli-javafx-12.3.1.jar
+  ikonli-core-12.3.1.jar javafx-graphics-18.0.2-win.jar javafx-base-18.0
+ .2.jar javafx-fxml-18.0.2.jar javafx-media-18.0.2.jar javafx-graphics-1
+ 8.0.2.jar javafx-web-18.0.2-win.jar javafx-media-18.0.2-win.jar control
+ sfx-11.1.1.jar javafx-fxml-18.0.2-win.jar
 
