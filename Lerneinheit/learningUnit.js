@@ -48,3 +48,7 @@ function getChapter() {
 function getElementHeightByID(id) {
     return document.getElementById(id).offsetHeight;
 }
+
+function changeInnerTextById(id, text) {
+    document.getElementById(id).innerText = text;
+}

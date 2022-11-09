@@ -7,6 +7,7 @@ module com.example {
 
     requires javafx.web;
     requires jdk.jsobject;
+    requires javafx.media;
 
     opens de.bale.ui to javafx.fxml;
     exports de.bale.ui;

@@ -18,14 +18,14 @@
     </div>
     <button class="nav-button" onclick="javaBridge.disablePreamble();">Verstanden!</button>
 </div> 
-<div class="chapter">
+<div class="chapter" id="chapter-1">
     <div class="clearfix">
         <div class="section">
             <img class="wrap-figure tim" src="testImages/tim.png" alt="TEST">
             <div class="text">Das ist Tim.</div>
         </div>
         <div class="section">
-            <button class="reading">Vorlesen</button>
+            <button class="reading" id="reading-button-0" value="0" onclick="javaBridge.playAudio(0);">Vorlesen</button>
             <div class="text">
                 Tim ist 10 Jahre alt und geht in die 4. Klasse. Er sitzt im Klassenraum in der letzten Reihe. Er hat oft
                 Kopfschmerzen. Ständig kneift er die Augen zusammen. Seine Lehrerin bittet ihn, zum Augenarzt zu gehen.
@@ -59,7 +59,7 @@
     <div class="watermark">
         <div class="section">
             <div class="text">
-                <button class="reading">Vorlesen</button>
+                <button class="reading" id="reading-button-1" onclick="javaBridge.playAudio(parseInt(1));">Vorlesen</button>
                 <br>
                 Zu Hause steht Tim vor dem Spiegel und beobachtet seine Augen. Seine grünen Augen sehen aus wie immer.
                 Er
@@ -72,7 +72,7 @@
 
     <div class="section">
         <div class="text">
-            <button class="reading">Vorlesen</button>
+            <button class="reading" id="reading-button-2" onclick="javaBridge.playAudio(2);">Vorlesen</button>
             <br>
             Tim erkennt seine grüne Iris. Außerdem sieht er seine Pupille,
             die eigentlich nur ein Loch in der Iris ist. Durch die Pupille fällt Licht in das Auge ein. Tim sieht
@@ -152,7 +152,7 @@
     <div class="section">
         <h1>2 Ausbreitung von Licht</h1>
         <div class="text">
-            <button class="reading">Vorlesen</button>
+            <button class="reading" id="reading-button-3" onclick="javaBridge.playAudio(parseInt(3));">Vorlesen</button>
             <br>
             Tim wacht in der Nacht auf und möchte sich etwas zu trinken holen. In seinem Zimmer ist es dunkel. Seine
             Lampe
@@ -179,7 +179,7 @@
     <div class="section">
         <h1>3 Der Weg des Lichts</h1>
         <div class="text">
-            <button class="reading">Vorlesen</button>
+            <button class="reading" id="reading-button-4" onclick="javaBridge.playAudio(parseInt(4));">Vorlesen</button>
             <br>
             Auch das Licht der Taschenlampe breitet sich geradlinig aus. Alles, was Tim nicht mit dem Lichtstrahl
             anleuchtet, kann er nicht sehen. Die Gegenstände, die von der Taschenlampe angestrahlt werden, werfen

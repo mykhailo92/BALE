@@ -13,10 +13,6 @@ import netscape.javascript.JSObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.*;
 
 public class LearningUnitController implements IController {
@@ -29,7 +25,7 @@ public class LearningUnitController implements IController {
     @FXML
     private WebView learningUnit = new WebView();
     private WebEngine engine;
-    private String startPage;
+    private final String startPage;
     private ILearningUnitModel model;
     private JSBridge bridge;
     public LearningUnitController(String filePath) {
@@ -53,9 +49,9 @@ public class LearningUnitController implements IController {
                 (observableValue, oldState, newState) -> {
                     if (oldState.equals(Worker.State.RUNNING) && newState.equals(Worker.State.SUCCEEDED)) {
                         model.setContainer(getContainerFromDocument());
+                        model.setSlides(getSlideFromDocument());
                         bridge = new JSBridge(model, engine);
                         bridge.registerBridge();
-                        model.setSlides(getSlideFromDocument());
                         setAllContainerInvisible();
                         prepareChapterIndex();
                     }
