@@ -243,6 +243,13 @@ input[type=submit]:hover {
     padding: .5% .5% .5% .5%;
 }
 
+.drop-field {
+    width: 150px;
+    height: 30px;
+    padding: 10px;
+    border: 1px solid #aaaaaa;
+}
+
 .task-icon {
     max-height: 5vh;
     max-width: 5vw;
