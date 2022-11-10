@@ -20,7 +20,6 @@ public class MainApplication extends Application {
         sceneHandler.setStageFullScreen(false);
     }
 
-
     public static void main(String[] args) {
         if (args.length > 0) {
             filePath = args[0];
@@ -29,6 +28,5 @@ public class MainApplication extends Application {
             System.err.println("Bitte Dateipfad zu der .html Datei angeben!");
             System.exit(1);
         }
-
     }
 }

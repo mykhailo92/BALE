@@ -10,6 +10,7 @@ import de.bale.ui.startscreen.interfaces.IStartScreenModel;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -47,6 +48,7 @@ public class StartScreenController implements IStartScreenController {
     @FXML
     private void initialize() {
         createLocalizedLabels();
+        learningUnitTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
     private void createLocalizedLabels() {
@@ -55,8 +57,12 @@ public class StartScreenController implements IStartScreenController {
     }
 
     public void openLearningUnit() {
+        LearningUnitEntry selectedEntry = learningUnitTable.getSelectionModel().getSelectedItem();
+        if (selectedEntry==null) {
+            return;
+        }
         SceneHandler sceneHandler = SceneHandler.getInstance();
-        sceneHandler.changeScene(new LearningUnitController("C:\\Users\\falte\\Desktop\\Lerneinheit\\example.html"), "learningUnit.fxml", "title");
+        sceneHandler.changeScene(new LearningUnitController(selectedEntry.getLearningUnitPath()), "learningUnit.fxml", "title");
         ILearningUnitModel learningUnitModel = new LearningUnitModel();
         ((LearningUnitController) sceneHandler.getController()).setModel(learningUnitModel);
         sceneHandler.setStageFullScreen(true);

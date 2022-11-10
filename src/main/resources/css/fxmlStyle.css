@@ -22,6 +22,15 @@
 }
 
 .select-table {
-    -fx-pref-width: infinity;
     -fx-pref-height: 80%;
+}
+
+.select-table .scroll-bar * {
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
 }

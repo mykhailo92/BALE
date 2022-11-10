@@ -14,12 +14,12 @@
     </columnConstraints>
     <rowConstraints>
         <RowConstraints minHeight="200"/>
-        <RowConstraints minHeight="0"/>
+        <RowConstraints minHeight="50"/>
     </rowConstraints>
     <TableView GridPane.rowIndex="0" fx:id="learningUnitTable" styleClass="select-table">
         <columns>
-            <TableColumn fx:id="nameColumn"/>
-            <TableColumn fx:id="pathColumn"/>
+            <TableColumn fx:id="nameColumn" prefWidth="${learningUnitTable.width*0.3}"/>
+            <TableColumn fx:id="pathColumn" prefWidth="${learningUnitTable.width*0.7}"/>
         </columns>
     </TableView>
     <HBox GridPane.columnIndex="0" GridPane.rowIndex="1" alignment="CENTER" styleClass="bottom-nav">
