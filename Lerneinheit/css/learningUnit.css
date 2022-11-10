@@ -45,12 +45,6 @@ textarea {
     resize: none;
 }
 
-.task-image {
-    /*margin: auto;*/
-    /*display: block;*/
-    text-align: center;
-}
-
 .information {
     width: 100%;
     background-color: #ffe4b5;
@@ -238,16 +232,51 @@ input[type=submit]:hover {
     display: inline-block;
     margin: 1px 1px 1px 1px;
     border-radius: 5px;
-    font-size: 25px;
+    font-size: 30px;
     align-content: center;
     padding: .5% .5% .5% .5%;
 }
 
 .drop-field {
-    width: 150px;
-    height: 30px;
-    padding: 10px;
+    float: left;
+    align-content: center;
+    font-size: 35px;
+    width: 200px;
+    height: 45px;
+    padding: 8px;
     border: 1px solid #aaaaaa;
+}
+
+#drop1 {
+    position: relative;
+    left: 105px;
+    top: 110px;
+}
+
+#drop2 {
+    position: relative;
+    left: 530px;
+    top: -25px;
+}
+
+#drop3 {
+    position: relative;
+    left: 310px;
+    top: 148px;
+}
+
+.task-image {
+    /*margin: auto;*/
+    /*display: block;*/
+    text-align: center;
+    width: 1078px;
+    height: 231px;
+    padding: 50px;
+    background-image: url("../testImages/Auge_Groß.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    backface-visibility: inherit;
+    background-size: 1080px;
 }
 
 .task-icon {
