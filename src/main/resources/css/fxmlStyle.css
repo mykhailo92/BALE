@@ -20,3 +20,8 @@
     -fx-background-color: white;
     -fx-border-color: black;
 }
+
+.select-table {
+    -fx-pref-width: infinity;
+    -fx-pref-height: 80%;
+}

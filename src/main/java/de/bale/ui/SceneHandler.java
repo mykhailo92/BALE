@@ -1,8 +1,6 @@
 package de.bale.ui;
 
 import de.bale.language.Localizations;
-import de.bale.ui.interfaces.IController;
-import de.bale.ui.interfaces.ILearningUnitModel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
@@ -26,18 +24,23 @@ public class SceneHandler {
         return instance;
     }
 
-    public void changeScene(IController controller, String fxmlName, String titleKey) throws IOException {
+    public void changeScene(Object controller, String fxmlName, String titleKey) {
         if (primaryStage == null) {
             System.err.println("Primary Stage not defined!");
             return;
         }
         fxmlLoader = new FXMLLoader(controller.getClass().getResource(fxmlName));
         fxmlLoader.setController(controller);
-        Scene primaryScene = new Scene(fxmlLoader.load());
-        ILearningUnitModel learningUnitModel = new LearningUnitModel();
-        controller.setModel(learningUnitModel);
-        primaryStage.setTitle(Localizations.getLocalizedString(titleKey));
-        primaryStage.setScene(primaryScene);
+        fxmlLoader.setLocation(controller.getClass().getResource(fxmlName));
+        try {
+            Scene primaryScene = new Scene(fxmlLoader.load());
+            ;
+            primaryStage.setTitle(Localizations.getLocalizedString(titleKey));
+            primaryStage.setScene(primaryScene);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
         primaryStage.show();
     }
 
@@ -48,5 +51,9 @@ public class SceneHandler {
 
     public void setStage(Stage stage) {
         primaryStage = stage;
+    }
+
+    public Object getController() {
+        return fxmlLoader.getController();
     }
 }

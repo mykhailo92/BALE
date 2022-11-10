@@ -1,5 +1,6 @@
-package de.bale.ui.interfaces;
+package de.bale.ui.learningUnit.interfaces;
 
+import de.bale.ui.interfaces.Listener;
 import org.w3c.dom.Element;
 
 public interface ILearningUnitModel {
