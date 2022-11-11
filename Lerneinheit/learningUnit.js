@@ -59,42 +59,33 @@ function changeInnerTextById(id, text) {
 function playAudio(index) {
     if (audio.autoplay) {
         audio.pause(); audio.currentTime = 0; audio.autoplay = false;
+            document.getElementById('reading-button-0').innerText = "Vorlesen";
+            document.getElementById('reading-button-1').innerText = "Vorlesen";
+            document.getElementById('reading-button-2').innerText = "Vorlesen";
+            document.getElementById('reading-button-3').innerText = "Vorlesen";
+            document.getElementById('reading-button-4').innerText = "Vorlesen";
+    } else {
         switch (index) {
-            case 0: document.getElementById('reading-button-0').innerText = "Vorlesen"; break
-            case 1: document.getElementById('reading-button-1').innerText = "Vorlesen"; break
-            case 2: document.getElementById('reading-button-2').innerText = "Vorlesen"; break
-            case 3: document.getElementById('reading-button-3').innerText = "Vorlesen"; break
-            case 4: document.getElementById('reading-button-4').innerText = "Vorlesen"; break
-        }
-
-    }
-    else {
-        switch (index) {
-            case 0 : audio.src = 'audio/task_0.mp3';
-                audio.autoplay = true;
-                audio.currentTime = 0;
-                document.getElementById('reading-button-0').innerText = "Vorlesen stoppen";
-                break
+            case 0: audio.src = 'audio/task_0.mp3';
+                    audio.autoplay = true;
+                    audio.currentTime = 0;
+                    document.getElementById('reading-button-0').innerText = "Vorlesen stoppen"; break
             case 1: audio.src = 'audio/task_1.1.mp3';
-                audio.autoplay = true;
-                audio.currentTime = 0;
-                document.getElementById('reading-button-1').innerText = "Vorlesen stoppen";
-                break
+                    audio.autoplay = true;
+                    audio.currentTime = 0;
+                    document.getElementById('reading-button-1').innerText = "Vorlesen stoppen"; break
             case 2: audio.src = 'audio/task_1.2.mp3';
-                audio.autoplay = true;
-                audio.currentTime = 0;
-                document.getElementById('reading-button-2').innerText = "Vorlesen stoppen";
-                break
+                    audio.autoplay = true;
+                    audio.currentTime = 0;
+                    document.getElementById('reading-button-2').innerText = "Vorlesen stoppen"; break
             case 3: audio.src = 'audio/task_3.mp3';
-                audio.autoplay = true;
-                audio.currentTime = 0;
-                document.getElementById('reading-button-3').innerText = "Vorlesen stoppen";
-                break
+                    audio.autoplay = true;
+                    audio.currentTime = 0;
+                    document.getElementById('reading-button-3').innerText = "Vorlesen stoppen"; break
             case 4: audio.src = 'audio/task_4.mp3';
-                audio.autoplay = true;
-                audio.currentTime = 0;
-                document.getElementById('reading-button-4').innerText = "Vorlesen stoppen";
-                break
+                    audio.autoplay = true;
+                    audio.currentTime = 0;
+                    document.getElementById('reading-button-4').innerText = "Vorlesen stoppen"; break
         }
     }
 }
