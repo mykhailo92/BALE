@@ -123,7 +123,6 @@ public class LearningUnitController implements ILearningUnitController {
     private void createHTMLControlLabels() {
         Element[] readOutButtons = getControlLabelsFromDocument();
         for (Element element : readOutButtons) {
-            System.out.println(getClasses(element));
             if (getClasses(element).contains("reading")) {
                 element.setTextContent(Localizations.getLocalizedString("readOutButton"));
             } else if (getClasses(element).contains("save")) {
