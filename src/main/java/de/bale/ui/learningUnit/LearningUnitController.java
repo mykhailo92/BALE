@@ -120,6 +120,9 @@ public class LearningUnitController implements ILearningUnitController {
         scrollDownButton.setText(Localizations.getLocalizedString("scrollDownButton"));
     }
 
+    /**
+     * Create Localized HTML Labels
+     */
     private void createHTMLControlLabels() {
         Element[] readOutButtons = getControlLabelsFromDocument();
         for (Element element : readOutButtons) {
