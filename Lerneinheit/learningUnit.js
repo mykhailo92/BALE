@@ -89,3 +89,6 @@ function playAudio(index) {
         }
     }
 }
+function getControlLabels() {
+    return document.querySelectorAll(".reading,.save,.preamble-button");
+}

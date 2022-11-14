@@ -1,4 +1,4 @@
-module com.example {
+module de.bale {
     requires javafx.controls;
     requires javafx.fxml;
 
@@ -15,4 +15,10 @@ module com.example {
     opens de.bale to javafx.fxml;
     exports de.bale.ui.interfaces;
     opens de.bale.ui.interfaces to javafx.fxml;
+    opens de.bale.ui.startscreen to javafx.fxml, javafx.base;
+    opens de.bale.ui.startscreen.interfaces to javafx.fxml;
+    exports de.bale.ui.learningUnit;
+    opens de.bale.ui.learningUnit to javafx.fxml;
+    exports de.bale.ui.learningUnit.interfaces;
+    opens de.bale.ui.learningUnit.interfaces to javafx.fxml;
 }

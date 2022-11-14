@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            maxHeight="400.0" prefWidth="600.0" stylesheets="@../../../../css/fxmlStyle.css">
+    <columnConstraints>
+        <ColumnConstraints percentWidth="100"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="200"/>
+        <RowConstraints minHeight="50"/>
+    </rowConstraints>
+    <TableView GridPane.rowIndex="0" fx:id="learningUnitTable" styleClass="select-table">
+        <columns>
+            <TableColumn fx:id="nameColumn" prefWidth="${learningUnitTable.width*0.3}"/>
+            <TableColumn fx:id="pathColumn" prefWidth="${learningUnitTable.width*0.7}"/>
+        </columns>
+    </TableView>
+    <HBox GridPane.columnIndex="0" GridPane.rowIndex="1" alignment="CENTER" styleClass="bottom-nav">
+        <Button styleClass="bottom-nav-button" fx:id="openLearningUnitButton" onMousePressed="#openLearningUnit">Öffnen
+        </Button>
+    </HBox>
+</GridPane>

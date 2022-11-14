@@ -1,8 +1,9 @@
-package de.bale.ui;
+package de.bale.ui.learningUnit;
 
 import de.bale.language.Localizations;
-import de.bale.ui.interfaces.IController;
-import de.bale.ui.interfaces.ILearningUnitModel;
+import de.bale.ui.JSBridge;
+import de.bale.ui.learningUnit.interfaces.ILearningUnitController;
+import de.bale.ui.learningUnit.interfaces.ILearningUnitModel;
 import javafx.application.Platform;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
@@ -13,9 +14,10 @@ import netscape.javascript.JSObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
+
 import java.util.*;
 
-public class LearningUnitController implements IController {
+public class LearningUnitController implements ILearningUnitController {
 
     @FXML
     public Button nextButton;
@@ -28,6 +30,7 @@ public class LearningUnitController implements IController {
     private final String startPage;
     private ILearningUnitModel model;
     private JSBridge bridge;
+
     public LearningUnitController(String filePath) {
         startPage = "file:///" + filePath;
     }
@@ -54,6 +57,7 @@ public class LearningUnitController implements IController {
                         bridge.registerBridge();
                         setAllContainerInvisible();
                         prepareChapterIndex();
+                        createHTMLControlLabels();
                     }
                 }
         );
@@ -114,6 +118,24 @@ public class LearningUnitController implements IController {
         nextButton.setText(Localizations.getLocalizedString("nextButton"));
         closeButton.setText(Localizations.getLocalizedString("closeButton"));
         scrollDownButton.setText(Localizations.getLocalizedString("scrollDownButton"));
+    }
+
+    private void createHTMLControlLabels() {
+        Element[] readOutButtons = getControlLabelsFromDocument();
+        for (Element element : readOutButtons) {
+            System.out.println(getClasses(element));
+            if (getClasses(element).contains("reading")) {
+                element.setTextContent(Localizations.getLocalizedString("readOutButton"));
+            } else if (getClasses(element).contains("save")) {
+                element.setAttribute("value",Localizations.getLocalizedString("saveButton"));
+            } else if (getClasses(element).contains("preamble-button")) {
+                element.setTextContent(Localizations.getLocalizedString("preamble-button"));
+            }
+        }
+    }
+    private Element[] getControlLabelsFromDocument() {
+        JSObject readOutButtonList = (JSObject) engine.executeScript("getControlLabels();");
+        return createArrayFromJSObject(readOutButtonList);
     }
 
     /**

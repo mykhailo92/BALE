@@ -1,42 +1,24 @@
 package de.bale;
 
 import de.bale.language.Localizations;
-import de.bale.ui.LearningUnitModel;
-import de.bale.ui.interfaces.IController;
-import de.bale.ui.interfaces.ILearningUnitModel;
-import de.bale.ui.LearningUnitController;
+import de.bale.ui.SceneHandler;
+import de.bale.ui.startscreen.StartScreenController;
+import de.bale.ui.startscreen.StartScreenModel;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class MainApplication extends Application {
-
-    String fxmlName = "hello-view.fxml";
     static String filePath = "";
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
         Localizations.setLocale("de", "DE");
-        FXMLLoader fxmlLoader = new FXMLLoader(LearningUnitController.class.getResource(fxmlName));
-        fxmlLoader.setLocation(LearningUnitController.class.getResource(fxmlName));
-        fxmlLoader.setController(new LearningUnitController(filePath));
-        Scene scene = new Scene(fxmlLoader.load());
-        //Create Default Model and Controller and set the Model for the controller
-        ILearningUnitModel learningUnitModel = new LearningUnitModel();
-        IController learningUnitController = fxmlLoader.getController();
-        learningUnitController.setModel(learningUnitModel);
-        //Enable FullScreen and remove the Ability to close it with ESC (Default)
-        stage.setFullScreen(true);
-        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        stage.setTitle(Localizations.getLocalizedString("title"));
-        stage.setScene(scene);
-        stage.show();
+        SceneHandler sceneHandler = SceneHandler.getInstance();
+        sceneHandler.setStage(stage);
+        sceneHandler.changeScene(new StartScreenController("Optik",filePath),"startScreen.fxml","title");
+        ((StartScreenController)sceneHandler.getController()).setModel(new StartScreenModel());
+        sceneHandler.setStageFullScreen(false);
     }
-
 
     public static void main(String[] args) {
         if (args.length > 0) {
@@ -46,6 +28,5 @@ public class MainApplication extends Application {
             System.err.println("Bitte Dateipfad zu der .html Datei angeben!");
             System.exit(1);
         }
-
     }
 }

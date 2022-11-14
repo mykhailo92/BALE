@@ -1,6 +1,6 @@
 package de.bale.ui;
 
-import de.bale.ui.interfaces.ILearningUnitModel;
+import de.bale.ui.learningUnit.interfaces.ILearningUnitModel;
 import javafx.application.Platform;
 import javafx.scene.web.WebEngine;
 import netscape.javascript.JSObject;
@@ -31,7 +31,7 @@ public class JSBridge {
         }
     }
 
-    JSBridge(ILearningUnitModel model, WebEngine engine) {
+    public JSBridge(ILearningUnitModel model, WebEngine engine) {
         this.model = model;
         this.engine = engine;
         this.jsBridge = new Bridge();
@@ -40,7 +40,7 @@ public class JSBridge {
     /**
      * Register a JSBridge, which can be any public Class
      */
-    void registerBridge() {
+    public void registerBridge() {
         JSObject window = (JSObject) engine.executeScript("window");
         window.setMember("javaBridge", jsBridge);
     }
