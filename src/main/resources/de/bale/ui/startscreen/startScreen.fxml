@@ -23,7 +23,7 @@
         </columns>
     </TableView>
     <HBox GridPane.columnIndex="0" GridPane.rowIndex="1" alignment="CENTER" styleClass="bottom-nav">
-        <Button styleClass="bottom-nav-button" fx:id="openLearningUnitButton" onMousePressed="#openLearningUnit">bla
+        <Button styleClass="bottom-nav-button" fx:id="openLearningUnitButton" onMousePressed="#openLearningUnit">Öffnen
         </Button>
     </HBox>
 </GridPane>

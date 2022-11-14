@@ -52,3 +52,7 @@ function getElementHeightByID(id) {
 function changeInnerTextById(id, text) {
     document.getElementById(id).innerText = text;
 }
+
+function getControlLabels() {
+    return document.querySelectorAll(".reading,.save,.preamble-button");
+}

@@ -54,6 +54,7 @@ public class StartScreenController implements IStartScreenController {
     private void createLocalizedLabels() {
         nameColumn.setText(Localizations.getLocalizedString("nameColumn"));
         pathColumn.setText(Localizations.getLocalizedString("pathColumn"));
+        openLearningUnitButton.setText(Localizations.getLocalizedString("openLearningUnit"));
     }
 
     public void openLearningUnit() {

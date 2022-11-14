@@ -57,6 +57,7 @@ public class LearningUnitController implements ILearningUnitController {
                         bridge.registerBridge();
                         setAllContainerInvisible();
                         prepareChapterIndex();
+                        createHTMLControlLabels();
                     }
                 }
         );
@@ -117,6 +118,24 @@ public class LearningUnitController implements ILearningUnitController {
         nextButton.setText(Localizations.getLocalizedString("nextButton"));
         closeButton.setText(Localizations.getLocalizedString("closeButton"));
         scrollDownButton.setText(Localizations.getLocalizedString("scrollDownButton"));
+    }
+
+    private void createHTMLControlLabels() {
+        Element[] readOutButtons = getControlLabelsFromDocument();
+        for (Element element : readOutButtons) {
+            System.out.println(getClasses(element));
+            if (getClasses(element).contains("reading")) {
+                element.setTextContent(Localizations.getLocalizedString("readOutButton"));
+            } else if (getClasses(element).contains("save")) {
+                element.setAttribute("value",Localizations.getLocalizedString("saveButton"));
+            } else if (getClasses(element).contains("preamble-button")) {
+                element.setTextContent(Localizations.getLocalizedString("preamble-button"));
+            }
+        }
+    }
+    private Element[] getControlLabelsFromDocument() {
+        JSObject readOutButtonList = (JSObject) engine.executeScript("getControlLabels();");
+        return createArrayFromJSObject(readOutButtonList);
     }
 
     /**
