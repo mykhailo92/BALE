@@ -78,11 +78,11 @@ function playAudio(index) {
                     audio.autoplay = true;
                     audio.currentTime = 0;
                     document.getElementById('reading-button-2').innerText = "Vorlesen stoppen"; break
-            case 3: audio.src = 'audio/task_3.mp3';
+            case 3: audio.src = 'audio/task_2.mp3';
                     audio.autoplay = true;
                     audio.currentTime = 0;
                     document.getElementById('reading-button-3').innerText = "Vorlesen stoppen"; break
-            case 4: audio.src = 'audio/task_4.mp3';
+            case 4: audio.src = 'audio/task_3.mp3';
                     audio.autoplay = true;
                     audio.currentTime = 0;
                     document.getElementById('reading-button-4').innerText = "Vorlesen stoppen"; break

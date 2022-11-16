@@ -65,18 +65,17 @@ textarea {
     text-decoration: none;
     outline: none;
     color: #fff;
-    background-color: #4CAF50;
+    background-color: DodgerBlue;
     border: none;
     border-radius: 10px;
     box-shadow: 0 5px #D3D3D3;
 }
 
 .reading:hover {
-    background-color: #45a049
+    background-color: #0066cc
 }
 
 .reading:active {
-    background-color: #3e8e41;
     box-shadow: 0 3px #666;
     transform: translateY(2px);
 }
@@ -93,7 +92,8 @@ input[type=text], select {
 
 input[type=submit] {
     width: 30%;
-    background-color: #4CAF50;
+    font-size: 20px;
+    background-color: DodgerBlue;
     color: white;
     padding: 14px 20px;
     margin-left: 10px;
@@ -103,11 +103,10 @@ input[type=submit] {
 }
 
 input[type=submit]:hover {
-    background-color: #45a049;
+    background-color: #0066cc;
 }
 
 .submit:active {
-    background-color: #3e8e41;
     transform: translateY(2px);
 }
 
@@ -272,7 +271,7 @@ input[type=submit]:hover {
     width: 1078px;
     height: 231px;
     padding: 50px;
-    background-image: url("../testImages/Auge_Groß.png");
+    background-image: url("../testImages/Auge_Gross.png");
     background-repeat: no-repeat;
     background-position: center;
     backface-visibility: inherit;
