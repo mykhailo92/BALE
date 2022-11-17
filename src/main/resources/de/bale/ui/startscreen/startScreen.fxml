@@ -25,5 +25,6 @@
     <HBox GridPane.columnIndex="0" GridPane.rowIndex="1" alignment="CENTER" styleClass="bottom-nav">
         <Button styleClass="bottom-nav-button" fx:id="openLearningUnitButton" onMousePressed="#openLearningUnit">Öffnen
         </Button>
+        <Button styleClass="bottom-nav-button" fx:id="changeLanguageButton" onMousePressed="#changeLanguage">English</Button>
     </HBox>
 </GridPane>

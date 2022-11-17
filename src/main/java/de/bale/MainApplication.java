@@ -12,7 +12,7 @@ public class MainApplication extends Application {
 
     @Override
     public void start(Stage stage) {
-        Localizations.setLocale("de", "DE");
+        Localizations.getInstance().setLocale("de", "DE");
         SceneHandler sceneHandler = SceneHandler.getInstance();
         sceneHandler.setStage(stage);
         sceneHandler.changeScene(new StartScreenController("Optik",filePath),"startScreen.fxml","title");

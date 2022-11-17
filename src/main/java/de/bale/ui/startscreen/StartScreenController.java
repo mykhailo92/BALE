@@ -24,6 +24,8 @@ public class StartScreenController implements IStartScreenController {
     TableColumn nameColumn;
     @FXML
     TableColumn pathColumn;
+    @FXML
+    Button changeLanguageButton;
     IStartScreenModel model;
 
     //TODO TEMPORARY FIX FOR TABLE
@@ -55,11 +57,12 @@ public class StartScreenController implements IStartScreenController {
         nameColumn.setText(Localizations.getLocalizedString("nameColumn"));
         pathColumn.setText(Localizations.getLocalizedString("pathColumn"));
         openLearningUnitButton.setText(Localizations.getLocalizedString("openLearningUnit"));
+        changeLanguageButton.setText(Localizations.getLocalizedString("changeLanguageButton"));
     }
 
     public void openLearningUnit() {
         LearningUnitEntry selectedEntry = learningUnitTable.getSelectionModel().getSelectedItem();
-        if (selectedEntry==null) {
+        if (selectedEntry == null) {
             return;
         }
         SceneHandler sceneHandler = SceneHandler.getInstance();
@@ -67,5 +70,14 @@ public class StartScreenController implements IStartScreenController {
         ILearningUnitModel learningUnitModel = new LearningUnitModel();
         ((LearningUnitController) sceneHandler.getController()).setModel(learningUnitModel);
         sceneHandler.setStageFullScreen(true);
+    }
+
+    public void changeLanguage() {
+        String language = Localizations.getInstance().getLocale();
+        switch (language) {
+            case "de" -> Localizations.getInstance().setLocale("en", "US");
+            case "en" -> Localizations.getInstance().setLocale("de", "DE");
+        }
+        createLocalizedLabels();
     }
 }
