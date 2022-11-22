@@ -1,0 +1,22 @@
+ * {
+    -fx-backgroundColor: white;
+    -fx-globalFontColor: black;
+
+    -fx-mainButtonBackgroundColor: DodgerBlue;
+    -fx-mainButtonHovorColor: #0066cc;
+    -fx-mainButtonTextColor: #fff;
+    -fx-mainButtonShadowColor: #D3D3D3;
+
+    -fx-taskBackgroundColor: #D3D3D3;
+    -fx-taskBorderColor: #cccccc;
+
+    -fx-textAreaBackgroundColor: #f8f8f8;
+    -fx-textAreaBorderColor: #ccc;
+
+    -fx-informationBackgroundColor: #ffe4b5;
+    -fx-informationBorderColor: darkgreen;
+
+    -fx-dragableCardBackgroundColor: darkblue;
+
+    -fx-chapterSelectFontColor: blue;
+}

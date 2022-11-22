@@ -8,7 +8,7 @@
 
 <GridPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            maxHeight="400.0" prefWidth="600.0" stylesheets="@../../../../css/fxmlStyle.css">
+            maxHeight="400.0" prefWidth="600.0" stylesheets="@../../../../css/darcula.css,@../../../../css/fxmlStyle.css">
     <columnConstraints>
         <ColumnConstraints percentWidth="100"/>
     </columnConstraints>

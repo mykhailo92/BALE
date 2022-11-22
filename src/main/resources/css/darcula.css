@@ -1,0 +1,24 @@
+*  {
+    -fx-backgroundColor: #282a36;
+    -fx-globalFontColor: #f8f8f2;
+
+    -fx-mainButtonBackgroundColor: #ffb86c;
+    -fx-mainButtonHovorColor: #ff9320;
+    -fx-mainButtonTextColor: 	#282a36;
+    -fx-mainButtonShadowColor: #6272a4;
+
+    -fx-textFontFamily: 'Optima', cursive;
+    -fx-taskBackgroundColor: 	#bd93f9;
+    -fx-taskBorderColor: #914bf5;
+
+    -fx-textAreaBackgroundColor: #44475a;
+    -fx-textAreaBorderColor: #914bf5;
+
+    -fx-informationBackgroundColor: #ff79c6;
+    -fx-informationBorderColor: 	#bd93f9;
+
+
+    -fx-dragableCardBackgroundColor: #50fa7b;
+
+    -fx-chapterSelectFontColor: #8be9fd;
+}

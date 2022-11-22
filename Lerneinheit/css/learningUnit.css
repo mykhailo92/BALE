@@ -1,6 +1,8 @@
 body {
     padding-left: 10%;
     padding-right: 10%;
+    background-color: var(--backgroundColor);
+    color: var(--globalFontColor);
 }
 
 * {
@@ -38,7 +40,7 @@ textarea {
     height: 150px;
     padding: 12px 20px;
     box-sizing: border-box;
-    border: 2px solid #ccc;
+    border: 2px solid var(--textAreaBorderColor);
     border-radius: 4px;
     background-color: var(--textAreaBackgroundColor);
     font-size: var(--textAreaFontSize);
@@ -68,7 +70,7 @@ textarea {
     background-color: var(--mainButtonBackgroundColor);
     border: none;
     border-radius: 10px;
-    box-shadow: 0 5px #D3D3D3;
+    box-shadow: 0 5px var(--mainButtonShadowColor);
 }
 
 .reading:hover {
@@ -218,7 +220,7 @@ input[type=submit]:hover {
     left:0;
     width: 98vw;
     height: 100%;
-    background-color: var(--preambleBackgroundColor);
+    background-color: var(--backgroundColor);
     display: flex;
     align-items: center;
     justify-content: center;

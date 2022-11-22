@@ -1,4 +1,7 @@
 :root {
+    --backgroundColor: white;
+    --globalFontColor: black;
+
     --mainButtonBackgroundColor: DodgerBlue;
     --mainButtonHovorColor: #0066cc;
     --mainButtonTextColor: #fff;
@@ -13,6 +16,7 @@
 
     --textAreaFontSize: 16px;
     --textAreaBackgroundColor: #f8f8f8;
+    --textAreaBorderColor: #ccc;
 
     --informationBackgroundColor: #ffe4b5;
     --informationBorderColor: darkgreen;
@@ -22,8 +26,6 @@
     --saveFontSize: 20px;
 
     --navButtonFontSize: 14px;
-
-    --preambleBackgroundColor: white;
 
     --dragableCardBackgroundColor: darkblue;
     --dragableCardFontSize: 30px;
