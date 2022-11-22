@@ -1,0 +1,35 @@
+:root {
+    --mainButtonBackgroundColor: DodgerBlue;
+    --mainButtonHovorColor: #0066cc;
+    --mainButtonTextColor: #fff;
+    --mainButtonShadowColor: #D3D3D3;
+
+    --textFontSize: 1.5em;
+    --textFontFamily: 'Optima', cursive;
+
+    --taskFontSize: 1.2em;
+    --taskBackgroundColor: #D3D3D3;
+    --taskBorderColor: #cccccc;
+
+    --textAreaFontSize: 16px;
+    --textAreaBackgroundColor: #f8f8f8;
+
+    --informationBackgroundColor: #ffe4b5;
+    --informationBorderColor: darkgreen;
+
+    --readingFontSize: 14px;
+
+    --saveFontSize: 20px;
+
+    --navButtonFontSize: 14px;
+
+    --preambleBackgroundColor: white;
+
+    --dragableCardBackgroundColor: darkblue;
+    --dragableCardFontSize: 30px;
+
+    --dragableFieldFontSize: 35px;
+
+    --chapterSelectFontSize: 1.3em;
+    --chapterSelectFontColor: blue;
+}
