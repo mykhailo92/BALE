@@ -17,10 +17,11 @@ public class SectionVisibleListener {
     public void notifyMyself() {
         Element section = model.getContainer()[model.getContainerIndicator()];
         try {
-            String onVisible = section.getAttribute("onVisible");
-            switch (onVisible) {
+            String[] onVisible = section.getAttribute("onVisible").split(";");
+            switch (onVisible[0]) {
                 case "disableNextButton"-> model.setNextButtonDisabled(true);
-                default -> System.err.println("Unknown Value:" + onVisible);
+                case "renameCloseButton"-> model.setCloseButtonText(onVisible[1]);
+                default -> System.err.println("Unknown Value:" + onVisible[0]);
             }
         } catch (NullPointerException ignored) {}
     }

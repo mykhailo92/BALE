@@ -30,7 +30,6 @@ public class JSBridge {
             }
         }
         public void setNextButtonDisabled(boolean disabled) {
-            System.out.println("invoked");
             model.setNextButtonDisabled(disabled);
         }
     }

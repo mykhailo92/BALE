@@ -232,6 +232,9 @@ public class LearningUnitController implements ILearningUnitController {
             }
             scrollToBottom();
             setVisible(model.getChapterMarks()[model.getChapterIndicator()]);
+            if (!model.getCloseButtonText().equals("")) {
+                closeButton.setText(model.getCloseButtonText());
+            }
             Platform.runLater(() -> checkChapter(listenedModel));
         });
 
