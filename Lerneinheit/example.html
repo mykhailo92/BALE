@@ -34,7 +34,7 @@
     </div>
 </div>
 
-<div class="section">
+<div class="section" onVisible="disableNextButton">
     <div class="task">
         Warum soll Tim zum Augenarzt gehen? Schreibe auf.
     </div>
@@ -83,7 +83,7 @@
             </div>
         </div>
     </div>
-    <div class="section">
+    <div class="section" onVisible="disableNextButton">
         <div class="task">
             <img src="Icons/Draggable-Card.svg" class="task-icon" alt=""/>
             Ordne die Begriffe zu. Klicke auf das Wort und ziehe es an die richtige Stelle:
@@ -96,7 +96,7 @@
             <div class="drop-field" id="drop2" onDrop="drop(event)" onDragOver="allowDrop(event)"></div>
             <div class="drop-field" id="drop3" onDrop="drop(event)" onDragOver="allowDrop(event)"></div>
         </div>
-        <input class="submit" type="submit" value="Speichern">
+        <input class="submit save" type="submit" value="Speichern">
     </div>
     <br>
     <div class="section">
@@ -194,7 +194,7 @@
         </div>
     </div>
     <div class="section">
-        <div class="task">
+        <div class="task" onVisible="disableNextButton">
             Welchen Weg nimmt das Licht von der Taschenlampe zur Tür und von dort zurück zu Tim? Wähle aus in welche
             Richtung der Lichtstrahl geht.<br>
         </div>
