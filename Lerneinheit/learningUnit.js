@@ -1,4 +1,3 @@
-
 let audio = new Audio();
 
 function changeBgColor() {
@@ -18,11 +17,10 @@ function getSlides() {
     return document.querySelectorAll(".slide");
 }
 
-// document.querySelector('.submit').onclick = getInput;
-document.querySelector('.submit').addEventListener('click', getInputText);
+// document.querySelector('.submit').addEventListener('click', getInputText);
 
 function getInputText() {
-    document.getElementById('debug').textContent = document.querySelector('.text-area').value;
+    window.javaBridge.setNextButtonDisabled(false);
     return document.querySelector('.text-area').value;
 }
 
@@ -58,37 +56,55 @@ function changeInnerTextById(id, text) {
 
 function playAudio(index) {
     if (audio.autoplay) {
-        audio.pause(); audio.currentTime = 0; audio.autoplay = false;
-            document.getElementById('reading-button-0').innerText = "Vorlesen";
-            document.getElementById('reading-button-1').innerText = "Vorlesen";
-            document.getElementById('reading-button-2').innerText = "Vorlesen";
-            document.getElementById('reading-button-3').innerText = "Vorlesen";
-            document.getElementById('reading-button-4').innerText = "Vorlesen";
+        audio.pause();
+        audio.currentTime = 0;
+        audio.autoplay = false;
+        document.getElementById('reading-button-0').innerText = "Vorlesen";
+        document.getElementById('reading-button-1').innerText = "Vorlesen";
+        document.getElementById('reading-button-2').innerText = "Vorlesen";
+        document.getElementById('reading-button-3').innerText = "Vorlesen";
+        document.getElementById('reading-button-4').innerText = "Vorlesen";
     } else {
         switch (index) {
-            case 0: audio.src = 'audio/task_0.mp3';
-                    audio.autoplay = true;
-                    audio.currentTime = 0;
-                    document.getElementById('reading-button-0').innerText = "Vorlesen stoppen"; break
-            case 1: audio.src = 'audio/task_1.1.mp3';
-                    audio.autoplay = true;
-                    audio.currentTime = 0;
-                    document.getElementById('reading-button-1').innerText = "Vorlesen stoppen"; break
-            case 2: audio.src = 'audio/task_1.2.mp3';
-                    audio.autoplay = true;
-                    audio.currentTime = 0;
-                    document.getElementById('reading-button-2').innerText = "Vorlesen stoppen"; break
-            case 3: audio.src = 'audio/task_2.mp3';
-                    audio.autoplay = true;
-                    audio.currentTime = 0;
-                    document.getElementById('reading-button-3').innerText = "Vorlesen stoppen"; break
-            case 4: audio.src = 'audio/task_3.mp3';
-                    audio.autoplay = true;
-                    audio.currentTime = 0;
-                    document.getElementById('reading-button-4').innerText = "Vorlesen stoppen"; break
+            case 0:
+                audio.src = 'audio/task_0.mp3';
+                audio.autoplay = true;
+                audio.currentTime = 0;
+                document.getElementById('reading-button-0').innerText = "Vorlesen stoppen";
+                break
+            case 1:
+                audio.src = 'audio/task_1.1.mp3';
+                audio.autoplay = true;
+                audio.currentTime = 0;
+                document.getElementById('reading-button-1').innerText = "Vorlesen stoppen";
+                break
+            case 2:
+                audio.src = 'audio/task_1.2.mp3';
+                audio.autoplay = true;
+                audio.currentTime = 0;
+                document.getElementById('reading-button-2').innerText = "Vorlesen stoppen";
+                break
+            case 3:
+                audio.src = 'audio/task_2.mp3';
+                audio.autoplay = true;
+                audio.currentTime = 0;
+                document.getElementById('reading-button-3').innerText = "Vorlesen stoppen";
+                break
+            case 4:
+                audio.src = 'audio/task_3.mp3';
+                audio.autoplay = true;
+                audio.currentTime = 0;
+                document.getElementById('reading-button-4').innerText = "Vorlesen stoppen";
+                break
         }
     }
 }
+
 function getControlLabels() {
     return document.querySelectorAll(".reading,.save,.preamble-button");
+}
+
+var submits = document.querySelectorAll('.submit');
+for (var i = 0; i < submits.length; i++) {
+    submits[i].addEventListener('click', getInputText);
 }

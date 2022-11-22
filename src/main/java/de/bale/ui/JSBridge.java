@@ -29,6 +29,10 @@ public class JSBridge {
                 System.err.println("Preamble not found!");
             }
         }
+        public void setNextButtonDisabled(boolean disabled) {
+            System.out.println("invoked");
+            model.setNextButtonDisabled(disabled);
+        }
     }
 
     public JSBridge(ILearningUnitModel model, WebEngine engine) {
