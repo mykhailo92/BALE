@@ -232,9 +232,12 @@ public class LearningUnitController implements ILearningUnitController {
             Platform.runLater(() -> checkChapter(listenedModel));
         });
 
-        model.addListener((listenedModel) ->
-                setVisible(model.getSlides()[listenedModel.getCurrentSlideIndicator()])
-        );
+        model.addListener((listenedModel) -> {
+            setVisible(model.getSlides()[listenedModel.getCurrentSlideIndicator()]);
+            if (listenedModel.getCurrentSlideIndicator() != 0) {
+                setInvisible(model.getSlides()[listenedModel.getCurrentSlideIndicator() - 1]);
+            }
+        });
     }
 
     /**
