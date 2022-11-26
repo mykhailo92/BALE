@@ -1,5 +1,6 @@
 
 let audio = new Audio();
+let currentTrack;
 
 function changeBgColor() {
     document.body.style.backgroundColor = document.getElementById('color').value;
@@ -57,38 +58,37 @@ function changeInnerTextById(id, text) {
 }
 
 function playAudio(index) {
-    if (audio.autoplay) {
+    if (audio.autoplay && index === currentTrack) {
         audio.pause(); audio.currentTime = 0; audio.autoplay = false;
-            document.getElementById('reading-button-0').innerText = "Vorlesen";
-            document.getElementById('reading-button-1').innerText = "Vorlesen";
-            document.getElementById('reading-button-2').innerText = "Vorlesen";
-            document.getElementById('reading-button-3').innerText = "Vorlesen";
-            document.getElementById('reading-button-4').innerText = "Vorlesen";
-    } else {
-        switch (index) {
-            case 0: audio.src = 'audio/task_0.mp3';
-                    audio.autoplay = true;
-                    audio.currentTime = 0;
-                    document.getElementById('reading-button-0').innerText = "Vorlesen stoppen"; break
-            case 1: audio.src = 'audio/task_1.1.mp3';
-                    audio.autoplay = true;
-                    audio.currentTime = 0;
-                    document.getElementById('reading-button-1').innerText = "Vorlesen stoppen"; break
-            case 2: audio.src = 'audio/task_1.2.mp3';
-                    audio.autoplay = true;
-                    audio.currentTime = 0;
-                    document.getElementById('reading-button-2').innerText = "Vorlesen stoppen"; break
-            case 3: audio.src = 'audio/task_2.mp3';
-                    audio.autoplay = true;
-                    audio.currentTime = 0;
-                    document.getElementById('reading-button-3').innerText = "Vorlesen stoppen"; break
-            case 4: audio.src = 'audio/task_3.mp3';
-                    audio.autoplay = true;
-                    audio.currentTime = 0;
-                    document.getElementById('reading-button-4').innerText = "Vorlesen stoppen"; break
-        }
-    }
+        document.getElementById('reading-button-' + currentTrack).innerText = "Vorlesen";
+    } else if (audio.autoplay && index !== currentTrack) {
+        audio.pause(); audio.currentTime = 0; audio.autoplay = false;
+        document.getElementById('reading-button-' + currentTrack).innerText = "Vorlesen";
+        playTrack(index);
+    } else { playTrack(index); }
+
+    audio.addEventListener("ended", function () {
+        audio.autoplay = false;
+        document.getElementById('reading-button-' + index).innerText = "Vorlesen";
+    });
 }
+
+function playTrack(index) {
+    switch (index) {
+        case 0: audio.src = 'audio/task_0.mp3'; audio.autoplay = true; audio.currentTime = 0; currentTrack = index;
+                break;
+        case 1: audio.src = 'audio/task_1.1.mp3'; audio.autoplay = true; audio.currentTime = 0; currentTrack = index;
+                break;
+        case 2: audio.src = 'audio/task_1.2.mp3'; audio.autoplay = true; audio.currentTime = 0; currentTrack = index;
+                break;
+        case 3: audio.src = 'audio/task_2.mp3'; audio.autoplay = true; audio.currentTime = 0; currentTrack = index;
+                break;
+        case 4: audio.src = 'audio/task_3.mp3'; audio.autoplay = true; audio.currentTime = 0; currentTrack = index;
+                break;
+    }
+    document.getElementById('reading-button-' + index).innerText = "Vorlesen stoppen";
+}
+
 function getControlLabels() {
     return document.querySelectorAll(".reading,.save,.preamble-button");
 }

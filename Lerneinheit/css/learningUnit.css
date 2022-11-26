@@ -9,6 +9,10 @@ body {
     margin: 0;
 }
 
+:root {
+    --tim-img-height: 250px;
+}
+
 .section {
     padding: 10px;
 }
@@ -110,8 +114,16 @@ input[type=submit]:hover {
     transform: translateY(2px);
 }
 
+.text-tim {
+    margin-top: calc(var(--tim-img-height) / 2);
+    margin-bottom: calc(var(--tim-img-height) / 2.8);
+    text-align: justify;
+    font-size: 1.5em;
+    font-family: 'Optima', cursive;
+}
+
 .tim {
-    height: 300px;
+    height: var(--tim-img-height);
 }
 
 .eye-small {
@@ -123,7 +135,7 @@ input[type=submit]:hover {
 }
 
 .wrap-figure {
-    float: right;
+    float: left;
 }
 
 .wrap-text {
