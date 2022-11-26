@@ -18,7 +18,7 @@ body {
 }
 
 .text {
-    text-align: justify;
+    text-align: inherit;
     padding: 15px;
     font-size: 1.5em;
     font-family: 'Optima', cursive;
@@ -128,6 +128,24 @@ input[type=submit]:hover {
 
 .eye-small {
     height: 100px;
+}
+
+.forest {
+    height: 370px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.forest-text {
+    text-align: center;
+    margin-top: -14px;
+    font-size: 1.5em;
+    font-family: 'Optima', cursive;
+}
+
+.light-bulb {
+    margin-top: 10px;
 }
 
 #text_forest {
