@@ -57,7 +57,8 @@ function changeInnerTextById(id, text) {
     document.getElementById(id).innerText = text;
 }
 
-function playAudio(index) {
+function playAudio(track) {
+    let index = track.getAttribute("track-number");
     if (audio.autoplay && index === currentTrack) {
         audio.pause(); audio.currentTime = 0; audio.autoplay = false;
         document.getElementById('reading-button-' + currentTrack).innerText = "Vorlesen";
@@ -74,18 +75,7 @@ function playAudio(index) {
 }
 
 function playTrack(index) {
-    switch (index) {
-        case 0: audio.src = 'audio/task_0.mp3'; audio.autoplay = true; audio.currentTime = 0; currentTrack = index;
-                break;
-        case 1: audio.src = 'audio/task_1.1.mp3'; audio.autoplay = true; audio.currentTime = 0; currentTrack = index;
-                break;
-        case 2: audio.src = 'audio/task_1.2.mp3'; audio.autoplay = true; audio.currentTime = 0; currentTrack = index;
-                break;
-        case 3: audio.src = 'audio/task_2.mp3'; audio.autoplay = true; audio.currentTime = 0; currentTrack = index;
-                break;
-        case 4: audio.src = 'audio/task_3.mp3'; audio.autoplay = true; audio.currentTime = 0; currentTrack = index;
-                break;
-    }
+    audio.src = 'audio/task_' + index + '.mp3'; audio.autoplay = true; audio.currentTime = 0; currentTrack = index;
     document.getElementById('reading-button-' + index).innerText = "Vorlesen stoppen";
 }
 
