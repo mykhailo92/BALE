@@ -60,11 +60,9 @@ function changeInnerTextById(id, text) {
 function playAudio(track) {
     let index = track.getAttribute("track-number");
     if (audio.autoplay && index === currentTrack) {
-        audio.pause(); audio.currentTime = 0; audio.autoplay = false;
-        document.getElementById('reading-button-' + currentTrack).innerText = "Vorlesen";
+        stopPlaying();
     } else if (audio.autoplay && index !== currentTrack) {
-        audio.pause(); audio.currentTime = 0; audio.autoplay = false;
-        document.getElementById('reading-button-' + currentTrack).innerText = "Vorlesen";
+        stopPlaying();
         playTrack(index);
     } else { playTrack(index); }
 
@@ -77,6 +75,11 @@ function playAudio(track) {
 function playTrack(index) {
     audio.src = 'audio/task_' + index + '.mp3'; audio.autoplay = true; audio.currentTime = 0; currentTrack = index;
     document.getElementById('reading-button-' + index).innerText = "Vorlesen stoppen";
+}
+
+function stopPlaying() {
+    audio.pause(); audio.currentTime = 0; audio.autoplay = false;
+    document.getElementById('reading-button-' + currentTrack).innerText = "Vorlesen";
 }
 
 function getControlLabels() {
