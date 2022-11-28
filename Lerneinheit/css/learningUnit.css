@@ -257,14 +257,7 @@ input[type=submit]:hover {
 }
 
 .draggable-card {
-    background-color: darkblue;
-    color: white;
-    display: inline-block;
-    margin: 1px 1px 1px 1px;
-    border-radius: 5px;
-    font-size: 30px;
-    align-content: center;
-    padding: .5% .5% .5% .5%;
+    height: 45px;
 }
 
 .drop-field {
@@ -277,19 +270,19 @@ input[type=submit]:hover {
     border: 1px solid #aaaaaa;
 }
 
-#drop1 {
+#drop-1 {
     position: relative;
     left: 105px;
     top: 110px;
 }
 
-#drop2 {
+#drop-2 {
     position: relative;
     left: 530px;
     top: -25px;
 }
 
-#drop3 {
+#drop-3 {
     position: relative;
     left: 310px;
     top: 148px;

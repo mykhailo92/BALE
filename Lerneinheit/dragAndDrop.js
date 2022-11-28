@@ -1,55 +1,65 @@
-function allowDrop(event) {
-    event.preventDefault();
-}
 
-function drag(event) {
+const cards = [...document.querySelectorAll('.draggable-card')];
+
+const dropFields = [...document.querySelectorAll('.drop-field')];
+
+let draggedId;
+
+function onDragStart(event) {
+    draggedId = event.target.id;
     event.dataTransfer.setData("text", event.target.id);
 }
 
-function drop(event) {
+function onDragEnd(event) {
+    event.target.style.background = '';
+}
+
+function onDrop(event) {
     event.preventDefault();
+    event.target.style.background = '';
+    if (event.target.nodeName === 'IMG' || !isCorrect(event)) { return; }
     let data = event.dataTransfer.getData("text");
     event.target.appendChild(document.getElementById(data));
 }
 
-function onDragStart(event) {
+function onDragEnter(event) {
+    const target = event.target.id;
+    if (target.split('-').at(0) === draggedId.split('-').at(0)) { return; }
+    if (target !== draggedId) {
+        if (isCorrect(event)) {
+            event.target.style.background = '#6ceb75';
+        } else {
+            event.target.style.background = '#d51c00';
+        }
+    } else {
+        event.target.style.background = '';
+    }
+}
+
+function onDragLeave(event) {
+    event.target.style.background = '';
+}
+
+function onDragOver(event) {
+    event.preventDefault();
 
 }
 
-function onDragEnd() {
-
-}
-
-function onDrop() {
-
-}
-
-function onDragEnter() {
-
-}
-
-function onDragLeave() {
-
-}
-
-function onDragOver() {
-
-}
-
-function resetCards() {
-
+function isCorrect(event) {
+    return draggedId.split('-').at(1) === event.target.id.split('-').at(1);
 }
 
 function addEventListeners() {
-    const resetButton = document.querySelector( '');
-    const cards = document.querySelector('.draggable-card');
-    const dropField = document.querySelector('.drop-field')
-
-    cards.addEventListener('dragstart', onDragStart);
-    cards.addEventListener('dragend', onDragEnd);
-    dropField.addEventListener('drop', onDrop);
-    dropField.addEventListener('dragenter', onDragEnter);
-    dropField.addEventListener('dragleave', onDragLeave);
-    dropField.addEventListener('dragover', onDragOver);
-    resetButton.addEventListener('click', resetCards);
+    cards.forEach((card) => {
+        card.addEventListener('dragstart', onDragStart);
+        card.addEventListener('dragend', onDragEnd);
+    });
+    dropFields.forEach((dropField) =>{
+        dropField.addEventListener('drop', onDrop);
+        dropField.addEventListener('dragenter', onDragEnter);
+        dropField.addEventListener('dragleave', onDragLeave);
+        dropField.addEventListener('dragover', onDragOver);
+    });
 }
+
+addEventListeners();
