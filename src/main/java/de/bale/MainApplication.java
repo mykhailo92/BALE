@@ -7,16 +7,21 @@ import de.bale.ui.startscreen.StartScreenModel;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Properties;
+
 public class MainApplication extends Application {
     static String filePath = "";
 
     @Override
     public void start(Stage stage) {
-        Localizations.getInstance().setLocale("de", "DE");
+        Localizations.getInstance().loadLanguage();
         SceneHandler sceneHandler = SceneHandler.getInstance();
         sceneHandler.setStage(stage);
-        sceneHandler.changeScene(new StartScreenController("Optik",filePath),"startScreen.fxml","title");
-        ((StartScreenController)sceneHandler.getController()).setModel(new StartScreenModel());
+        sceneHandler.changeScene(new StartScreenController(), "startScreen.fxml", "title");
+        ((StartScreenController) sceneHandler.getController()).setModel(new StartScreenModel());
         sceneHandler.setStageFullScreen(false);
     }
 

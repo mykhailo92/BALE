@@ -1,5 +1,6 @@
 package de.bale.ui.startscreen;
 
+import de.bale.XMLUtils;
 import de.bale.language.Localizations;
 import de.bale.settings.SettingsController;
 import de.bale.ui.learningUnit.LearningUnitController;
@@ -15,6 +16,10 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class StartScreenController implements IStartScreenController {
     @FXML
@@ -26,18 +31,8 @@ public class StartScreenController implements IStartScreenController {
     @FXML
     TableColumn pathColumn;
     @FXML
-    Button changeLanguageButton;
-    @FXML
     Button openSettingsButton;
     IStartScreenModel model;
-
-    //TODO TEMPORARY FIX FOR TABLE
-    private LearningUnitEntry exampleEntry;
-
-    //TODO: Find a Way to Save the table
-    public StartScreenController(String learningUnitTitle, String filepath) {
-        exampleEntry = new LearningUnitEntry(learningUnitTitle, filepath);
-    }
 
     @Override
     public void setModel(IStartScreenModel model) {
@@ -45,9 +40,21 @@ public class StartScreenController implements IStartScreenController {
         Platform.runLater(() -> {
             nameColumn.setCellValueFactory(new PropertyValueFactory<>("learningUnitTitle"));
             pathColumn.setCellValueFactory(new PropertyValueFactory<>("learningUnitPath"));
-            model.addEntry(this.exampleEntry);
+            populateLearningUnitTable();
             learningUnitTable.setItems(model.getEntries());
         });
+    }
+
+    private void populateLearningUnitTable() {
+        Document document = XMLUtils.readXML(String.valueOf(this.getClass().getResource("learningUnitTable.xml")));
+        NodeList learningUnitEntries = document.getElementsByTagName("LearningUnitEntry");
+        for (int i = 0; i < learningUnitEntries.getLength(); i++) {
+            Node item = learningUnitEntries.item(i);
+            Element xmlElement = (Element) item;
+            String name = xmlElement.getElementsByTagName("name").item(0).getTextContent();
+            String path = xmlElement.getElementsByTagName("path").item(0).getTextContent();
+            model.addEntry(name,path);
+        }
     }
 
     @FXML
@@ -60,7 +67,7 @@ public class StartScreenController implements IStartScreenController {
         nameColumn.setText(Localizations.getLocalizedString("nameColumn"));
         pathColumn.setText(Localizations.getLocalizedString("pathColumn"));
         openLearningUnitButton.setText(Localizations.getLocalizedString("openLearningUnit"));
-        changeLanguageButton.setText(Localizations.getLocalizedString("changeLanguageButton"));
+        openSettingsButton.setText(Localizations.getLocalizedString("openSettingsButton"));
     }
 
     public void openLearningUnit() {
@@ -88,8 +95,6 @@ public class StartScreenController implements IStartScreenController {
     public void openSettings() {
         SceneHandler sceneHandler = SceneHandler.getInstance();
         sceneHandler.changeScene(new SettingsController(), "settings.fxml", "title");
-//        ILearningUnitModel learningUnitModel = new LearningUnitModel();
-//        ((LearningUnitController) sceneHandler.getController()).setModel(learningUnitModel);
         sceneHandler.setStageFullScreen(false);
     }
 }

@@ -1,9 +1,9 @@
 package de.bale.language;
 
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URL;
+import java.util.*;
 
 /**
  * Implement Localizations as a Singleton so not every Class has to create a new Object
@@ -30,6 +30,7 @@ public class Localizations {
      */
     public void setLocale(String languageCode, String countryCode) {
         if (allowedLocales.contains(languageCode + "_" + countryCode)) {
+            System.out.println("Language is now:" + languageCode + countryCode);
             Locale.setDefault(new Locale(languageCode, countryCode));
             bundle = ResourceBundle.getBundle("localization/Lang");
         } else {
@@ -65,5 +66,20 @@ public class Localizations {
         }
         return "";
 
+    }
+
+    public void loadLanguage() {
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        URL resource = classLoader.getResource("settings.properties");
+        String filepath = resource.toString().replace("file:/", "");
+        Properties properties = new Properties();
+        try {
+            FileInputStream fileInputStream = new FileInputStream(filepath);
+            properties.load(fileInputStream);
+            String[] langProperty = properties.getProperty("language").split("_");
+            Localizations.getInstance().setLocale(langProperty[0], langProperty[1]);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
