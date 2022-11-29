@@ -43,9 +43,11 @@ public class Utils {
 
     public static Properties getSettingsProperties() {
         Properties properties = new Properties();
+        FileInputStream fileInputStream;
         try {
-            FileInputStream fileInputStream = new FileInputStream(Utils.getSettingsPath());
+            fileInputStream = new FileInputStream(Utils.getSettingsPath());
             properties.load(fileInputStream);
+            fileInputStream.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
