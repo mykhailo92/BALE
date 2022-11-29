@@ -26,5 +26,6 @@
         <Button styleClass="bottom-nav-button" fx:id="openLearningUnitButton" onMousePressed="#openLearningUnit">Öffnen
         </Button>
         <Button styleClass="bottom-nav-button" fx:id="changeLanguageButton" onMousePressed="#changeLanguage">English</Button>
+        <Button styleClass="bottom-nav-button" fx:id="openSettingsButton" onMousePressed="#openSettings">Einstellungen</Button>
     </HBox>
 </GridPane>

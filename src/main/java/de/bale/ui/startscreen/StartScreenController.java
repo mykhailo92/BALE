@@ -1,6 +1,7 @@
 package de.bale.ui.startscreen;
 
 import de.bale.language.Localizations;
+import de.bale.settings.SettingsController;
 import de.bale.ui.learningUnit.LearningUnitController;
 import de.bale.ui.learningUnit.LearningUnitModel;
 import de.bale.ui.SceneHandler;
@@ -26,6 +27,8 @@ public class StartScreenController implements IStartScreenController {
     TableColumn pathColumn;
     @FXML
     Button changeLanguageButton;
+    @FXML
+    Button openSettingsButton;
     IStartScreenModel model;
 
     //TODO TEMPORARY FIX FOR TABLE
@@ -73,11 +76,20 @@ public class StartScreenController implements IStartScreenController {
     }
 
     public void changeLanguage() {
-        String language = Localizations.getInstance().getLocale();
+        String language = Localizations.getInstance().getLocale().getLanguage();
         switch (language) {
             case "de" -> Localizations.getInstance().setLocale("en", "US");
             case "en" -> Localizations.getInstance().setLocale("de", "DE");
         }
         createLocalizedLabels();
+    }
+
+    @FXML
+    public void openSettings() {
+        SceneHandler sceneHandler = SceneHandler.getInstance();
+        sceneHandler.changeScene(new SettingsController(), "settings.fxml", "title");
+//        ILearningUnitModel learningUnitModel = new LearningUnitModel();
+//        ((LearningUnitController) sceneHandler.getController()).setModel(learningUnitModel);
+        sceneHandler.setStageFullScreen(false);
     }
 }

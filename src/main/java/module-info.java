@@ -17,6 +17,7 @@ module de.bale {
     opens de.bale.ui.interfaces to javafx.fxml;
     opens de.bale.ui.startscreen to javafx.fxml, javafx.base;
     opens de.bale.ui.startscreen.interfaces to javafx.fxml;
+    opens de.bale.settings;
     exports de.bale.ui.learningUnit;
     opens de.bale.ui.learningUnit to javafx.fxml;
     exports de.bale.ui.learningUnit.interfaces;
