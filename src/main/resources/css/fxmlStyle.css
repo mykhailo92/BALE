@@ -34,3 +34,11 @@
     -fx-pref-height: 0;
     -fx-max-height: 0;
 }
+
+.root-pane {
+    -fx-background-color: -fx-backgroundColor;
+}
+
+.root-pane Label {
+    -fx-text-fill: -fx-globalFontColor;
+}

@@ -70,6 +70,10 @@ public class SceneHandler {
         }
     }
 
+    public String getThemeName() {
+        return themeName;
+    }
+
     public ArrayList<String> getAllowedThemes() {
         return allowedThemes;
     }

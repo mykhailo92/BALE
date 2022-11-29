@@ -1,6 +1,7 @@
 package de.bale.settings;
 
 
+import de.bale.Utils;
 import de.bale.language.Localizations;
 import de.bale.settings.interfaces.ISettingsController;
 import de.bale.ui.SceneHandler;
@@ -44,7 +45,7 @@ public class SettingsController extends ISettingsController {
         languageComboBox.setValue(locale.getLocale());
 
         themeCombobox.setItems(FXCollections.observableArrayList(SceneHandler.getInstance().getAllowedThemes()));
-        themeCombobox.getSelectionModel().select(0);
+        themeCombobox.setValue(SceneHandler.getInstance().getThemeName());
     }
 
     private void createLocalizedLabels() {
@@ -64,19 +65,10 @@ public class SettingsController extends ISettingsController {
     }
 
     private void writeSettings() {
-        ClassLoader classLoader = this.getClass().getClassLoader();
-        URL resource = classLoader.getResource("settings.properties");
-        String filepath = resource.toString().replace("file:/", "");
-        Properties properties = new Properties();
+        Properties properties = Utils.getSettingsProperties();
         properties.setProperty("language", String.valueOf(languageComboBox.getSelectionModel().getSelectedItem()));
         properties.setProperty("theme",String.valueOf(themeCombobox.getSelectionModel().getSelectedItem()));
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream(filepath);
-            properties.store(fileOutputStream, "");
-            fileOutputStream.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Utils.writeSettingsProperty(properties);
     }
 
     @FXML

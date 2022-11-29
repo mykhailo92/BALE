@@ -13,10 +13,22 @@ import java.util.Properties;
 
 public class Utils {
 
-    private static String getSettingsPath() {
+    public static String getSettingsPath() {
         ClassLoader classLoader = Utils.class.getClassLoader();
         URL resource = classLoader.getResource("settings.properties");
         return resource.toString().replace("file:/", "");
+    }
+
+    public static void writeSettingsProperty(Properties settings) {
+        ClassLoader classLoader = Utils.class.getClassLoader();
+        URL resource = classLoader.getResource("settings.properties");
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(resource.toString().replace("file:/", ""));
+            settings.store(fileOutputStream, "");
+            fileOutputStream.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static Document readXML(String filepath) {
@@ -34,11 +46,12 @@ public class Utils {
         try {
             FileInputStream fileInputStream = new FileInputStream(Utils.getSettingsPath());
             properties.load(fileInputStream);
-        }  catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return properties;
     }
+
     public static String getStylesheet(String themeName) {
         ClassLoader classLoader = Utils.class.getClassLoader();
         String resource = classLoader.getResource("css").toExternalForm();
