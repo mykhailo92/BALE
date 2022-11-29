@@ -1,6 +1,6 @@
 package de.bale.ui.startscreen;
 
-import de.bale.XMLUtils;
+import de.bale.Utils;
 import de.bale.language.Localizations;
 import de.bale.settings.SettingsController;
 import de.bale.ui.learningUnit.LearningUnitController;
@@ -46,7 +46,7 @@ public class StartScreenController implements IStartScreenController {
     }
 
     private void populateLearningUnitTable() {
-        Document document = XMLUtils.readXML(String.valueOf(this.getClass().getResource("learningUnitTable.xml")));
+        Document document = Utils.readXML(String.valueOf(this.getClass().getResource("learningUnitTable.xml")));
         NodeList learningUnitEntries = document.getElementsByTagName("LearningUnitEntry");
         for (int i = 0; i < learningUnitEntries.getLength(); i++) {
             Node item = learningUnitEntries.item(i);

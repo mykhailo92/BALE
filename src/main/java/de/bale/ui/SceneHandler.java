@@ -1,5 +1,6 @@
 package de.bale.ui;
 
+import de.bale.Utils;
 import de.bale.language.Localizations;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -7,13 +8,15 @@ import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SceneHandler {
 
-    FXMLLoader fxmlLoader;
-    Stage primaryStage;
-    static SceneHandler instance;
-
+    private FXMLLoader fxmlLoader;
+    private Stage primaryStage;
+    private static SceneHandler instance;
+    private String themeName;
     private SceneHandler() {
     }
 
@@ -34,7 +37,8 @@ public class SceneHandler {
         fxmlLoader.setLocation(controller.getClass().getResource(fxmlName));
         try {
             Scene primaryScene = new Scene(fxmlLoader.load());
-            ;
+            primaryScene.getStylesheets().add(Utils.getStylesheet(themeName));
+            primaryScene.getStylesheets().add(Utils.getStylesheet("fxmlStyle"));
             primaryStage.setTitle(Localizations.getLocalizedString(titleKey));
             primaryStage.setScene(primaryScene);
         } catch (IOException e) {
@@ -42,6 +46,10 @@ public class SceneHandler {
             return;
         }
         primaryStage.show();
+    }
+
+    public void setThemeName(String themeName) {
+        this.themeName = themeName;
     }
 
     public void setStageFullScreen(boolean fulLScreenEnabled) {

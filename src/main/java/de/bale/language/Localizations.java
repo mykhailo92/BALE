@@ -1,5 +1,7 @@
 package de.bale.language;
 
+import de.bale.Utils;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -69,12 +71,9 @@ public class Localizations {
     }
 
     public void loadLanguage() {
-        ClassLoader classLoader = this.getClass().getClassLoader();
-        URL resource = classLoader.getResource("settings.properties");
-        String filepath = resource.toString().replace("file:/", "");
         Properties properties = new Properties();
         try {
-            FileInputStream fileInputStream = new FileInputStream(filepath);
+            FileInputStream fileInputStream = new FileInputStream(Utils.getSettingsPath());
             properties.load(fileInputStream);
             String[] langProperty = properties.getProperty("language").split("_");
             Localizations.getInstance().setLocale(langProperty[0], langProperty[1]);

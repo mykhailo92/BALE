@@ -1,7 +1,6 @@
 package de.bale.settings;
 
 
-import de.bale.XMLUtils;
 import de.bale.language.Localizations;
 import de.bale.settings.interfaces.ISettingsController;
 import de.bale.ui.SceneHandler;
@@ -13,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import org.w3c.dom.Document;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

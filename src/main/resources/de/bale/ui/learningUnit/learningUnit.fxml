@@ -5,7 +5,7 @@
 <?import javafx.scene.web.WebView?>
 <?import java.net.URL?>
 
-<GridPane xmlns:fx="http://javafx.com/fxml" stylesheets="@../../../../css/defaultTheme.css, @../../../../css/fxmlStyle.css">
+<GridPane xmlns:fx="http://javafx.com/fxml">
 
     <columnConstraints>
         <ColumnConstraints percentWidth="100"/>
