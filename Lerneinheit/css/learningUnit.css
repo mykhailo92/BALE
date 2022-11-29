@@ -137,7 +137,8 @@ input[type=submit]:hover {
     vertical-align: bottom;
 }
 
-.chapter {}
+.chapter {
+}
 
 
 /*region Make Sections Visible...*/
@@ -217,7 +218,7 @@ input[type=submit]:hover {
 
 .preamble {
     position: absolute;
-    left:0;
+    left: 0;
     width: 98vw;
     height: 100%;
     background-color: var(--backgroundColor);
@@ -314,4 +315,8 @@ input[type=submit]:hover {
 #chapter-select a:active {
     color: var(--chapterSelectFontColor);
     text-decoration: none;
+}
+
+.chapter h1 {
+    padding-top: 20vh;
 }
