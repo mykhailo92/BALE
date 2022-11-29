@@ -7,11 +7,6 @@ import de.bale.ui.startscreen.StartScreenModel;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URL;
-import java.util.Properties;
-
 public class MainApplication extends Application {
     static String filePath = "";
 

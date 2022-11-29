@@ -1,7 +1,7 @@
 package de.bale.ui.learningUnit;
 
-import de.bale.ui.learningUnit.interfaces.ILearningUnitModel;
 import de.bale.ui.interfaces.Listener;
+import de.bale.ui.learningUnit.interfaces.ILearningUnitModel;
 import org.w3c.dom.Element;
 
 import java.util.LinkedList;

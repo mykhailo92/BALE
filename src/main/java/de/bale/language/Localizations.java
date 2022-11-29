@@ -2,9 +2,6 @@ package de.bale.language;
 
 import de.bale.Utils;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URL;
 import java.util.*;
 
 /**
