@@ -1,5 +1,6 @@
 package de.bale.language;
 
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
