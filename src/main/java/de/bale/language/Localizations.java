@@ -32,7 +32,6 @@ public class Localizations {
      */
     public void setLocale(String languageCode, String countryCode) {
         if (allowedLocales.contains(languageCode + "_" + countryCode)) {
-            System.out.println("Language is now:" + languageCode + countryCode);
             Locale.setDefault(new Locale(languageCode, countryCode));
             bundle = ResourceBundle.getBundle("localization/Lang");
         } else {
@@ -71,14 +70,8 @@ public class Localizations {
     }
 
     public void loadLanguage() {
-        Properties properties = new Properties();
-        try {
-            FileInputStream fileInputStream = new FileInputStream(Utils.getSettingsPath());
-            properties.load(fileInputStream);
-            String[] langProperty = properties.getProperty("language").split("_");
-            Localizations.getInstance().setLocale(langProperty[0], langProperty[1]);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Properties properties = Utils.getSettingsProperties();
+        String[] langProperty = properties.getProperty("language").split("_");
+        Localizations.getInstance().setLocale(langProperty[0], langProperty[1]);
     }
 }

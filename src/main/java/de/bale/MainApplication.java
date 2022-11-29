@@ -20,8 +20,7 @@ public class MainApplication extends Application {
         Localizations.getInstance().loadLanguage();
         SceneHandler sceneHandler = SceneHandler.getInstance();
         sceneHandler.setStage(stage);
-        sceneHandler.setThemeName("default");
-        sceneHandler.changeScene(new StartScreenController(), "startScreen.fxml", "title");
+        sceneHandler.changeScene(new StartScreenController(), "startScreen.fxml", "selectionTitle");
         ((StartScreenController) sceneHandler.getController()).setModel(new StartScreenModel());
         sceneHandler.setStageFullScreen(false);
     }

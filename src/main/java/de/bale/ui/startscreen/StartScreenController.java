@@ -94,7 +94,7 @@ public class StartScreenController implements IStartScreenController {
     @FXML
     public void openSettings() {
         SceneHandler sceneHandler = SceneHandler.getInstance();
-        sceneHandler.changeScene(new SettingsController(), "settings.fxml", "title");
+        sceneHandler.changeScene(new SettingsController(), "settings.fxml", "settingsTitle");
         sceneHandler.setStageFullScreen(false);
     }
 }

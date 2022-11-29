@@ -29,6 +29,10 @@ public class SettingsController extends ISettingsController {
     Button saveButton;
     @FXML
     Button openStartScreenButton;
+    @FXML
+    Label themeLabel;
+    @FXML
+    ComboBox themeCombobox;
 
     @FXML
     private void initialize() {
@@ -38,12 +42,16 @@ public class SettingsController extends ISettingsController {
         ObservableList<String> comboBoxList = FXCollections.observableArrayList(availableLanguages);
         languageComboBox.setItems(comboBoxList);
         languageComboBox.setValue(locale.getLocale());
+
+        themeCombobox.setItems(FXCollections.observableArrayList(SceneHandler.getInstance().getAllowedThemes()));
+        themeCombobox.getSelectionModel().select(0);
     }
 
     private void createLocalizedLabels() {
         languageLabel.setText(Localizations.getLocalizedString("language"));
         saveButton.setText(Localizations.getLocalizedString("saveButton"));
         openStartScreenButton.setText(Localizations.getLocalizedString("openStartScreenButton"));
+        themeLabel.setText(Localizations.getLocalizedString("themeLabel"));
     }
 
     @FXML
@@ -51,6 +59,7 @@ public class SettingsController extends ISettingsController {
         String[] selectedLanguage = languageComboBox.getSelectionModel().getSelectedItem().toString().split("_");
         Localizations.getInstance().setLocale(selectedLanguage[0],selectedLanguage[1]);
         createLocalizedLabels();
+        SceneHandler.getInstance().setThemeName(String.valueOf(themeCombobox.getSelectionModel().getSelectedItem()));
         writeSettings();
     }
 
@@ -60,6 +69,7 @@ public class SettingsController extends ISettingsController {
         String filepath = resource.toString().replace("file:/", "");
         Properties properties = new Properties();
         properties.setProperty("language", String.valueOf(languageComboBox.getSelectionModel().getSelectedItem()));
+        properties.setProperty("theme",String.valueOf(themeCombobox.getSelectionModel().getSelectedItem()));
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(filepath);
             properties.store(fileOutputStream, "");
@@ -72,7 +82,7 @@ public class SettingsController extends ISettingsController {
     @FXML
     public void openStartScreen() {
         SceneHandler sceneHandler = SceneHandler.getInstance();
-        sceneHandler.changeScene(new StartScreenController(), "startScreen.fxml", "title");
+        sceneHandler.changeScene(new StartScreenController(), "startScreen.fxml", "selectionTitle");
         ((StartScreenController) sceneHandler.getController()).setModel(new StartScreenModel());
         sceneHandler.setStageFullScreen(false);
     }

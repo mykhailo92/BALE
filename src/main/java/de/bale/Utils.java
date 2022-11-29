@@ -9,10 +9,11 @@ import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
+import java.util.Properties;
 
 public class Utils {
 
-    public static String getSettingsPath() {
+    private static String getSettingsPath() {
         ClassLoader classLoader = Utils.class.getClassLoader();
         URL resource = classLoader.getResource("settings.properties");
         return resource.toString().replace("file:/", "");
@@ -28,6 +29,16 @@ public class Utils {
         return domDoc;
     }
 
+    public static Properties getSettingsProperties() {
+        Properties properties = new Properties();
+        try {
+            FileInputStream fileInputStream = new FileInputStream(Utils.getSettingsPath());
+            properties.load(fileInputStream);
+        }  catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return properties;
+    }
     public static String getStylesheet(String themeName) {
         ClassLoader classLoader = Utils.class.getClassLoader();
         String resource = classLoader.getResource("css").toExternalForm();
