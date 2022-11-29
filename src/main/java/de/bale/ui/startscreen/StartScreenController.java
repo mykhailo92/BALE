@@ -45,6 +45,9 @@ public class StartScreenController implements IStartScreenController {
         });
     }
 
+    /**
+     * Populates the LearningUnitTable with th elearningUnitTable.xml
+     */
     private void populateLearningUnitTable() {
         Document document = Utils.readXML(String.valueOf(this.getClass().getResource("learningUnitTable.xml")));
         NodeList learningUnitEntries = document.getElementsByTagName("LearningUnitEntry");
@@ -70,6 +73,10 @@ public class StartScreenController implements IStartScreenController {
         openSettingsButton.setText(Localizations.getLocalizedString("openSettingsButton"));
     }
 
+    /**
+     * Opens a Learnign Unit which is selected in the LearningUnitTable
+     */
+    @FXML
     public void openLearningUnit() {
         LearningUnitEntry selectedEntry = learningUnitTable.getSelectionModel().getSelectedItem();
         if (selectedEntry == null) {
@@ -80,15 +87,6 @@ public class StartScreenController implements IStartScreenController {
         ILearningUnitModel learningUnitModel = new LearningUnitModel();
         ((LearningUnitController) sceneHandler.getController()).setModel(learningUnitModel);
         sceneHandler.setStageFullScreen(true);
-    }
-
-    public void changeLanguage() {
-        String language = Localizations.getInstance().getLocale().getLanguage();
-        switch (language) {
-            case "de" -> Localizations.getInstance().setLocale("en", "US");
-            case "en" -> Localizations.getInstance().setLocale("de", "DE");
-        }
-        createLocalizedLabels();
     }
 
     @FXML

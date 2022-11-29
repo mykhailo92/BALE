@@ -13,24 +13,37 @@ import java.util.Properties;
 
 public class Utils {
 
-    public static String getSettingsPath() {
+    /**
+     * @return The Resourcepath of settings.properties
+     */
+    private static String getSettingsPath() {
         ClassLoader classLoader = Utils.class.getClassLoader();
         URL resource = classLoader.getResource("settings.properties");
         return resource.toString().replace("file:/", "");
     }
 
-    public static void writeSettingsProperty(Properties settings) {
+    /**
+     * Writes a Property Object to a .properties File which is placed in the highest resources folder
+     * @param property Propertyobject which will be written.
+     * @param propertyName Name of the Propertyfile without file ending, e.g. settings
+     */
+    public static void writeProperty(Properties property, String propertyName) {
         ClassLoader classLoader = Utils.class.getClassLoader();
-        URL resource = classLoader.getResource("settings.properties");
+        URL resource = classLoader.getResource(propertyName+".properties");
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(resource.toString().replace("file:/", ""));
-            settings.store(fileOutputStream, "");
+            property.store(fileOutputStream, "");
             fileOutputStream.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * Reads an XML File to return a changable DOM Document
+     * @param filepath Complete Filepath, e.g. (...).class.getResource(ResourceBundle("learningUnitTable.xml")
+     * @return w3c DOM Document
+     */
     public static Document readXML(String filepath) {
         Document domDoc;
         try {
@@ -41,6 +54,9 @@ public class Utils {
         return domDoc;
     }
 
+    /**
+     * @return settings.properties as Property Object
+     */
     public static Properties getSettingsProperties() {
         Properties properties = new Properties();
         FileInputStream fileInputStream;
@@ -54,7 +70,12 @@ public class Utils {
         return properties;
     }
 
-    public static String getStylesheet(String themeName) {
+    /**
+     *
+     * @param themeName Name of the Stylesheet, e.g. "default" or "darcula"
+     * @return Path to the .css File, which can be used by the SceneHandler
+     */
+    public static String getStylesheetPath(String themeName) {
         ClassLoader classLoader = Utils.class.getClassLoader();
         String resource = classLoader.getResource("css").toExternalForm();
         return (resource + themeName + ".css");

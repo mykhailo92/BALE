@@ -66,6 +66,9 @@ public class Localizations {
 
     }
 
+    /**
+     * Load the Language from the settings.properties File
+     */
     public void loadLanguage() {
         Properties properties = Utils.getSettingsProperties();
         String[] langProperty = properties.getProperty("language").split("_");

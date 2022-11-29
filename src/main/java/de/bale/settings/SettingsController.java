@@ -52,7 +52,7 @@ public class SettingsController extends ISettingsController {
         themeLabel.setText(Localizations.getLocalizedString("themeLabel"));
     }
 
-    @FXML
+    @FXML @Override
     public void saveSettings() {
         String[] selectedLanguage = languageComboBox.getSelectionModel().getSelectedItem().toString().split("_");
         Localizations.getInstance().setLocale(selectedLanguage[0],selectedLanguage[1]);
@@ -61,14 +61,15 @@ public class SettingsController extends ISettingsController {
         writeSettings();
     }
 
-    private void writeSettings() {
+    @Override
+    protected void writeSettings() {
         Properties properties = Utils.getSettingsProperties();
         properties.setProperty("language", String.valueOf(languageComboBox.getSelectionModel().getSelectedItem()));
         properties.setProperty("theme",String.valueOf(themeCombobox.getSelectionModel().getSelectedItem()));
-        Utils.writeSettingsProperty(properties);
+        Utils.writeProperty(properties,"settings");
     }
 
-    @FXML
+    @FXML @Override
     public void openStartScreen() {
         SceneHandler sceneHandler = SceneHandler.getInstance();
         sceneHandler.changeScene(new StartScreenController(), "startScreen.fxml", "selectionTitle");

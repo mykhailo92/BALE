@@ -35,6 +35,12 @@ public class SceneHandler {
         return instance;
     }
 
+    /**
+     * Changes the primaryScene of the primaryStage
+     * @param controller Controller Object, e.g. LearningUnitController
+     * @param fxmlName Name of the associated .fxml File, e.g. learningUnit.fxml
+     * @param titleKey Key of the Title in the localization
+     */
     public void changeScene(Object controller, String fxmlName, String titleKey) {
         if (primaryStage == null) {
             System.err.println("Primary Stage not defined!");
@@ -45,8 +51,8 @@ public class SceneHandler {
         fxmlLoader.setLocation(controller.getClass().getResource(fxmlName));
         try {
             primaryScene = new Scene(fxmlLoader.load());
-            primaryScene.getStylesheets().add(Utils.getStylesheet(themeName));
-            primaryScene.getStylesheets().add(Utils.getStylesheet("fxmlStyle"));
+            primaryScene.getStylesheets().add(Utils.getStylesheetPath(themeName));
+            primaryScene.getStylesheets().add(Utils.getStylesheetPath("fxmlStyle"));
             primaryStage.setTitle(Localizations.getLocalizedString(titleKey));
             primaryStage.setScene(primaryScene);
         } catch (IOException e) {
@@ -56,15 +62,19 @@ public class SceneHandler {
         primaryStage.show();
     }
 
+    /**
+     * Sets the Themename an updated the primaryScene to use the Theme
+     * @param themeName Name of the Theme, must be added in the allowedThemes List!
+     */
     public void setThemeName(String themeName) {
         if (allowedThemes.contains(themeName)) {
             this.themeName = themeName;
-            if (primaryScene != null) {
-                primaryScene.getStylesheets().add(Utils.getStylesheet(themeName));
-            }
         } else {
             System.err.println("Themename:" + themeName + " is unknown! Loading Default Theme");
             this.themeName = "default";
+        }
+        if (primaryScene != null) {
+            primaryScene.getStylesheets().add(Utils.getStylesheetPath(themeName));
         }
     }
 
