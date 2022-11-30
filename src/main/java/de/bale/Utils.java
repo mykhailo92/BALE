@@ -6,7 +6,6 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -17,10 +16,10 @@ public class Utils {
     /**
      * @return The Resourcepath of settings.properties
      */
-    private static String getSettingsPath() throws NullPointerException {
+    private static String getSettingsPath() {
         ClassLoader classLoader = Utils.class.getClassLoader();
         URL resource = classLoader.getResource("settings.properties");
-        String returnvalue = String.valueOf(resource).replace("file:/", "");
+        String returnvalue = String.valueOf(resource).replace("file:/", "/");
         return returnvalue;
     }
 
@@ -68,12 +67,8 @@ public class Utils {
             fileInputStream = new FileInputStream(Utils.getSettingsPath());
             properties.load(fileInputStream);
             fileInputStream.close();
-        } catch (FileNotFoundException e) {
-            properties.setProperty("language", "de_DE");
-            properties.setProperty("theme", "default");
-            writeProperty(properties,"settings");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        }  catch (IOException e) {
+            e.printStackTrace();
         }
         return properties;
     }

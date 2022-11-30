@@ -70,8 +70,12 @@ public class Localizations {
      * Load the Language from the settings.properties File
      */
     public void loadLanguage() {
-        Properties properties = Utils.getSettingsProperties();
-        String[] langProperty = properties.getProperty("language").split("_");
-        Localizations.getInstance().setLocale(langProperty[0], langProperty[1]);
+        try {
+            Properties properties = Utils.getSettingsProperties();
+            String[] langProperty = properties.getProperty("language").split("_");
+            Localizations.getInstance().setLocale(langProperty[0], langProperty[1]);
+        } catch (NullPointerException npe) {
+            Localizations.getInstance().setLocale("de","DE");
+        }
     }
 }
