@@ -20,23 +20,21 @@ function onDragEnd(event) {
 
 function onDrop(event) {
     event.preventDefault();
-    event.target.style.background = '';
-    if (event.target.nodeName === 'IMG' || !isCorrect(event)) { return; }
-    answersMap.set(event.target.id, true);
-    let data = event.dataTransfer.getData("text");
-    event.target.appendChild(document.getElementById(data));
-}
-
-function onDragEnter(event) {
     const target = event.target.id;
     if (target.split('-').at(0) === draggedId.split('-').at(0)) { return; }
     if (target !== draggedId) {
         if (isCorrect(event)) {
             event.target.style.background = '#6ceb75';
+            answersMap.set(event.target.id, true);
         } else {
             event.target.style.background = '#d51c00';
         }
     }
+    let data = event.dataTransfer.getData("text");
+    event.target.appendChild(document.getElementById(data));
+}
+
+function onDragEnter(event) {
 }
 
 function onDragLeave(event) {
