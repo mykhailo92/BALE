@@ -6,6 +6,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -16,20 +17,22 @@ public class Utils {
     /**
      * @return The Resourcepath of settings.properties
      */
-    private static String getSettingsPath() {
+    private static String getSettingsPath() throws NullPointerException {
         ClassLoader classLoader = Utils.class.getClassLoader();
         URL resource = classLoader.getResource("settings.properties");
-        return resource.toString().replace("file:/", "");
+        String returnvalue = String.valueOf(resource).replace("file:/", "");
+        return returnvalue;
     }
 
     /**
      * Writes a Property Object to a .properties File which is placed in the highest resources folder
-     * @param property Propertyobject which will be written.
+     *
+     * @param property     Propertyobject which will be written.
      * @param propertyName Name of the Propertyfile without file ending, e.g. settings
      */
     public static void writeProperty(Properties property, String propertyName) {
         ClassLoader classLoader = Utils.class.getClassLoader();
-        URL resource = classLoader.getResource(propertyName+".properties");
+        URL resource = classLoader.getResource(propertyName + ".properties");
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(resource.toString().replace("file:/", ""));
             property.store(fileOutputStream, "");
@@ -41,6 +44,7 @@ public class Utils {
 
     /**
      * Reads an XML File to return a changable DOM Document
+     *
      * @param filepath Complete Filepath, e.g. (...).class.getResource(ResourceBundle("learningUnitTable.xml")
      * @return w3c DOM Document
      */
@@ -64,6 +68,10 @@ public class Utils {
             fileInputStream = new FileInputStream(Utils.getSettingsPath());
             properties.load(fileInputStream);
             fileInputStream.close();
+        } catch (FileNotFoundException e) {
+            properties.setProperty("language", "de_DE");
+            properties.setProperty("theme", "default");
+            writeProperty(properties,"settings");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -71,7 +79,6 @@ public class Utils {
     }
 
     /**
-     *
      * @param themeName Name of the Stylesheet, e.g. "default" or "darcula"
      * @return Path to the .css File, which can be used by the SceneHandler
      */
