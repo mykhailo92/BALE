@@ -4,6 +4,11 @@ const cards = [...document.querySelectorAll('.draggable-card')];
 const dropFields = [...document.querySelectorAll('.drop-field')];
 
 let draggedId;
+let answersMap = new Map([
+    ['drop-1', null],
+    ['drop-2', null],
+    ['drop-3', null],
+]);
 
 function onDragStart(event) {
     draggedId = event.target.id;
@@ -11,13 +16,13 @@ function onDragStart(event) {
 }
 
 function onDragEnd(event) {
-    event.target.style.background = '';
 }
 
 function onDrop(event) {
     event.preventDefault();
     event.target.style.background = '';
     if (event.target.nodeName === 'IMG' || !isCorrect(event)) { return; }
+    answersMap.set(event.target.id, true);
     let data = event.dataTransfer.getData("text");
     event.target.appendChild(document.getElementById(data));
 }
@@ -31,8 +36,6 @@ function onDragEnter(event) {
         } else {
             event.target.style.background = '#d51c00';
         }
-    } else {
-        event.target.style.background = '';
     }
 }
 
@@ -42,7 +45,6 @@ function onDragLeave(event) {
 
 function onDragOver(event) {
     event.preventDefault();
-
 }
 
 function isCorrect(event) {
@@ -63,3 +65,13 @@ function addEventListeners() {
 }
 
 addEventListeners();
+
+function save() {
+    for (const [key, value] of answersMap.entries()) {
+        if (value === true) {
+            document.getElementById("" + key).style.background = '#6ceb75';
+        } else {
+            document.getElementById("" + key).style.background = '#d51c00';
+        }
+    }
+}
