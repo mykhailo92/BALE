@@ -62,8 +62,7 @@ function playAudio(reading) {
     if (audio.autoplay && index === currentTrack) {
         stopAudioPlaying();
     } else if (audio.autoplay && index !== currentTrack) {
-        stopAudioPlaying();
-        startAudioPlaying(index);
+        return;
     } else {
         startAudioPlaying(index);
     }
@@ -74,18 +73,24 @@ function playAudio(reading) {
 }
 
 function startAudioPlaying(index) {
-    audio.src = 'audio/task_' + index + '.mp3';
-    audio.autoplay = true;
-    audio.currentTime = 0;
-    currentTrack = index;
-    document.getElementById('reading-button-' + index).innerText = "Vorlesen stoppen";
+    let delayInMilliseconds = 200;
+    setTimeout(function() {
+        audio.src = 'audio/task_' + index + '.mp3';
+        audio.autoplay = true;
+        audio.currentTime = 0;
+        currentTrack = index;
+        document.getElementById('reading-button-' + index).innerText = "Vorlesen stoppen";},
+        delayInMilliseconds);
 }
 
 function stopAudioPlaying() {
-    audio.pause();
-    audio.currentTime = 0;
-    audio.autoplay = false;
-    document.getElementById('reading-button-' + currentTrack).innerText = "Vorlesen";
+    let delayInMilliseconds = 200;
+    setTimeout(function() {
+            audio.pause();
+            audio.currentTime = 0;
+            audio.autoplay = false;
+            document.getElementById('reading-button-' + currentTrack).innerText = "Vorlesen";},
+        delayInMilliseconds);
 }
 
 function getControlLabels() {
