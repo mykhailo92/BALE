@@ -65,9 +65,17 @@ public class Utils {
             properties.load(resource);
             resource.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("File not found: " + getWorkingDir()+"/settings.properties. Creating default Settings!");
+            createDefaultSettingsProperties();
         }
         return properties;
+    }
+
+    private static void createDefaultSettingsProperties() {
+        Properties defaultProperties = new Properties();
+        defaultProperties.setProperty("language","de_DE");
+        defaultProperties.setProperty("theme","default");
+        writeProperty(defaultProperties,"settigns");
     }
 
     /**
