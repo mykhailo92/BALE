@@ -3,6 +3,8 @@ const cards = [...document.querySelectorAll('.draggable-card')];
 
 const dropFields = [...document.querySelectorAll('.drop-field')];
 
+const dropStarts = [...document.querySelectorAll('.drop-start')];
+
 let answersMap = new Map([
     ['drop-1', false],
     ['drop-2', false],
@@ -22,8 +24,14 @@ function onDragEnd(event) {
 function onDrop(event) {
     event.preventDefault();
     const target = event.target.id;
-    if (target.split('-').at(0) === draggedId.split('-').at(0)) { return; }
-    if (target !== draggedId) {
+
+    if (target.split('-').at(0) === draggedId.split('-').at(0)) {
+        return;
+    }
+    else if (event.target.className === 'drop-start') {
+        event.target.style.background = '';
+    }
+    else if (target !== draggedId) {
         if (isCorrect(event)) {
             event.target.style.background = '#6ceb75';
             answersMap.set(target, true);
@@ -40,7 +48,7 @@ function onDragEnter(event) {
 }
 
 function onDragLeave(event) {
-    event.target.style.background = '';
+   // event.target.style.background = '';
 }
 
 function onDragOver(event) {
@@ -64,7 +72,10 @@ function addEventListeners() {
         dropField.addEventListener('dragleave', onDragLeave);
         dropField.addEventListener('dragover', onDragOver);
     });
-}
+    dropStarts.forEach((dropStart) => {
+        dropStart.addEventListener('drop', onDrop);
+        dropStart.addEventListener('dragover', allowDrop);
+    });}
 
 addEventListeners();
 
@@ -72,15 +83,9 @@ function allowDrop(event) {
     event.preventDefault();
 }
 
-function drop(event) {
-    event.preventDefault();
-    let data = event.dataTransfer.getData("text");
-    event.target.appendChild(document.getElementById(data));
-}
-
 function save() {
     for (const [key, value] of answersMap.entries()) {
-        if (value === true) {
+        if (value === true && document.getElementById(key).hasChildNodes()) {
             document.getElementById(key).style.background = '#6ceb75';
         } else {
             document.getElementById(key).style.background = '#d51c00';
