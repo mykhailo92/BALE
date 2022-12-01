@@ -16,8 +16,8 @@ public class Utils {
     /**
      * @return The Resourcepath of settings.properties
      */
-    private static String getWorkingDir() {
-        return System.getProperty("user.dir");
+    private static String getSettingsDir() {
+        return System.getProperty("user.dir")+"/bale/";
 
     }
 
@@ -29,7 +29,7 @@ public class Utils {
      */
     public static void writeProperty(Properties property, String propertyName) {
         try {
-            OutputStream fileOutputStream = new FileOutputStream(getWorkingDir() + "/settings.properties");
+            OutputStream fileOutputStream = new FileOutputStream(getSettingsDir() + "/settings.properties");
 //            FileOutputStream fileOutputStream = new FileOutputStream(resource.toString().replace("file:/", ""));
             property.store(fileOutputStream, "");
             fileOutputStream.close();
@@ -47,7 +47,7 @@ public class Utils {
     public static Document readXML(String filepath) {
         Document domDoc;
         try {
-            domDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(getWorkingDir() +"/"+ filepath);
+            domDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(getSettingsDir() +"/"+ filepath);
         } catch (SAXException | IOException | ParserConfigurationException e) {
             throw new RuntimeException(e);
         }
@@ -61,11 +61,11 @@ public class Utils {
         Properties properties = new Properties();
         FileInputStream fileInputStream;
         try {
-            FileInputStream resource = new FileInputStream(getWorkingDir() + "/settings.properties");
+            FileInputStream resource = new FileInputStream(getSettingsDir() + "/settings.properties");
             properties.load(resource);
             resource.close();
         } catch (IOException e) {
-            System.err.println("File not found: " + getWorkingDir()+"/settings.properties. Creating default Settings!");
+            System.err.println("File not found: " + getSettingsDir()+"/settings.properties. Creating default Settings!");
             createDefaultSettingsProperties();
         }
         return properties;
