@@ -5,10 +5,13 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.*;
 import java.util.Properties;
 
 public class Utils {
@@ -17,7 +20,7 @@ public class Utils {
      * @return The Resourcepath of settings.properties
      */
     private static String getSettingsDir() {
-        return System.getProperty("user.dir")+"/bale/";
+        return System.getProperty("user.dir") + "/bale/";
 
     }
 
@@ -30,10 +33,25 @@ public class Utils {
     public static void writeProperty(Properties property, String propertyName) {
         try {
             OutputStream fileOutputStream = new FileOutputStream(getSettingsDir() + "/settings.properties");
-//            FileOutputStream fileOutputStream = new FileOutputStream(resource.toString().replace("file:/", ""));
             property.store(fileOutputStream, "");
             fileOutputStream.close();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void writeXML(Document doc, String filename) {
+        try {
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            DOMSource source = new DOMSource(doc);
+            FileOutputStream fileOutputStream = new FileOutputStream(getSettingsDir() + "/" + filename);
+            StreamResult result = new StreamResult(fileOutputStream);
+            transformer.transform(source, result);
+        } catch (FileNotFoundException | TransformerException e) {
             e.printStackTrace();
         }
     }
@@ -47,7 +65,10 @@ public class Utils {
     public static Document readXML(String filepath) {
         Document domDoc;
         try {
-            domDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(getSettingsDir() +"/"+ filepath);
+            domDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(getSettingsDir() + "/" + filepath);
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + getSettingsDir() + "/" + filepath);
+            return null;
         } catch (SAXException | IOException | ParserConfigurationException e) {
             throw new RuntimeException(e);
         }
@@ -65,7 +86,7 @@ public class Utils {
             properties.load(resource);
             resource.close();
         } catch (IOException e) {
-            System.err.println("File not found: " + getSettingsDir()+"/settings.properties. Creating default Settings!");
+            System.err.println("File not found: " + getSettingsDir() + "/settings.properties. Creating default Settings!");
             createDefaultSettingsProperties();
         }
         return properties;
@@ -73,9 +94,9 @@ public class Utils {
 
     private static void createDefaultSettingsProperties() {
         Properties defaultProperties = new Properties();
-        defaultProperties.setProperty("language","de_DE");
-        defaultProperties.setProperty("theme","default");
-        writeProperty(defaultProperties,"settigns");
+        defaultProperties.setProperty("language", "de_DE");
+        defaultProperties.setProperty("theme", "default");
+        writeProperty(defaultProperties, "settigns");
     }
 
     /**
