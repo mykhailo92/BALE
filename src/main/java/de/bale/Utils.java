@@ -8,7 +8,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
+import java.io.OutputStream;
 import java.util.Properties;
 
 public class Utils {
@@ -16,11 +16,9 @@ public class Utils {
     /**
      * @return The Resourcepath of settings.properties
      */
-    private static String getSettingsPath() {
-        ClassLoader classLoader = Utils.class.getClassLoader();
-        URL resource = classLoader.getResource("settings.properties");
-        String returnvalue = String.valueOf(resource).replace("file:/", "/");
-        return returnvalue;
+    private static String getWorkingDir() {
+        return System.getProperty("user.dir");
+
     }
 
     /**
@@ -30,14 +28,13 @@ public class Utils {
      * @param propertyName Name of the Propertyfile without file ending, e.g. settings
      */
     public static void writeProperty(Properties property, String propertyName) {
-        ClassLoader classLoader = Utils.class.getClassLoader();
-        URL resource = classLoader.getResource(propertyName + ".properties");
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream(resource.toString().replace("file:/", ""));
+            OutputStream fileOutputStream = new FileOutputStream(getWorkingDir() + "/settings.properties");
+//            FileOutputStream fileOutputStream = new FileOutputStream(resource.toString().replace("file:/", ""));
             property.store(fileOutputStream, "");
             fileOutputStream.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
@@ -50,7 +47,7 @@ public class Utils {
     public static Document readXML(String filepath) {
         Document domDoc;
         try {
-            domDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(filepath);
+            domDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(getWorkingDir() +"/"+ filepath);
         } catch (SAXException | IOException | ParserConfigurationException e) {
             throw new RuntimeException(e);
         }
@@ -64,10 +61,10 @@ public class Utils {
         Properties properties = new Properties();
         FileInputStream fileInputStream;
         try {
-            fileInputStream = new FileInputStream(Utils.getSettingsPath());
-            properties.load(fileInputStream);
-            fileInputStream.close();
-        }  catch (IOException e) {
+            FileInputStream resource = new FileInputStream(getWorkingDir() + "/settings.properties");
+            properties.load(resource);
+            resource.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return properties;
@@ -79,7 +76,7 @@ public class Utils {
      */
     public static String getStylesheetPath(String themeName) {
         ClassLoader classLoader = Utils.class.getClassLoader();
-        String resource = classLoader.getResource("css").toExternalForm();
+        String resource = classLoader.getResource("css/").toExternalForm();
         return (resource + themeName + ".css");
     }
 }

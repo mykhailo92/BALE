@@ -49,7 +49,7 @@ public class StartScreenController implements IStartScreenController {
      * Populates the LearningUnitTable with th elearningUnitTable.xml
      */
     private void populateLearningUnitTable() {
-        Document document = Utils.readXML(String.valueOf(this.getClass().getResource("learningUnitTable.xml")));
+        Document document = Utils.readXML("learningUnitTable.xml");
         NodeList learningUnitEntries = document.getElementsByTagName("LearningUnitEntry");
         for (int i = 0; i < learningUnitEntries.getLength(); i++) {
             Node item = learningUnitEntries.item(i);
