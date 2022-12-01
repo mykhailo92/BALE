@@ -3,16 +3,17 @@ const cards = [...document.querySelectorAll('.draggable-card')];
 
 const dropFields = [...document.querySelectorAll('.drop-field')];
 
-let draggedId;
 let answersMap = new Map([
-    ['drop-1', null],
-    ['drop-2', null],
-    ['drop-3', null],
+    ['drop-1', false],
+    ['drop-2', false],
+    ['drop-3', false],
 ]);
+
+let draggedId;
 
 function onDragStart(event) {
     draggedId = event.target.id;
-    event.dataTransfer.setData("text", event.target.id);
+    event.dataTransfer.setData("text", draggedId);
 }
 
 function onDragEnd(event) {
@@ -25,9 +26,10 @@ function onDrop(event) {
     if (target !== draggedId) {
         if (isCorrect(event)) {
             event.target.style.background = '#6ceb75';
-            answersMap.set(event.target.id, true);
+            answersMap.set(target, true);
         } else {
             event.target.style.background = '#d51c00';
+            answersMap.set(target, false);
         }
     }
     let data = event.dataTransfer.getData("text");
@@ -42,7 +44,9 @@ function onDragLeave(event) {
 }
 
 function onDragOver(event) {
-    event.preventDefault();
+    if (!event.target.hasChildNodes()) {
+        event.preventDefault();
+    }
 }
 
 function isCorrect(event) {
@@ -64,12 +68,22 @@ function addEventListeners() {
 
 addEventListeners();
 
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+function drop(event) {
+    event.preventDefault();
+    let data = event.dataTransfer.getData("text");
+    event.target.appendChild(document.getElementById(data));
+}
+
 function save() {
     for (const [key, value] of answersMap.entries()) {
         if (value === true) {
-            document.getElementById("" + key).style.background = '#6ceb75';
+            document.getElementById(key).style.background = '#6ceb75';
         } else {
-            document.getElementById("" + key).style.background = '#d51c00';
+            document.getElementById(key).style.background = '#d51c00';
         }
     }
 }

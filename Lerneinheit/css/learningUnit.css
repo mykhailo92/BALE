@@ -258,15 +258,26 @@ input[type=submit]:hover {
 
 .draggable-card {
     height: 45px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .drop-field {
     float: left;
     align-content: center;
-    font-size: 35px;
     width: 200px;
     height: 45px;
     padding: 8px;
+    border: 1px solid #aaaaaa;
+}
+
+.drop-start {
+    float: right;
+    min-width: 165px;
+    height: 45px;
+    padding: 8px;
+    margin: 5px;
     border: 1px solid #aaaaaa;
 }
 
