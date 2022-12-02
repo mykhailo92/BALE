@@ -215,8 +215,26 @@
             Richtung der Lichtstrahl geht.<br>
         </div>
         <div class="task-img">
-            <img src="testImages/Tim_Taschenlampe.png" alt=""/>
-            <img src="testImages/Tuer.png" alt=""/>
+            <img class="tim-flashlight" src="testImages/Tim_Taschenlampe.png" alt=""/>
+            <div class="dropdown" id="dropdown-1">
+                <label>
+                    <input class="text-box" id="text-box-1" type="text" placeholder="Wähle die Richtung des Lichts &#8644;" readonly>
+                </label>
+                <div class="options">
+                    <div onclick="show('right', 1)">————————></div>
+                    <div onclick="show('left', 1)"><————————</div>
+                </div>
+            </div>
+            <div class="dropdown" id="dropdown-2">
+                <label>
+                    <input class="text-box" id="text-box-2" type="text" placeholder="Wähle die Richtung des Lichts &#8644;" readonly>
+                </label>
+                <div class="options">
+                    <div onclick="show('right', 2)">————————></div>
+                    <div onclick="show('left', 2)"><————————</div>
+                </div>
+            </div>
+            <img class="door" src="testImages/Tuer.png" alt=""/>
         </div>
     </div>
     <div class="section">
@@ -232,5 +250,6 @@
 </div>
 </body>
 </html>
-<script src="learningUnit.js"></script>
-<script src="dragAndDrop.js"></script>
+<script src="js/learningUnit.js"></script>
+<script src="js/dragAndDrop.js"></script>
+<script src="js/dropDown.js"></script>
