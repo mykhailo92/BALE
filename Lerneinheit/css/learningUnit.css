@@ -352,21 +352,19 @@ input[type=submit]:hover {
 
 .dropdown {
     position: relative;
-    width: 390px;
-    height: 45px;
+    width: 440px;
+    height: 50px;
+    margin: 20px;
+    left: 340px;
 }
 
 #dropdown-1 {
-    transform: rotate(8deg);
-    margin: 20px;
-    left: 340px;
+    transform: rotate(7deg);
     top: 145px;
 }
 
 #dropdown-2 {
-    transform: rotate(-8deg);
-    margin: 20px;
-    left: 340px;
+    transform: rotate(-7deg);
     top: 220px;
 }
 
@@ -402,7 +400,6 @@ input[type=submit]:hover {
     font-size: 1.2em;
     border: none;
     outline: none;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
     padding: 12px 20px;
     border-radius: 10px;
 }
@@ -442,7 +439,7 @@ input[type=submit]:hover {
 .door {
     float: right;
     height: 250px;
-    margin-right: 130px;
+    margin-right: 110px;
 }
 
 .task-img {
