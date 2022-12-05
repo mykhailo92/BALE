@@ -1,8 +1,8 @@
 package de.bale.ui.startscreen;
 
-import de.bale.Utils;
 import de.bale.language.Localizations;
 import de.bale.settings.SettingsController;
+import de.bale.storage.XMLUtils;
 import de.bale.ui.SceneHandler;
 import de.bale.ui.learningUnit.LearningUnitController;
 import de.bale.ui.learningUnit.LearningUnitModel;
@@ -63,7 +63,7 @@ public class StartScreenController implements IStartScreenController {
      * Populates the LearningUnitTable with th elearningUnitTable.xml
      */
     private void populateLearningUnitTable() {
-        Document document = Utils.readXML("learningUnitTable.xml");
+        Document document = XMLUtils.readXML("learningUnitTable.xml");
         NodeList learningUnitEntries = document.getElementsByTagName("LearningUnitEntry");
         for (int i = 0; i < learningUnitEntries.getLength(); i++) {
             Node item = learningUnitEntries.item(i);
@@ -153,7 +153,7 @@ public class StartScreenController implements IStartScreenController {
                 rootElement.appendChild(entry);
             }
             document.appendChild(rootElement);
-            Utils.writeXML(document, "learningUnitTable.xml");
+            XMLUtils.writeXML(document, "learningUnitTable.xml");
         } catch (ParserConfigurationException e) {
             throw new RuntimeException(e);
         }

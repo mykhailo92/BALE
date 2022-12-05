@@ -2,6 +2,7 @@ package de.bale.ui;
 
 import de.bale.Utils;
 import de.bale.language.Localizations;
+import de.bale.storage.PropertiesUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
@@ -29,7 +30,7 @@ public class SceneHandler {
     public static SceneHandler getInstance() {
         if (instance == null) {
             instance = new SceneHandler();
-            Properties properties = Utils.getSettingsProperties();
+            Properties properties = PropertiesUtils.getSettingsProperties();
             instance.setThemeName(properties.getProperty("theme"));
         }
         return instance;

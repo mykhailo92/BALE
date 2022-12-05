@@ -1,6 +1,6 @@
 package de.bale.language;
 
-import de.bale.Utils;
+import de.bale.storage.PropertiesUtils;
 
 import java.util.*;
 
@@ -71,7 +71,7 @@ public class Localizations {
      */
     public void loadLanguage() {
         try {
-            Properties properties = Utils.getSettingsProperties();
+            Properties properties = PropertiesUtils.getSettingsProperties();
             String[] langProperty = properties.getProperty("language").split("_");
             Localizations.getInstance().setLocale(langProperty[0], langProperty[1]);
         } catch (NullPointerException npe) {

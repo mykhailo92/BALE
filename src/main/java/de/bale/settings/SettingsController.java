@@ -1,9 +1,9 @@
 package de.bale.settings;
 
 
-import de.bale.Utils;
 import de.bale.language.Localizations;
 import de.bale.settings.interfaces.ISettingsController;
+import de.bale.storage.PropertiesUtils;
 import de.bale.ui.SceneHandler;
 import de.bale.ui.startscreen.StartScreenController;
 import de.bale.ui.startscreen.StartScreenModel;
@@ -63,10 +63,10 @@ public class SettingsController extends ISettingsController {
 
     @Override
     protected void writeSettings() {
-        Properties properties = Utils.getSettingsProperties();
+        Properties properties = PropertiesUtils.getSettingsProperties();
         properties.setProperty("language", String.valueOf(languageComboBox.getSelectionModel().getSelectedItem()));
         properties.setProperty("theme",String.valueOf(themeCombobox.getSelectionModel().getSelectedItem()));
-        Utils.writeProperty(properties,"settings");
+        PropertiesUtils.writeProperty(properties,"settings");
     }
 
     @FXML @Override
