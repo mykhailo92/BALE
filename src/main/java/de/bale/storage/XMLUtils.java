@@ -2,8 +2,10 @@ package de.bale.storage;
 
 import de.bale.Utils;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
@@ -52,5 +54,29 @@ public class XMLUtils extends Utils {
             throw new RuntimeException(e);
         }
         return domDoc;
+    }
+
+    public static Document createDocument() {
+        DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
+        try {
+            DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
+            return documentBuilder.newDocument();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Element createTag(Document document, Element rootElement, String name) {
+        Element newTag = document.createElement(name);
+        rootElement.appendChild(newTag);
+        return newTag;
+    }
+
+    public static Element createTag(Document document, Element rootElement, String name, String textContent) {
+        Element newTag = document.createElement(name);
+        newTag.setTextContent(textContent);
+        rootElement.appendChild(newTag);
+        return newTag;
     }
 }

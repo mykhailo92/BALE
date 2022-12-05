@@ -24,9 +24,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.util.Optional;
 
 public class StartScreenController implements IStartScreenController {
@@ -120,6 +117,9 @@ public class StartScreenController implements IStartScreenController {
         sceneHandler.setStageFullScreen(false);
     }
 
+    /**
+     * Creates a new Dialog to add a new Entry to the LearningUnitTable
+     */
     @FXML
     public void addNewEntry() {
         CreateEntryDialog dialog = new CreateEntryDialog(Localizations.getLocalizedString("newEntryButton"));
@@ -132,30 +132,19 @@ public class StartScreenController implements IStartScreenController {
         });
     }
 
+    /**
+     * Saves the Table Using XMLUtils
+     */
     @FXML
     public void saveTableView() {
-        System.out.println("SAVING");
-        try {
-            DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
-            Document document = documentBuilder.newDocument();
-            Element rootElement = document.createElement("LearningUnitEntries");
-            for (LearningUnitEntry learningUnitEntry : learningUnitTable.getItems()) {
-                Element entry = document.createElement("LearningUnitEntry");
-                Element name = document.createElement("name");
-                Element path = document.createElement("path");
-
-                name.setTextContent(learningUnitEntry.getLearningUnitTitle());
-                path.setTextContent(learningUnitEntry.getLearningUnitPath());
-                entry.appendChild(name);
-                entry.appendChild(path);
-
-                rootElement.appendChild(entry);
-            }
-            document.appendChild(rootElement);
-            XMLUtils.writeXML(document, "learningUnitTable.xml");
-        } catch (ParserConfigurationException e) {
-            throw new RuntimeException(e);
+        Document document = XMLUtils.createDocument();
+        Element rootElement = document.createElement("LearningUnitEntries");
+        for (LearningUnitEntry learningUnitEntry : learningUnitTable.getItems()) {
+            Element entry = XMLUtils.createTag(document, rootElement, "LearningUnitEntry");
+            XMLUtils.createTag(document, entry, "name", learningUnitEntry.getLearningUnitTitle());
+            XMLUtils.createTag(document, entry, "path", learningUnitEntry.getLearningUnitPath());
         }
+        document.appendChild(rootElement);
+        XMLUtils.writeXML(document, "learningUnitTable.xml");
     }
 }
