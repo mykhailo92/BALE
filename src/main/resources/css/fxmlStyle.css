@@ -5,15 +5,17 @@
     -fx-background-insets: 5px;
     -fx-background-color: -fx-mainButtonBackgroundColor;
     -fx-background-radius: 20px;
-    -fx-effect: DropShadow(gaussian, -fx-mainButtonShadowColor,10,0.5,0,5);
+    -fx-effect: DropShadow(gaussian, -fx-mainButtonShadowColor, 10, 0.5, 0, 5);
     -fx-text-fill: -fx-mainButtonTextColor;
 }
+
 .bottom-nav-button:hover {
     -fx-background-color: -fx-mainButtonHovorColor;
 }
+
 .bottom-nav-button:pressed {
     -fx-translate-y: 3;
-    -fx-effect: DropShadow(gaussian, -fx-mainButtonShadowColor,1,1,0,2);
+    -fx-effect: DropShadow(gaussian, -fx-mainButtonShadowColor, 1, 1, 0, 2);
 }
 
 .bottom-nav {
@@ -41,4 +43,62 @@
 
 .root-pane Label {
     -fx-text-fill: -fx-globalFontColor;
+}
+
+.select-table .table-cell {
+    -fx-text-fill: -fx-globalFontColor;
+}
+
+.select-table .table-cell:odd {
+    -fx-background-color: -fx-backgroundColor;
+}
+
+.select-table .table-cell:even {
+    -fx-background-color: -fx-textAreaBackgroundColor;
+}
+
+.select-table .column-header {
+    -fx-background-color: linear-gradient(to bottom, -fx-tableViewFirstGradient, -fx-tableViewSecondGradient);;
+}
+
+.select-table .column-header .label {
+    -fx-text-fill: -fx-globalFontColor;
+}
+
+.select-table .table-row-cell:selected .table-cell {
+    -fx-background-color: -fx-selectColor;
+}
+
+.dialog-pane {
+    -fx-background-color: -fx-backgroundColor;
+}
+
+.dialog-pane .label {
+    -fx-text-fill: -fx-globalFontColor;
+}
+
+.dialog-pane .text-field {
+    -fx-background-color:  -fx-textAreaBackgroundColor;
+    -fx-text-fill: -fx-globalFontColor;
+    -fx-border-color: -fx-taskBorderColor;
+}
+
+.dialog-pane .button {
+    -fx-font-size: 1.5em;
+    -fx-padding: 0.3em 1em 0.3em 1em;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+    -fx-background-color: -fx-mainButtonBackgroundColor;
+    -fx-background-radius: 20px;
+    -fx-effect: DropShadow(gaussian, -fx-mainButtonShadowColor, 10, 0.5, 0, 5);
+    -fx-text-fill: -fx-mainButtonTextColor;
+}
+
+.dialog-pane .button:hover {
+    -fx-background-color: -fx-mainButtonHovorColor;
+}
+
+.dialog-pane .button:pressed {
+    -fx-translate-y: 3;
+    -fx-effect: DropShadow(gaussian, -fx-mainButtonShadowColor, 1, 1, 0, 2);
 }

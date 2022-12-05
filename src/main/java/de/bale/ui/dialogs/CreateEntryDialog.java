@@ -1,6 +1,8 @@
 package de.bale.ui.dialogs;
 
+import de.bale.Utils;
 import de.bale.language.Localizations;
+import de.bale.ui.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -10,6 +12,10 @@ import javafx.util.Pair;
 
 import java.io.File;
 
+/**
+ * Creates a Entry Dialog which returns a Pair (String,String) of a new LearningUnitEntry
+ * The Key is the Name of the Unit and the Value is the Path
+ */
 public class CreateEntryDialog extends Dialog {
 
     private Stage stage;
@@ -31,6 +37,10 @@ public class CreateEntryDialog extends Dialog {
         grid.setHgap(5);
         grid.setVgap(5);
         pathField.setEditable(false);
+
+        getDialogPane().getStyleClass().add("myDialog");
+        getDialogPane().getStylesheets().add(Utils.getStylesheetPath(SceneHandler.getInstance().getThemeName()));
+        getDialogPane().getStylesheets().add(Utils.getStylesheetPath("fxmlStyle"));
 
         //Preventing to add empty Fields
         finishButton.addEventFilter(ActionEvent.ACTION, actionEvent -> {

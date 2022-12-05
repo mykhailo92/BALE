@@ -17,8 +17,10 @@
     -fx-informationBackgroundColor: #ff79c6;
     -fx-informationBorderColor: 	#bd93f9;
 
-
+    -fx-selectColor: #6272a4;
     -fx-dragableCardBackgroundColor: #50fa7b;
 
     -fx-chapterSelectFontColor: #8be9fd;
+    -fx-tableViewFirstGradient: #44475a;
+    -fx-tableViewSecondGradient: #282a36;
 }

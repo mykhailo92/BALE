@@ -1,4 +1,4 @@
- * {
+* {
     -fx-backgroundColor: white;
     -fx-globalFontColor: black;
 
@@ -16,7 +16,10 @@
     -fx-informationBackgroundColor: #ffe4b5;
     -fx-informationBorderColor: darkgreen;
 
+    -fx-selectColor: lightblue;
     -fx-dragableCardBackgroundColor: darkblue;
 
     -fx-chapterSelectFontColor: blue;
+    -fx-tableViewFirstGradient: white;
+    -fx-tableViewSecondGradient: lightgray;
 }
