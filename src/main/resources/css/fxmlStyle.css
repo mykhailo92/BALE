@@ -102,3 +102,9 @@
     -fx-translate-y: 3;
     -fx-effect: DropShadow(gaussian, -fx-mainButtonShadowColor, 1, 1, 0, 2);
 }
+
+.dialog-pane .header-panel {
+    -fx-background-color:  -fx-backgroundColor;
+    -fx-border-color: -fx-taskBorderColor;
+    -fx-border-style: hidden hidden solid hidden;
+}

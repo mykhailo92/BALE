@@ -44,10 +44,13 @@ public class PropertiesUtils extends Utils {
         return properties;
     }
 
+    /**+
+     * Creates and Writes a default settings.properties
+     */
     private static void createDefaultSettingsProperties() {
         Properties defaultProperties = new Properties();
         defaultProperties.setProperty("language", "de_DE");
         defaultProperties.setProperty("theme", "default");
-        writeProperty(defaultProperties, "settigns");
+        writeProperty(defaultProperties, "settings");
     }
 }

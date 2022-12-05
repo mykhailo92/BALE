@@ -56,6 +56,10 @@ public class XMLUtils extends Utils {
         return domDoc;
     }
 
+    /**
+     * Creates an empty Document
+     * @return empty Document which can be used to build an XML
+     */
     public static Document createDocument() {
         DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
         try {
@@ -67,12 +71,27 @@ public class XMLUtils extends Utils {
         }
     }
 
+    /**
+
+     * @param document Document in which the Tag should be created
+     * @param rootElement Element which the new Element should be part of
+     * @param name Name of the Tag which will be created
+     * @return The new Tag which was created
+     */
     public static Element createTag(Document document, Element rootElement, String name) {
         Element newTag = document.createElement(name);
         rootElement.appendChild(newTag);
         return newTag;
     }
 
+    /**
+     * Creates a new XML Tag
+     * @param document Document in which the Tag should be created
+     * @param rootElement Element which the new Element should be part of
+     * @param name  Name of the Tag which will be created
+     * @param textContent TextContent of the new Element
+     * @return The new Tag which was created
+     */
     public static Element createTag(Document document, Element rootElement, String name, String textContent) {
         Element newTag = document.createElement(name);
         newTag.setTextContent(textContent);

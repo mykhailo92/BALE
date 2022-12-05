@@ -36,6 +36,9 @@ abstract class BaseEntryDialog extends Dialog {
         setupVisuals(windowName);
     }
 
+    /**
+     * Initializes components shared between all *EntryDialog, such as TextFields, Buttons, FileChooser and Events
+     */
     private void initShared() {
         titleField = new TextField();
         pathField = new TextField();
@@ -56,6 +59,21 @@ abstract class BaseEntryDialog extends Dialog {
             }
         });
         finishButton.addEventFilter(ActionEvent.ACTION, this::checkEmptyFields);
+    }
+
+    /**
+     * Setups the Visual Elements such as WindowName, Stylesheets and Layout
+     *
+     * @param windowName Name of the Window
+     */
+    private void setupVisuals(String windowName) {
+        setTitle(windowName);
+        grid.setHgap(5);
+        grid.setVgap(5);
+        pathField.setEditable(false);
+
+        getDialogPane().getStylesheets().add(Utils.getStylesheetPath(SceneHandler.getInstance().getThemeName()));
+        getDialogPane().getStylesheets().add(Utils.getStylesheetPath("fxmlStyle"));
 
         grid.add(new Label(Localizations.getLocalizedString("nameColumn")), 0, 0);
         grid.add(titleField, 1, 0);
@@ -66,20 +84,16 @@ abstract class BaseEntryDialog extends Dialog {
         getDialogPane().setContent(grid);
     }
 
-    private void setupVisuals(String windowName) {
-        setTitle(windowName);
-        grid.setHgap(5);
-        grid.setVgap(5);
-        pathField.setEditable(false);
-
-        getDialogPane().getStyleClass().add("myDialog");
-        getDialogPane().getStylesheets().add(Utils.getStylesheetPath(SceneHandler.getInstance().getThemeName()));
-        getDialogPane().getStylesheets().add(Utils.getStylesheetPath("fxmlStyle"));
-    }
-
+    /**
+     * Checks if one of the Fields is empty. If that is the Case, show the User an Errormessage
+     *
+     * @param actionEvent Event which created this call
+     */
     protected void checkEmptyFields(ActionEvent actionEvent) {
         if (titleField.getText().equals("") || pathField.getText().equals("")) {
             Alert emptyFields = new Alert(Alert.AlertType.ERROR);
+            emptyFields.getDialogPane().getStylesheets().add(Utils.getStylesheetPath(SceneHandler.getInstance().getThemeName()));
+            emptyFields.getDialogPane().getStylesheets().add(Utils.getStylesheetPath("fxmlStyle"));
             emptyFields.show();
             emptyFields.setHeaderText(Localizations.getLocalizedString("newEntryErrorEmptyHeader"));
             emptyFields.setContentText(Localizations.getLocalizedString("newEntryErrorEmptyContent"));
