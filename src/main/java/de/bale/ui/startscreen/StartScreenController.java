@@ -4,6 +4,8 @@ import de.bale.language.Localizations;
 import de.bale.settings.SettingsController;
 import de.bale.storage.XMLUtils;
 import de.bale.ui.SceneHandler;
+import de.bale.ui.dialogs.CreateEntryDialog;
+import de.bale.ui.dialogs.EditOrDeleteEntryDialog;
 import de.bale.ui.learningUnit.LearningUnitController;
 import de.bale.ui.learningUnit.LearningUnitModel;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitModel;
@@ -146,5 +148,29 @@ public class StartScreenController implements IStartScreenController {
         }
         document.appendChild(rootElement);
         XMLUtils.writeXML(document, "learningUnitTable.xml");
+    }
+
+    @FXML
+    public void editOrDeleteEntry() {
+        if (learningUnitTable.getSelectionModel().getSelectedItem() == null) {
+            return;
+        }
+        LearningUnitEntry selectedItem = learningUnitTable.getSelectionModel().getSelectedItem();
+        EditOrDeleteEntryDialog dialog = new EditOrDeleteEntryDialog(
+                Localizations.getLocalizedString("editOrDeleteEntryButton"),
+                learningUnitTable.getSelectionModel().getSelectedItem().getLearningUnitTitle(),
+                learningUnitTable.getSelectionModel().getSelectedItem().getLearningUnitPath());
+        dialog.initOwner(learningUnitTable.getScene().getWindow());
+        dialog.initModality(Modality.NONE);
+        Optional<Pair<String, String>> resultPair = dialog.showAndWait();
+        resultPair.ifPresent(result -> {
+            if (result.getKey().equals("") && result.getValue().equals("")) {
+                model.removeEntry(selectedItem);
+                return;
+            }
+            LearningUnitEntry newEntry = new LearningUnitEntry(result.getKey(), result.getValue());
+            model.changeEntry(selectedItem, newEntry);
+            learningUnitTable.getSelectionModel().select(newEntry);
+        });
     }
 }

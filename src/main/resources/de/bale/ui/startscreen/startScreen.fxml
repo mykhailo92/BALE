@@ -21,9 +21,9 @@
     <HBox GridPane.columnIndex="0" GridPane.rowIndex="1" alignment="CENTER" styleClass="bottom-nav">
         <Button styleClass="bottom-nav-button" fx:id="openLearningUnitButton" onMousePressed="#openLearningUnit">Öffnen
         </Button>
-        <Button styleClass="bottom-nav-button" fx:id="editOrDeleteEntryButton" onMousePressed="#saveTableView"/>
-        <Button styleClass="bottom-nav-button" fx:id="newEntryButton" onMousePressed="#addNewEntry"/>
         <Button styleClass="bottom-nav-button" fx:id="openSettingsButton" onMousePressed="#openSettings"/>
+        <Button styleClass="bottom-nav-button" fx:id="editOrDeleteEntryButton" onMousePressed="#editOrDeleteEntry"/>
+        <Button styleClass="bottom-nav-button" fx:id="newEntryButton" onMousePressed="#addNewEntry"/>
         <Button styleClass="bottom-nav-button" fx:id="saveTableViewButton" onMousePressed="#saveTableView"/>
     </HBox>
 </GridPane>

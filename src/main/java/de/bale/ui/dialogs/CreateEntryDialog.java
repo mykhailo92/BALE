@@ -1,4 +1,4 @@
-package de.bale.ui.startscreen;
+package de.bale.ui.dialogs;
 
 import de.bale.language.Localizations;
 import javafx.event.ActionEvent;
@@ -15,7 +15,7 @@ public class CreateEntryDialog extends Dialog {
     private Stage stage;
     private FileChooser fileChooser;
 
-    CreateEntryDialog(String title) {
+    public CreateEntryDialog(String windowName) {
         //Init
         TextField titleField = new TextField();
         TextField pathField = new TextField();
@@ -27,7 +27,7 @@ public class CreateEntryDialog extends Dialog {
         Button finishButton = (Button) getDialogPane().lookupButton(ButtonType.FINISH);
 
         //Create Visuals
-        setTitle(title);
+        setTitle(windowName);
         grid.setHgap(5);
         grid.setVgap(5);
         pathField.setEditable(false);
