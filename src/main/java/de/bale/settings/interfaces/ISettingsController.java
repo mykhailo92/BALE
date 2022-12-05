@@ -2,13 +2,13 @@ package de.bale.settings.interfaces;
 
 import javafx.fxml.FXML;
 
-public abstract class ISettingsController {
+public interface  ISettingsController {
 
     @FXML
-    public abstract void saveSettings();
+    public  void saveSettings();
 
-    protected abstract void writeSettings();
+    void writeSettings();
 
     @FXML
-    public abstract void openStartScreen();
+    public  void openStartScreen();
 }

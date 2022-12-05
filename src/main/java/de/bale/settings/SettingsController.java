@@ -17,7 +17,7 @@ import javafx.scene.control.Label;
 import java.util.ArrayList;
 import java.util.Properties;
 
-public class SettingsController extends ISettingsController {
+public class SettingsController implements ISettingsController {
 
     @FXML
     Label languageLabel;
@@ -62,7 +62,7 @@ public class SettingsController extends ISettingsController {
     }
 
     @Override
-    protected void writeSettings() {
+    public void writeSettings() {
         Properties properties = PropertiesUtils.getSettingsProperties();
         properties.setProperty("language", String.valueOf(languageComboBox.getSelectionModel().getSelectedItem()));
         properties.setProperty("theme",String.valueOf(themeCombobox.getSelectionModel().getSelectedItem()));
