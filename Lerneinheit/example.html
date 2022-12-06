@@ -88,7 +88,7 @@
     <div class="section">
         <div class="task">
             <div class="wrap-text">
-                <img src="Icons/Draggable-Card.svg" class="task-icon" alt=""/>
+                <img src="icons/Draggable-Card.svg" class="task-icon" alt=""/>
                 Ordne die Begriffe zu. <br> Klicke auf das Wort und ziehe es an die richtige Stelle:
                 <div class="drop-start">
                     <img class="draggable-card" id="drag-1" draggable="true" src="testImages/lederhaut.png" alt="">
@@ -217,21 +217,25 @@
         <div class="task-img">
             <img class="tim-flashlight" src="testImages/Tim_Taschenlampe.png" alt=""/>
             <div class="dropdown" id="dropdown-1">
-                <label>
-                    <input class="text-box" id="text-box-1" type="text" placeholder="Klicke hier und wähle die Richtung des Lichts &#8644;" readonly>
-                </label>
+                <input class="text-box" id="text-box-1" type="image" alt="Klicke hier und wähle die Richtung des Lichts">
                 <div class="options">
-                    <div onclick="show('right', 1)">————————></div>
-                    <div onclick="show('left', 1)"><————————</div>
+                    <div onclick="show('right', 1)">
+                        <img src="icons/arrow-right.png" class="arrow-icon" id="right" alt="">
+                    </div>
+                    <div onclick="show('left', 1)">
+                        <img src="icons/arrow-left.png" class="arrow-icon" id="left" alt="">
+                    </div>
                 </div>
             </div>
             <div class="dropdown" id="dropdown-2">
-                <label>
-                    <input class="text-box" id="text-box-2" type="text" placeholder="Klicke hier und wähle die Richtung des Lichts &#8644;" readonly>
-                </label>
+                <input class="text-box" id="text-box-2" type="image" alt="Klicke hier und wähle die Richtung des Lichts">
                 <div class="options">
-                    <div onclick="show('right', 2)">————————></div>
-                    <div onclick="show('left', 2)"><————————</div>
+                    <div onclick="show('right', 2)">
+                        <img src="icons/arrow-right.png" class="arrow-icon" alt="">
+                    </div>
+                    <div onclick="show('left', 2)">
+                        <img src="icons/arrow-left.png" class="arrow-icon" alt="">
+                    </div>
                 </div>
             </div>
             <img class="door" src="testImages/Tuer.png" alt=""/>

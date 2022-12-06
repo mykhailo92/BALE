@@ -24,6 +24,11 @@ body {
     font-family: 'Optima', cursive;
 }
 
+.text-box {
+    max-width: 400px;
+    max-height: 25px;
+}
+
 .task {
     width: 98%;
     padding: 10px;
@@ -318,6 +323,11 @@ input[type=submit]:hover {
     max-width: 5vw;
 }
 
+.arrow-icon {
+    height: 2vh;
+    width: 12vw;
+}
+
 #chapter-select {
     position: fixed;
     top: 0;
@@ -353,8 +363,7 @@ input[type=submit]:hover {
 .dropdown {
     position: relative;
     width: 440px;
-    height: 50px;
-    margin: 20px;
+    height: 30px;
     left: 340px;
 }
 
@@ -365,7 +374,7 @@ input[type=submit]:hover {
 
 #dropdown-2 {
     transform: rotate(-7deg);
-    top: 220px;
+    top: 270px;
 }
 
 .dropdown::before {
@@ -385,7 +394,7 @@ input[type=submit]:hover {
 }
 
 .dropdown.active::before {
-    top: 22px;
+    top: 20px;
     transform: rotate(-225deg);
 }
 
@@ -406,8 +415,8 @@ input[type=submit]:hover {
 
 .dropdown .options {
     position: absolute;
-    top: 70px;
-    width: 60%;
+    top: 50px;
+    width: 50%;
     background: #fff;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
     border-radius: 10px;
@@ -425,7 +434,7 @@ input[type=submit]:hover {
 }
 
 .dropdown .options div:hover {
-    background: #62baea;
+    background: #0066cc;
     color: #fff;
 }
 
@@ -439,6 +448,7 @@ input[type=submit]:hover {
 .door {
     float: right;
     height: 250px;
+    margin-top: 60px;
     margin-right: 110px;
 }
 

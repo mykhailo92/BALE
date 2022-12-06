@@ -8,14 +8,14 @@ dropdown.forEach(function (item) {
 
 function show(value, index) {
     if (value === 'right') {
-        switch (index) {
-            case 1: document.getElementById("text-box-" + index).value = '————————————————————>'; break
-            case 2: document.getElementById("text-box-" + index).value = '————————————————————>';
-        }
+        let img = document.createElement('img');
+        img.src = 'icons/arrow-right.png';
+        document.getElementById("text-box-" + index)
+            .setAttribute('src','icons/arrow-right.png' );
     } else if (value === 'left') {
-        switch (index) {
-            case 1: document.getElementById("text-box-" + index).value = '<————————————————————'; break
-            case 2: document.getElementById("text-box-" + index).value = '<————————————————————';
-        }
+        let img = document.createElement('img');
+        img.src = 'icons/arrow-left.png';
+        document.getElementById("text-box-" + index)
+            .setAttribute('src','icons/arrow-left.png' );
     }
 }

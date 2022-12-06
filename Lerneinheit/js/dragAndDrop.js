@@ -40,6 +40,7 @@ function onDrop(event) {
             answersMap.set(target, false);
         }
     }
+    
     let data = event.dataTransfer.getData("text");
     event.target.appendChild(document.getElementById(data));
 }
