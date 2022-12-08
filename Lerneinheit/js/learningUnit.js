@@ -53,6 +53,10 @@ function getElementHeightByID(id) {
     return document.getElementById(id).offsetHeight;
 }
 
+function getControlLabels() {
+    return document.querySelectorAll(".reading,.save,.preamble-button");
+}
+
 function changeInnerTextById(id, text) {
     document.getElementById(id).innerText = text;
 }
@@ -93,6 +97,29 @@ function stopAudioPlaying() {
         delayInMilliseconds);
 }
 
-function getControlLabels() {
-    return document.querySelectorAll(".reading,.save,.preamble-button");
+let modal = document.getElementById("modal-window");
+let span = document.getElementsByClassName("close")[0];
+
+function showVideo(video) {
+    modal.style.display = "block";
+    let number = video.getAttribute('track-number');
+    let videoElem = document.getElementById('video-' + number);
+    videoElem.setAttribute('src', 'video/video-' + number + '.mp4');
+
+    let delayInMilliseconds = 250;
+    setTimeout(function() {
+            videoElem.setAttribute('autoplay', 'autoplay');},
+        delayInMilliseconds);
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside the modal, close it
+window.onclick = function(event) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
 }

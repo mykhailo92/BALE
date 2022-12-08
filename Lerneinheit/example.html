@@ -89,6 +89,13 @@
         <div class="task">
             <div class="wrap-text">
                 <img src="icons/Draggable-Card.svg" class="task-icon" alt=""/>
+                <button class="demo-video" id="video-demo-1" onclick="showVideo(this)" track-number="1">Demo-Video</button>
+                <div id="modal-window" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <video class="video" id="video-1" track-number="1" type="video/mp4" controls></video>
+                    </div>
+                </div>
                 Ordne die Begriffe zu. <br> Klicke auf das Wort und ziehe es an die richtige Stelle:
                 <div class="drop-start">
                     <img class="draggable-card" id="drag-1" draggable="true" src="testImages/lederhaut.png" alt="">
