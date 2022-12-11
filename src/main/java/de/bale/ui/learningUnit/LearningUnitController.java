@@ -2,6 +2,7 @@ package de.bale.ui.learningUnit;
 
 import de.bale.language.Localizations;
 import de.bale.ui.JSBridge;
+import de.bale.ui.SceneHandler;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitController;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitModel;
 import javafx.application.Platform;
@@ -52,6 +53,7 @@ public class LearningUnitController implements ILearningUnitController {
         engine.getLoadWorker().stateProperty().addListener(
                 (observableValue, oldState, newState) -> {
                     if (oldState.equals(Worker.State.RUNNING) && newState.equals(Worker.State.SUCCEEDED)) {
+                        LearningUnitUtils.createStyleNode(engine, SceneHandler.getInstance().getThemeName());
                         model.setContainer(getContainerFromDocument());
                         model.setSlides(getSlideFromDocument());
                         bridge = new JSBridge(model, engine);

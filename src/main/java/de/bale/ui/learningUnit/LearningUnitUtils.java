@@ -1,8 +1,7 @@
 package de.bale.ui.learningUnit;
 
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
+import javafx.scene.web.WebEngine;
+import org.w3c.dom.*;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -35,6 +34,7 @@ public class LearningUnitUtils {
 
     /**
      * Returns the ID of a Node
+     *
      * @param node node which to get the ID from
      * @return String with the ID, "none" if no ID is specified
      */
@@ -44,5 +44,13 @@ public class LearningUnitUtils {
             return elementAttributes.getNamedItem("id").getNodeValue();
         }
         return "none";
+    }
+
+    public static void createStyleNode(WebEngine engine, String name) {
+        Document doc = engine.getDocument();
+        Element styleNode = doc.createElement("link");
+        styleNode.setAttribute("rel","stylesheet");
+        styleNode.setAttribute("href","css/"+name+".css");
+        doc.getDocumentElement().getElementsByTagName("head").item(0).appendChild(styleNode);
     }
 }

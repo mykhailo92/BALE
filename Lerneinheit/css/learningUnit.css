@@ -481,18 +481,18 @@ input[type=submit]:hover {
     text-decoration: none;
     outline: none;
     color: #fff;
-    background-color: DodgerBlue;
+    background-color: var(--mainButtonBackgroundColor);
     border: none;
     border-radius: 10px;
-    box-shadow: 0 5px #D3D3D3;
+    box-shadow: 0 5px var(--mainButtonShadowColor);
 }
 
 .demo-video:hover {
-    background-color: #0066cc
+    background-color: var(--mainButtonHovorColor)
 }
 
 .demo-video:active {
-    box-shadow: 0 3px #666;
+    box-shadow: 0 3px var(--mainButtonShadowColor);
     transform: translateY(2px);
 }
 
