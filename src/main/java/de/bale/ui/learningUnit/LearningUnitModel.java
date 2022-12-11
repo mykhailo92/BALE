@@ -1,7 +1,7 @@
 package de.bale.ui.learningUnit;
 
-import de.bale.ui.learningUnit.interfaces.ILearningUnitModel;
 import de.bale.ui.interfaces.Listener;
+import de.bale.ui.learningUnit.interfaces.ILearningUnitModel;
 import org.w3c.dom.Element;
 
 import java.util.LinkedList;
@@ -17,6 +17,7 @@ public class LearningUnitModel implements ILearningUnitModel {
     private Element[] chapterMarks; //First Element should be the Container of the Elements
     private Element[] slides;
     private int currentSlideIndicator = 0;
+    private String closeButtonText="";
 
     @Override
     public void addListener(Listener listener) {
@@ -101,6 +102,16 @@ public class LearningUnitModel implements ILearningUnitModel {
     @Override
     public void setCurrentSlideIndicator(int currentSlideIndicator) {
         this.currentSlideIndicator = currentSlideIndicator;
+        notifyObserver();
+    }
+
+    @Override
+    public String getCloseButtonText() {
+        return closeButtonText;
+    }
+    @Override
+    public void setCloseButtonText(String closeButtonText) {
+        this.closeButtonText = closeButtonText;
         notifyObserver();
     }
 }

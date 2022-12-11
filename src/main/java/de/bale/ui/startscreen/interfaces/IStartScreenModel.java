@@ -9,4 +9,8 @@ public interface IStartScreenModel {
     ObservableList<LearningUnitEntry> getEntries();
 
     void addEntry(LearningUnitEntry exampleEntry);
+
+    void changeEntry(LearningUnitEntry selectedItem, LearningUnitEntry newEntry);
+
+    void removeEntry(LearningUnitEntry selectedItem);
 }

@@ -15,7 +15,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class LearningUnitController implements ILearningUnitController {
 
@@ -30,6 +33,7 @@ public class LearningUnitController implements ILearningUnitController {
     private final String startPage;
     private ILearningUnitModel model;
     private JSBridge bridge;
+    private SectionVisibleListener listener;
 
     public LearningUnitController(String filePath) {
         startPage = "file:///" + filePath;
@@ -55,6 +59,7 @@ public class LearningUnitController implements ILearningUnitController {
                         model.setSlides(getSlideFromDocument());
                         bridge = new JSBridge(model, engine);
                         bridge.registerBridge();
+                        listener = new SectionVisibleListener(model);
                         setAllContainerInvisible();
                         prepareChapterIndex();
                         createHTMLControlLabels();
@@ -191,6 +196,7 @@ public class LearningUnitController implements ILearningUnitController {
             } else if (getClasses(currentContainer).contains("info-and-slide")) {
                 model.setCurrentSlideIndicator(model.getCurrentSlideIndicator() + 1);
             }
+            listener.notifyMyself();
         }
     }
 
@@ -229,6 +235,9 @@ public class LearningUnitController implements ILearningUnitController {
             }
             scrollToBottom();
             setVisible(model.getChapterMarks()[model.getChapterIndicator()]);
+            if (!model.getCloseButtonText().equals("")) {
+                closeButton.setText(model.getCloseButtonText());
+            }
             Platform.runLater(() -> checkChapter(listenedModel));
         });
 

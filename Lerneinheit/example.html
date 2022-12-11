@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Beispiel Lerneinheit</title>
+    <link rel="stylesheet" href="css/defaultTheme.css"> <!-- Default Theme-->
+    <!--    <link rel="stylesheet" href="css/darcula.css"> &lt;!&ndash;Darcula Theme &ndash;&gt;-->
     <link rel="stylesheet" href="css/learningUnit.css">
-
 </head>
 
 <body>
@@ -17,7 +18,7 @@
         Hallo alle zusammen, dies ist ein Test für die Bachelorarbeit für digitale Lerninhalte!
     </div>
     <button class="nav-button preamble-button" onclick="javaBridge.disablePreamble();">Verstanden!</button>
-</div> 
+</div>
 <div class="chapter" id="chapter-1">
     <div class="clearfix">
         <div class="section">
@@ -34,26 +35,26 @@
     </div>
 </div>
 
-<div class="chapter">
-    <div class="section">
-        <div class="task">
-            Warum soll Tim zum Augenarzt gehen? Schreibe auf.
-        </div>
-
-        <img src="testImages/keyboard.png" style="max-width:100px" alt="">
-        <br>
-        <form>
-            <label>
-                <textarea class="text-area" placeholder="Bitte schreibe deine Antwort hier mit der Tastatur"></textarea>
-            </label>
-        </form>
-        <br>
-        <input class="submit save" type="submit" value="Speichern">
+<!--<div class="chapter">-->
+<div class="section" onVisible="disableNextButton">
+    <div class="task">
+        Warum soll Tim zum Augenarzt gehen? Schreibe auf.
     </div>
+
+    <img src="testImages/keyboard.png" style="max-width:100px" alt="">
+    <br>
+    <form>
+        <label>
+            <textarea class="text-area" placeholder="Bitte schreibe deine Antwort hier mit der Tastatur"></textarea>
+        </label>
+    </form>
+    <br>
+    <input class="submit save" type="submit" value="Speichern" onclick="enableNextButton()">
 </div>
+<!--</div>-->
 
 <div class="chapter">
-    <div class="section">
+    <div class="section" onVisible="renameCloseButton;Das ist ein Test">
         <h1>1 Der Aufbau des menschlichen Auges</h1>
         <img class="eye-small" src="testImages/Auge_Klein.png" alt=""/>
         <!--    TODO: Bild beim nächsten section als Wasserzeichen-->
@@ -61,7 +62,8 @@
     <div class="watermark">
         <div class="section">
             <div class="text">
-                <button class="reading" id="reading-button-1-1" onclick="playAudio(this)" track-number="1-1">Vorlesen</button>
+                <button class="reading" id="reading-button-1-1" onclick="playAudio(this)" track-number="1-1">Vorlesen
+                </button>
                 <br>
                 Zu Hause steht Tim vor dem Spiegel und beobachtet seine Augen. Seine grünen Augen sehen aus wie immer.
                 Er
@@ -74,7 +76,8 @@
     <div>
         <div class="section">
             <div class="text">
-                <button class="reading" id="reading-button-1-2" onclick="playAudio(this)" track-number="1-2">Vorlesen</button>
+                <button class="reading" id="reading-button-1-2" onclick="playAudio(this)" track-number="1-2">Vorlesen
+                </button>
                 <br>
                 Tim erkennt seine grüne Iris. Außerdem sieht er seine Pupille,
                 die eigentlich nur ein Loch in der Iris ist. Durch die Pupille fällt Licht in das Auge ein. Tim sieht
@@ -85,11 +88,12 @@
             </div>
         </div>
     </div>
-    <div class="section">
+    <div class="section" onVisible="disableNextButton">
         <div class="task">
             <div class="wrap-text">
                 <img src="icons/Draggable-Card.svg" class="task-icon" alt=""/>
-                <button class="demo-video" id="video-demo-1" onclick="showVideo(this)" track-number="1">Demo-Video</button>
+                <button class="demo-video" id="video-demo-1" onclick="showVideo(this)" track-number="1">Demo-Video
+                </button>
                 <div id="modal-window" class="modal">
                     <div class="modal-content">
                         <span class="close">&times;</span>
@@ -113,7 +117,7 @@
             <div class="drop-field" id="drop-2"></div>
             <div class="drop-field" id="drop-3"></div>
         </div>
-        <input class="submit" type="submit" value="Speichern" onclick="save()">
+        <input class="submit save" type="submit" value="Speichern" onclick="save();enableNextButton()">
     </div>
     <br>
     <div class="section">
@@ -188,14 +192,15 @@
                 <div class="light-bulb">
                     <img src="testImages/lightbulb.png" class="task-icon" alt="">
                 </div>
-                    <img class="forest" src="testImages/Wald.png" alt=""/>
-                    <div class="section">
-                        <div class="forest-text">
-                            Licht breitet sich immer geradlinig aus.
-                            Das kann man besonders gut beobachten, wenn die Lichtstrahlen der Sonne durch die Bäume eines Waldes
-                            fallen.
-                        </div>
+                <img class="forest" src="testImages/Wald.png" alt=""/>
+                <div class="section">
+                    <div class="forest-text">
+                        Licht breitet sich immer geradlinig aus.
+                        Das kann man besonders gut beobachten, wenn die Lichtstrahlen der Sonne durch die Bäume eines
+                        Waldes
+                        fallen.
                     </div>
+                </div>
             </div>
         </div>
     </div>
@@ -217,14 +222,15 @@
         </div>
     </div>
     <div class="section">
-        <div class="task">
+        <div class="task" onVisible="disableNextButton">
             Welchen Weg nimmt das Licht von der Taschenlampe zur Tür und von dort zurück zu Tim? Wähle aus in welche
             Richtung der Lichtstrahl geht.<br>
         </div>
         <div class="task-img">
             <img class="tim-flashlight" src="testImages/Tim_Taschenlampe.png" alt=""/>
             <div class="dropdown" id="dropdown-1">
-                <input class="text-box" id="text-box-1" type="image" alt="Klicke hier und wähle die Richtung des Lichts">
+                <input class="text-box" id="text-box-1" type="image"
+                       alt="Klicke hier und wähle die Richtung des Lichts">
                 <div class="options">
                     <div onclick="show('right', 1)">
                         <img src="icons/arrow-right.png" class="arrow-icon" id="right" alt="">
@@ -235,7 +241,8 @@
                 </div>
             </div>
             <div class="dropdown" id="dropdown-2">
-                <input class="text-box" id="text-box-2" type="image" alt="Klicke hier und wähle die Richtung des Lichts">
+                <input class="text-box" id="text-box-2" type="image"
+                       alt="Klicke hier und wähle die Richtung des Lichts">
                 <div class="options">
                     <div onclick="show('right', 2)">
                         <img src="icons/arrow-right.png" class="arrow-icon" alt="">
@@ -248,7 +255,7 @@
             <img class="door" src="testImages/Tuer.png" alt=""/>
         </div>
     </div>
-    <div class="section">
+    <div class="section" onVisible="renameCloseButton;Beenden">
         <div class="information">
             <div class="text">
                 <img src="testImages/lightbulb.png" class="task-icon" alt=""/> Unsere Augen sind Lichtempfänger. Wir

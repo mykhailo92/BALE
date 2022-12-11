@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <GridPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            maxHeight="400.0" prefWidth="600.0" stylesheets="@../../../../css/fxmlStyle.css">
+          xmlns:fx="http://javafx.com/fxml"
+          maxHeight="400.0" prefWidth="600.0">
     <columnConstraints>
         <ColumnConstraints percentWidth="100"/>
     </columnConstraints>
@@ -25,6 +21,9 @@
     <HBox GridPane.columnIndex="0" GridPane.rowIndex="1" alignment="CENTER" styleClass="bottom-nav">
         <Button styleClass="bottom-nav-button" fx:id="openLearningUnitButton" onMousePressed="#openLearningUnit">Öffnen
         </Button>
-        <Button styleClass="bottom-nav-button" fx:id="changeLanguageButton" onMousePressed="#changeLanguage">English</Button>
+        <Button styleClass="bottom-nav-button" fx:id="openSettingsButton" onMousePressed="#openSettings"/>
+        <Button styleClass="bottom-nav-button" fx:id="editOrDeleteEntryButton" onMousePressed="#editOrDeleteEntry"/>
+        <Button styleClass="bottom-nav-button" fx:id="newEntryButton" onMousePressed="#addNewEntry"/>
+        <Button styleClass="bottom-nav-button" fx:id="saveTableViewButton" onMousePressed="#saveTableView"/>
     </HBox>
 </GridPane>

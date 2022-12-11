@@ -12,11 +12,11 @@ public class MainApplication extends Application {
 
     @Override
     public void start(Stage stage) {
-        Localizations.getInstance().setLocale("de", "DE");
+        Localizations.getInstance().loadLanguage();
         SceneHandler sceneHandler = SceneHandler.getInstance();
         sceneHandler.setStage(stage);
-        sceneHandler.changeScene(new StartScreenController("Optik",filePath),"startScreen.fxml","title");
-        ((StartScreenController)sceneHandler.getController()).setModel(new StartScreenModel());
+        sceneHandler.changeScene(new StartScreenController(), "startScreen.fxml", "selectionTitle");
+        ((StartScreenController) sceneHandler.getController()).setModel(new StartScreenModel());
         sceneHandler.setStageFullScreen(false);
     }
 

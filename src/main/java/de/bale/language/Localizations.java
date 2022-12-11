@@ -1,8 +1,8 @@
 package de.bale.language;
 
-import java.util.Locale;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import de.bale.storage.PropertiesUtils;
+
+import java.util.*;
 
 /**
  * Implement Localizations as a Singleton so not every Class has to create a new Object
@@ -11,6 +11,11 @@ import java.util.ResourceBundle;
 public class Localizations {
     private static ResourceBundle bundle;
     private static final Localizations instance = new Localizations();
+    private ArrayList<String> allowedLocales = new ArrayList<>() {{
+        add("en_US");
+        add("de_DE");
+    }};
+
 
     public static Localizations getInstance() {
         return instance;
@@ -18,20 +23,31 @@ public class Localizations {
 
     /**
      * Set the Default Locale vor Localization and Load the ResourceBundle.
+     *
      * @param languageCode Identifier of the language in lower case, e.g. en, de
-     * @param countryCode Identifier of the Country in upper case, e.g. US, DE
+     * @param countryCode  Identifier of the Country in upper case, e.g. US, DE
      */
     public void setLocale(String languageCode, String countryCode) {
-        Locale.setDefault(new Locale(languageCode,countryCode));
-        bundle = ResourceBundle.getBundle("localization/Lang");
+        if (allowedLocales.contains(languageCode + "_" + countryCode)) {
+            Locale.setDefault(new Locale(languageCode, countryCode));
+            bundle = ResourceBundle.getBundle("localization/Lang");
+        } else {
+            System.err.println("UNKOWN LOCATION: " + languageCode + countryCode);
+        }
+
     }
 
-    public String getLocale() {
-        return Locale.getDefault().getLanguage();
+    public Locale getLocale() {
+        return Locale.getDefault();
+    }
+
+    public ArrayList<String> getAvailableLanguages() {
+        return allowedLocales;
     }
 
     /**
      * Get a localized String from the Current Locale
+     *
      * @param key Name of the Key in the .properties Files
      * @return Localized Name of the Key, returns empty String if an Error accured.
      */
@@ -44,9 +60,22 @@ public class Localizations {
                 return "";
             }
         } catch (MissingResourceException e) {
-            System.err.println("Missing Key: "+key+" in language: "+ Locale.getDefault());
+            System.err.println("Missing Key: " + key + " in language: " + Locale.getDefault());
         }
         return "";
 
+    }
+
+    /**
+     * Load the Language from the settings.properties File
+     */
+    public void loadLanguage() {
+        try {
+            Properties properties = PropertiesUtils.getSettingsProperties();
+            String[] langProperty = properties.getProperty("language").split("_");
+            Localizations.getInstance().setLocale(langProperty[0], langProperty[1]);
+        } catch (NullPointerException npe) {
+            Localizations.getInstance().setLocale("de","DE");
+        }
     }
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          prefHeight="400.0" prefWidth="600.0" styleClass="root-pane">
+    <columnConstraints>
+        <ColumnConstraints percentWidth="20"/>
+        <ColumnConstraints percentWidth="20"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints percentHeight="10"/>
+        <RowConstraints percentHeight="10"/>
+    </rowConstraints>
+
+    <Label GridPane.columnIndex="0" fx:id="languageLabel">Sprache:</Label>
+    <ComboBox GridPane.columnIndex="1" fx:id="languageComboBox"/>
+    <Label GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="themeLabel">Thema:
+    </Label>
+    <ComboBox GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="themeCombobox"/>
+    <Button styleClass="bottom-nav-button" GridPane.rowIndex="2" GridPane.columnIndex="0" fx:id="saveButton"
+            onMousePressed="#saveSettings"/>
+    <Button styleClass="bottom-nav-button" GridPane.rowIndex="2" GridPane.columnIndex="1" fx:id="openStartScreenButton"
+            onMousePressed="#openStartScreen"/>
+
+
+</GridPane>

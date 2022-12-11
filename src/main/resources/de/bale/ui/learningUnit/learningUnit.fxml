@@ -3,10 +3,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.web.WebView?>
+<GridPane xmlns:fx="http://javafx.com/fxml">
 
-
-<?import java.lang.String?>
-<GridPane xmlns:fx="http://javafx.com/fxml" stylesheets="@../../../../css/fxmlStyle.css">
     <columnConstraints>
         <ColumnConstraints percentWidth="100"/>
     </columnConstraints>

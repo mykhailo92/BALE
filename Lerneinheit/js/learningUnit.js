@@ -123,3 +123,7 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
+function enableNextButton() {
+    window.javaBridge.setNextButtonDisabled(false);
+}

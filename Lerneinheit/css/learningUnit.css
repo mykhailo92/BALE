@@ -1,6 +1,8 @@
 body {
     padding-left: 10%;
     padding-right: 10%;
+    background-color: var(--backgroundColor);
+    color: var(--globalFontColor);
 }
 
 * {
@@ -20,8 +22,8 @@ body {
 .text {
     text-align: inherit;
     padding: 15px;
-    font-size: 1.5em;
-    font-family: 'Optima', cursive;
+    font-size: var(--textFontSize);
+    font-family: var(--textFontFamily);
 }
 
 .text-box {
@@ -33,11 +35,11 @@ body {
     width: 98%;
     padding: 10px;
     text-align: justify;
-    font-size: 1.2em;
-    font-family: 'Optima', cursive;
+    font-size: var(--taskFontSize);
+    font-family: var(--textFontFamily);
     border-style: double;
-    border-color: #cccccc;
-    background-color: #D3D3D3;
+    border-color: var(--taskBorderColor);
+    background-color: var(--taskBackgroundColor);
     border-width: 2px;
     border-radius: 7px;
 }
@@ -47,18 +49,18 @@ textarea {
     height: 150px;
     padding: 12px 20px;
     box-sizing: border-box;
-    border: 2px solid #ccc;
+    border: 2px solid var(--textAreaBorderColor);
     border-radius: 4px;
-    background-color: #f8f8f8;
-    font-size: 16px;
+    background-color: var(--textAreaBackgroundColor);
+    font-size: var(--textAreaFontSize);
     resize: none;
 }
 
 .information {
     width: 100%;
-    background-color: #ffe4b5;
+    background-color: var(--informationBackgroundColor);
     border-style: solid;
-    border-color: darkgreen;
+    border-color: var(--informationBorderColor);
     border-width: 2px;
     border-radius: 7px;
     padding: 5px;
@@ -68,20 +70,20 @@ textarea {
     display: inline-block;
     padding: 5px 15px;
     margin: 10px;
-    font-size: 14px;
+    font-size: var(--readingFontSize);
     cursor: pointer;
     text-align: center;
     text-decoration: none;
     outline: none;
-    color: #fff;
-    background-color: DodgerBlue;
+    color: var(--mainButtonTextColor);
+    background-color: var(--mainButtonBackgroundColor);
     border: none;
     border-radius: 10px;
-    box-shadow: 0 5px #D3D3D3;
+    box-shadow: 0 5px var(--mainButtonShadowColor);
 }
 
 .reading:hover {
-    background-color: #0066cc
+    background-color: var(--mainButtonHovorColor)
 }
 
 .reading:active {
@@ -101,9 +103,9 @@ input[type=text], select {
 
 input[type=submit] {
     width: 30%;
-    font-size: 20px;
-    background-color: DodgerBlue;
-    color: white;
+    font-size: var(--saveFontSize);
+    background-color: var(--mainButtonBackgroundColor);
+    color: var(--mainButtonTextColor);
     padding: 14px 20px;
     margin-left: 10px;
     border: none;
@@ -112,7 +114,7 @@ input[type=submit] {
 }
 
 input[type=submit]:hover {
-    background-color: #0066cc;
+    background-color: var(--mainButtonHovorColor);
 }
 
 .submit:active {
@@ -123,7 +125,7 @@ input[type=submit]:hover {
     margin-top: calc(var(--tim-img-height) / 2);
     margin-bottom: calc(var(--tim-img-height) / 2.8);
     text-align: justify;
-    font-size: 1.5em;
+    font-size: var(--textFontSize);
     font-family: 'Optima', cursive;
 }
 
@@ -146,7 +148,7 @@ input[type=submit]:hover {
 .forest-text {
     text-align: center;
     margin-top: -14px;
-    font-size: 1.5em;
+    font-size: var(--textFontSize);
     font-family: 'Optima', cursive;
 }
 
@@ -172,7 +174,6 @@ input[type=submit]:hover {
 }
 
 .chapter {
-
 }
 
 /*region Make Sections Visible...*/
@@ -228,34 +229,34 @@ input[type=submit]:hover {
     display: inline-block;
     padding: 5px 15px;
     margin: 10px;
-    font-size: 14px;
+    font-size: var(--navButtonFontSize);
+
     cursor: pointer;
     text-align: center;
     text-decoration: none;
     outline: none;
-    color: #fff;
-    background-color: DodgerBlue;
+    color: var(--mainButtonTextColor);
+    background-color: var(--mainButtonBackgroundColor);
     border: none;
     border-radius: 10px;
-    box-shadow: 0 5px #D3D3D3;
+    box-shadow: 0 5px var(--mainButtonShadowColor);
 }
 
 .nav-button:hover {
-    background-color: #0066cc
+    background-color: var(--mainButtonHovorColor)
 }
 
 .nav-button:active {
-    /*background-color: #3e8e41;*/
-    box-shadow: 0 3px #666;
+    box-shadow: 0 3px var(--mainButtonShadowColor);
     transform: translateY(2px);;
 }
 
 .preamble {
     position: absolute;
-    left:0;
+    left: 0;
     width: 98vw;
     height: 100%;
-    background-color: white;
+    background-color: var(--backgroundColor);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -266,11 +267,20 @@ input[type=submit]:hover {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    background-color: var(--dragableCardBackgroundColor);
+    color: var(--mainButtonTextColor);
+    display: inline-block;
+    margin: 1px 1px 1px 1px;
+    border-radius: 5px;
+    font-size: var(--dragableCardFontSize);
+    align-content: center;
+    padding: .5% .5% .5% .5%;
 }
 
 .drop-field {
     float: left;
     align-content: center;
+    font-size: var(--dragableFieldFontSize);
     width: 200px;
     height: 45px;
     padding: 8px;
@@ -336,28 +346,32 @@ input[type=submit]:hover {
     width: 8vw !important;
     border-right: solid black;
     text-align: center;
-    font-size: 1.3em;
+    font-size: var(--chapterSelectFontSize);
     padding: 2vh;
 }
 
 #chapter-select a:link {
-    color: blue;
+    color: var(--chapterSelectFontColor);
     text-decoration: none;
 }
 
 #chapter-select a:visited {
-    color: blue;
+    color: var(--chapterSelectFontColor);
     text-decoration: none;
 }
 
 #chapter-select a:hover {
-    color: blue;
+    color: var(--chapterSelectFontColor);
     text-decoration: none;
 }
 
 #chapter-select a:active {
-    color: blue;
+    color: var(--chapterSelectFontColor);
     text-decoration: none;
+}
+
+.chapter h1 {
+    padding-top: 20vh;
 }
 
 .dropdown {

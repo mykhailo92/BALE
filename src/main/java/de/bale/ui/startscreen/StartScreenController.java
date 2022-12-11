@@ -1,9 +1,13 @@
 package de.bale.ui.startscreen;
 
 import de.bale.language.Localizations;
+import de.bale.settings.SettingsController;
+import de.bale.storage.XMLUtils;
+import de.bale.ui.SceneHandler;
+import de.bale.ui.dialogs.CreateEntryDialog;
+import de.bale.ui.dialogs.EditOrDeleteEntryDialog;
 import de.bale.ui.learningUnit.LearningUnitController;
 import de.bale.ui.learningUnit.LearningUnitModel;
-import de.bale.ui.SceneHandler;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitModel;
 import de.bale.ui.startscreen.interfaces.IStartScreenController;
 import de.bale.ui.startscreen.interfaces.IStartScreenModel;
@@ -14,6 +18,15 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.skin.TableHeaderRow;
+import javafx.stage.Modality;
+import javafx.util.Pair;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import java.util.Optional;
 
 public class StartScreenController implements IStartScreenController {
     @FXML
@@ -25,16 +38,14 @@ public class StartScreenController implements IStartScreenController {
     @FXML
     TableColumn pathColumn;
     @FXML
-    Button changeLanguageButton;
+    Button openSettingsButton;
+    @FXML
+    Button editOrDeleteEntryButton;
+    @FXML
+    Button newEntryButton;
+    @FXML
+    Button saveTableViewButton;
     IStartScreenModel model;
-
-    //TODO TEMPORARY FIX FOR TABLE
-    private LearningUnitEntry exampleEntry;
-
-    //TODO: Find a Way to Save the table
-    public StartScreenController(String learningUnitTitle, String filepath) {
-        exampleEntry = new LearningUnitEntry(learningUnitTitle, filepath);
-    }
 
     @Override
     public void setModel(IStartScreenModel model) {
@@ -42,24 +53,53 @@ public class StartScreenController implements IStartScreenController {
         Platform.runLater(() -> {
             nameColumn.setCellValueFactory(new PropertyValueFactory<>("learningUnitTitle"));
             pathColumn.setCellValueFactory(new PropertyValueFactory<>("learningUnitPath"));
-            model.addEntry(this.exampleEntry);
+            populateLearningUnitTable();
             learningUnitTable.setItems(model.getEntries());
         });
     }
 
+    /**
+     * Populates the LearningUnitTable with th elearningUnitTable.xml
+     */
+    private void populateLearningUnitTable() {
+        Document document = XMLUtils.readXML("learningUnitTable.xml");
+        NodeList learningUnitEntries = document.getElementsByTagName("LearningUnitEntry");
+        for (int i = 0; i < learningUnitEntries.getLength(); i++) {
+            Node item = learningUnitEntries.item(i);
+            Element xmlElement = (Element) item;
+            String name = xmlElement.getElementsByTagName("name").item(0).getTextContent();
+            String path = xmlElement.getElementsByTagName("path").item(0).getTextContent();
+            model.addEntry(name, path);
+        }
+    }
+
+    /**
+     * Sets up the Labels and learningUnitTable properties
+     */
     @FXML
     private void initialize() {
         createLocalizedLabels();
         learningUnitTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        learningUnitTable.widthProperty().addListener((source, oldWidth, newWidth) -> {
+            TableHeaderRow header = (TableHeaderRow) learningUnitTable.lookup("TableHeaderRow");
+            header.reorderingProperty().addListener((observable, oldValue, newValue) -> header.setReordering(false));
+        });
     }
 
     private void createLocalizedLabels() {
         nameColumn.setText(Localizations.getLocalizedString("nameColumn"));
         pathColumn.setText(Localizations.getLocalizedString("pathColumn"));
         openLearningUnitButton.setText(Localizations.getLocalizedString("openLearningUnit"));
-        changeLanguageButton.setText(Localizations.getLocalizedString("changeLanguageButton"));
+        openSettingsButton.setText(Localizations.getLocalizedString("openSettingsButton"));
+        newEntryButton.setText(Localizations.getLocalizedString("newEntryButton"));
+        editOrDeleteEntryButton.setText(Localizations.getLocalizedString("editOrDeleteEntryButton"));
+        saveTableViewButton.setText(Localizations.getLocalizedString("saveButton"));
     }
 
+    /**
+     * Opens a Learnign Unit which is selected in the LearningUnitTable
+     */
+    @FXML
     public void openLearningUnit() {
         LearningUnitEntry selectedEntry = learningUnitTable.getSelectionModel().getSelectedItem();
         if (selectedEntry == null) {
@@ -72,12 +112,65 @@ public class StartScreenController implements IStartScreenController {
         sceneHandler.setStageFullScreen(true);
     }
 
-    public void changeLanguage() {
-        String language = Localizations.getInstance().getLocale();
-        switch (language) {
-            case "de" -> Localizations.getInstance().setLocale("en", "US");
-            case "en" -> Localizations.getInstance().setLocale("de", "DE");
+    @FXML
+    public void openSettings() {
+        SceneHandler sceneHandler = SceneHandler.getInstance();
+        sceneHandler.changeScene(new SettingsController(), "settings.fxml", "settingsTitle");
+        sceneHandler.setStageFullScreen(false);
+    }
+
+    /**
+     * Creates a new Dialog to add a new Entry to the LearningUnitTable
+     */
+    @FXML
+    public void addNewEntry() {
+        CreateEntryDialog dialog = new CreateEntryDialog(Localizations.getLocalizedString("newEntryButton"));
+        dialog.initOwner(learningUnitTable.getScene().getWindow());
+        dialog.initModality(Modality.NONE);
+        Optional<Pair<String, String>> resultPair = dialog.showAndWait();
+        resultPair.ifPresent(result -> {
+            LearningUnitEntry newEntry = new LearningUnitEntry(result.getKey(), result.getValue());
+            model.addEntry(newEntry);
+        });
+    }
+
+    /**
+     * Saves the Table Using XMLUtils
+     */
+    @FXML
+    public void saveTableView() {
+        Document document = XMLUtils.createDocument();
+        Element rootElement = document.createElement("LearningUnitEntries");
+        for (LearningUnitEntry learningUnitEntry : learningUnitTable.getItems()) {
+            Element entry = XMLUtils.createTag(document, rootElement, "LearningUnitEntry");
+            XMLUtils.createTag(document, entry, "name", learningUnitEntry.getLearningUnitTitle());
+            XMLUtils.createTag(document, entry, "path", learningUnitEntry.getLearningUnitPath());
         }
-        createLocalizedLabels();
+        document.appendChild(rootElement);
+        XMLUtils.writeXML(document, "learningUnitTable.xml");
+    }
+
+    @FXML
+    public void editOrDeleteEntry() {
+        if (learningUnitTable.getSelectionModel().getSelectedItem() == null) {
+            return;
+        }
+        LearningUnitEntry selectedItem = learningUnitTable.getSelectionModel().getSelectedItem();
+        EditOrDeleteEntryDialog dialog = new EditOrDeleteEntryDialog(
+                Localizations.getLocalizedString("editOrDeleteEntryButton"),
+                learningUnitTable.getSelectionModel().getSelectedItem().getLearningUnitTitle(),
+                learningUnitTable.getSelectionModel().getSelectedItem().getLearningUnitPath());
+        dialog.initOwner(learningUnitTable.getScene().getWindow());
+        dialog.initModality(Modality.NONE);
+        Optional<Pair<String, String>> resultPair = dialog.showAndWait();
+        resultPair.ifPresent(result -> {
+            if (result.getKey().equals("") && result.getValue().equals("")) {
+                model.removeEntry(selectedItem);
+                return;
+            }
+            LearningUnitEntry newEntry = new LearningUnitEntry(result.getKey(), result.getValue());
+            model.changeEntry(selectedItem, newEntry);
+            learningUnitTable.getSelectionModel().select(newEntry);
+        });
     }
 }

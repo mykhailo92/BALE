@@ -38,4 +38,8 @@ public interface ILearningUnitModel {
     Element[] getChapterMarks();
 
     void setChapterMarks(Element[] chapterMarks);
+
+    String getCloseButtonText();
+
+    void setCloseButtonText(String closeButtonText);
 }
