@@ -72,6 +72,7 @@ public class LearningUnitModel implements ILearningUnitModel {
     @Override
     public void setChapterIndicator(int chapterIndicator) {
         this.chapterIndicator = chapterIndicator;
+        notifyObserver();
     }
 
     @Override

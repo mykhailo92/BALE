@@ -13,11 +13,8 @@ import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class LearningUnitController implements ILearningUnitController {
@@ -89,7 +86,6 @@ public class LearningUnitController implements ILearningUnitController {
             chapterMarks[0].appendChild(document.createElement("br"));
         }
         model.setChapterMarks(chapterMarks);
-        setInvisible(chapterMarks[0]);
     }
 
     /**
@@ -131,15 +127,17 @@ public class LearningUnitController implements ILearningUnitController {
     private void createHTMLControlLabels() {
         Element[] readOutButtons = getControlLabelsFromDocument();
         for (Element element : readOutButtons) {
-            if (getClasses(element).contains("reading")) {
+            List<String> elementClasses = LearningUnitUtils.getClasses(element);
+            if (elementClasses.contains("reading")) {
                 element.setTextContent(Localizations.getLocalizedString("readOutButton"));
-            } else if (getClasses(element).contains("save")) {
-                element.setAttribute("value",Localizations.getLocalizedString("saveButton"));
-            } else if (getClasses(element).contains("preamble-button")) {
+            } else if (elementClasses.contains("save")) {
+                element.setAttribute("value", Localizations.getLocalizedString("saveButton"));
+            } else if (elementClasses.contains("preamble-button")) {
                 element.setTextContent(Localizations.getLocalizedString("preamble-button"));
             }
         }
     }
+
     private Element[] getControlLabelsFromDocument() {
         JSObject readOutButtonList = (JSObject) engine.executeScript("getControlLabels();");
         return createArrayFromJSObject(readOutButtonList);
@@ -191,25 +189,13 @@ public class LearningUnitController implements ILearningUnitController {
         if (model.getContainerIndicator() < model.getContainer().length - 1) {
             model.setContainerIndicator(model.getContainerIndicator() + 1);
             Element currentContainer = model.getContainer()[model.getContainerIndicator()];
-            if (getClasses(model.getContainer()[model.getContainerIndicator() - 1]).contains("diashow")) {
+            if (LearningUnitUtils.getClasses(model.getContainer()[model.getContainerIndicator() - 1]).contains("diashow")) {
                 model.setCurrentSlideIndicator(model.getCurrentSlideIndicator() + 1);
-            } else if (getClasses(currentContainer).contains("info-and-slide")) {
+            } else if (LearningUnitUtils.getClasses(currentContainer).contains("info-and-slide")) {
                 model.setCurrentSlideIndicator(model.getCurrentSlideIndicator() + 1);
             }
             listener.notifyMyself();
         }
-    }
-
-    /**
-     * @param element HTML DOM Element
-     * @return String list of all HTML Classes that element has. Returns "none" when the Element has no HTML CLass.
-     */
-    private List<String> getClasses(Element element) {
-        NamedNodeMap elementAttributes = element.getAttributes();
-        if (elementAttributes.getNamedItem("class") != null) {
-            return Arrays.asList(elementAttributes.getNamedItem("class").getNodeValue().split(" "));
-        }
-        return Collections.singletonList("none");
     }
 
     /**
@@ -234,11 +220,12 @@ public class LearningUnitController implements ILearningUnitController {
                 setVisible(model.getContainer()[listenedModel.getContainerIndicator()]);
             }
             scrollToBottom();
-            setVisible(model.getChapterMarks()[model.getChapterIndicator()]);
+            if (model.getChapterIndicator() >= 1) {
+                setVisible(model.getChapterMarks()[model.getChapterIndicator()]);
+            }
             if (!model.getCloseButtonText().equals("")) {
                 closeButton.setText(model.getCloseButtonText());
             }
-            Platform.runLater(() -> checkChapter(listenedModel));
         });
 
         model.addListener((listenedModel) -> {
@@ -247,25 +234,6 @@ public class LearningUnitController implements ILearningUnitController {
                 setInvisible(model.getSlides()[listenedModel.getCurrentSlideIndicator() - 1]);
             }
         });
-    }
-
-    /**
-     * Checks if a Chapter is made Visible by looking at its Height by using JavaScript
-     * If the Threshold is met, we increment the chapterIndicator of the model
-     * If the chapterIndicator is 0 we set the Indicator to 0 to display the border
-     *
-     * @param model Model which is listened to
-     */
-    private void checkChapter(ILearningUnitModel model) {
-        if (model.getChapterIndicator() < model.getChapterMarks().length - 1) {
-            Integer height = (Integer) engine.executeScript("getElementHeightByID('chapter" + model.getChapterIndicator() + "');");
-            if (height > 20) { // Height threshold which counts as displayed Chapter
-                if (model.getChapterIndicator() == 0) {
-                    model.setChapterIndicator(0);
-                }
-                model.setChapterIndicator(model.getChapterIndicator() + 1);
-            }
-        }
     }
 
     private void setInvisible(Element disableElement) {
