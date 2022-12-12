@@ -1,6 +1,8 @@
 package de.bale.ui.dialogs;
 
 import de.bale.language.Localizations;
+import de.bale.logger.Logger;
+import de.bale.messages.DialogAnswerMessage;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.util.Pair;
@@ -19,8 +21,10 @@ public class EditOrDeleteEntryDialog extends BaseEntryDialog {
 
         setResultConverter(dialogButton -> {
             if (dialogButton == ButtonType.FINISH && !titleField.getText().equals("") && !pathField.getText().equals("")) {
+                Logger.getInstance().post(new DialogAnswerMessage(titleField.getText(),pathField.getText()));
                 return new Pair<>(titleField.getText(), pathField.getText());
             } else if (dialogButton == delete) {
+                Logger.getInstance().post(new DialogAnswerMessage("",""));
                 return new Pair<>("", "");
             } else {
                 return null;

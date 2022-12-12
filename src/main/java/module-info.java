@@ -8,7 +8,8 @@ module de.bale {
     requires javafx.web;
     requires jdk.jsobject;
     requires javafx.media;
-
+    requires guava;
+    exports de.bale.logger;
     opens de.bale.ui to javafx.fxml;
     exports de.bale.ui;
     exports de.bale;

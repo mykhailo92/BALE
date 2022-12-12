@@ -1,8 +1,10 @@
 package de.bale.ui.learningUnit;
 
 import javafx.scene.web.WebEngine;
+import netscape.javascript.JSObject;
 import org.w3c.dom.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -52,5 +54,26 @@ public class LearningUnitUtils {
         styleNode.setAttribute("rel","stylesheet");
         styleNode.setAttribute("href","css/"+name+".css");
         doc.getDocumentElement().getElementsByTagName("head").item(0).appendChild(styleNode);
+    }
+
+
+    /**
+     * Casts a JavaScript response Object to an Array of Elements
+     *
+     * @param jsObjectList JSObject which holds a List-structure
+     * @return Array of Elements which were held by the jsObjectList
+     */
+    static Element[] createArrayFromJSObject(JSObject jsObjectList) {
+        int slotCounter = 0;
+        ArrayList<Element> elementList = new ArrayList<>();
+        while (!jsObjectList.getSlot(slotCounter).equals("undefined")) {
+            Element element = (Element) jsObjectList.getSlot(slotCounter++);
+            elementList.add(element);
+        }
+        Element[] elementArray = new Element[elementList.size()];
+        for (int i = 0; i < elementArray.length; i++) {
+            elementArray[i] = elementList.get(i);
+        }
+        return elementArray;
     }
 }

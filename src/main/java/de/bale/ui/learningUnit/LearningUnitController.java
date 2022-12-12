@@ -1,6 +1,10 @@
 package de.bale.ui.learningUnit;
 
 import de.bale.language.Localizations;
+import de.bale.logger.Logger;
+import de.bale.messages.InitMessage;
+import de.bale.messages.SectionMessage;
+import de.bale.messages.TaskDoneMessage;
 import de.bale.ui.JSBridge;
 import de.bale.ui.SceneHandler;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitController;
@@ -15,7 +19,6 @@ import netscape.javascript.JSObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LearningUnitController implements ILearningUnitController {
@@ -32,9 +35,11 @@ public class LearningUnitController implements ILearningUnitController {
     private ILearningUnitModel model;
     private JSBridge bridge;
     private SectionVisibleListener listener;
+    private Logger logger;
 
     public LearningUnitController(String filePath) {
         startPage = "file:///" + filePath;
+        logger = Logger.getInstance();
     }
 
 
@@ -49,10 +54,12 @@ public class LearningUnitController implements ILearningUnitController {
     private void initialize() {
         learningUnit.setContextMenuEnabled(false);
         engine = learningUnit.getEngine();
+        logger.post(new InitMessage("Loading LearningUnit: " + startPage + "..."));
         engine.load(startPage);
         engine.getLoadWorker().stateProperty().addListener(
                 (observableValue, oldState, newState) -> {
                     if (oldState.equals(Worker.State.RUNNING) && newState.equals(Worker.State.SUCCEEDED)) {
+                        logger.post(new TaskDoneMessage());
                         LearningUnitUtils.createStyleNode(engine, SceneHandler.getInstance().getThemeName());
                         model.setContainer(getContainerFromDocument());
                         model.setSlides(getSlideFromDocument());
@@ -72,12 +79,14 @@ public class LearningUnitController implements ILearningUnitController {
      * prepares Index and Jump Marks to the Chapters
      */
     private void prepareChapterIndex() {
+        logger.post(new InitMessage("Preparing ChapterIndex..."));
         model.setChapter(getChapterFromDocument());
         Document document = engine.getDocument();
         Element[] chapterArray = model.getChapter();
         Element[] chapterMarks = new Element[chapterArray.length + 1];
         chapterMarks[0] = document.getElementById("chapter-select");
         for (int i = 0; i < chapterArray.length; i++) {
+            logger.post(new InitMessage("Adding ID chapter" + i + "..."));
             Element entry = document.createElement("a");
             chapterArray[i].setAttribute("id", "chapter" + i);
             entry.setAttribute("href", "#chapter" + i);
@@ -87,6 +96,7 @@ public class LearningUnitController implements ILearningUnitController {
             chapterMarks[0].appendChild(entry);
             chapterMarks[0].appendChild(document.createElement("br"));
         }
+        logger.post(new TaskDoneMessage());
         model.setChapterMarks(chapterMarks);
     }
 
@@ -98,7 +108,7 @@ public class LearningUnitController implements ILearningUnitController {
      */
     private Element[] getChapterFromDocument() {
         JSObject sectionList = (JSObject) engine.executeScript("getChapter();");
-        return createArrayFromJSObject(sectionList);
+        return LearningUnitUtils.createArrayFromJSObject(sectionList);
     }
 
     /**
@@ -106,27 +116,32 @@ public class LearningUnitController implements ILearningUnitController {
      */
 
     private void setAllContainerInvisible() {
+        logger.post(new InitMessage("Setting all Container Invisible..."));
         for (Element containerElement : model.getContainer()) {
             setInvisible(containerElement);
         }
         for (Element slideElement : model.getSlides()) {
             setInvisible(slideElement);
         }
+        logger.post(new TaskDoneMessage());
     }
 
     /**
      * Create localized Labels for JavaFX Control Elements
      */
     private void createControlLabels() {
+        logger.post(new InitMessage("Creating Localized Labels"));
         nextButton.setText(Localizations.getLocalizedString("nextButton"));
         closeButton.setText(Localizations.getLocalizedString("closeButton"));
         scrollDownButton.setText(Localizations.getLocalizedString("scrollDownButton"));
+        logger.post(new TaskDoneMessage());
     }
 
     /**
      * Create Localized HTML Labels
      */
     private void createHTMLControlLabels() {
+        logger.post(new InitMessage("Creating HTML localized Labels"));
         Element[] readOutButtons = getControlLabelsFromDocument();
         for (Element element : readOutButtons) {
             List<String> elementClasses = LearningUnitUtils.getClasses(element);
@@ -138,11 +153,12 @@ public class LearningUnitController implements ILearningUnitController {
                 element.setTextContent(Localizations.getLocalizedString("preamble-button"));
             }
         }
+        logger.post(new TaskDoneMessage());
     }
 
     private Element[] getControlLabelsFromDocument() {
         JSObject readOutButtonList = (JSObject) engine.executeScript("getControlLabels();");
-        return createArrayFromJSObject(readOutButtonList);
+        return LearningUnitUtils.createArrayFromJSObject(readOutButtonList);
     }
 
     /**
@@ -154,33 +170,14 @@ public class LearningUnitController implements ILearningUnitController {
 
     private Element[] getContainerFromDocument() {
         JSObject sectionList = (JSObject) engine.executeScript("getContainer();");
-        return createArrayFromJSObject(sectionList);
+        return LearningUnitUtils.createArrayFromJSObject(sectionList);
     }
 
     private Element[] getSlideFromDocument() {
         JSObject slidesList = (JSObject) engine.executeScript("getSlides();");
-        return createArrayFromJSObject(slidesList);
+        return LearningUnitUtils.createArrayFromJSObject(slidesList);
     }
 
-    /**
-     * Casts a JavaScript response Object to an Array of Elements
-     *
-     * @param jsObjectList JSObject which holds a List-structure
-     * @return Array of Elements which were held by the jsObjectList
-     */
-    private Element[] createArrayFromJSObject(JSObject jsObjectList) {
-        int slotCounter = 0;
-        ArrayList<Element> elementList = new ArrayList<>();
-        while (!jsObjectList.getSlot(slotCounter).equals("undefined")) {
-            Element element = (Element) jsObjectList.getSlot(slotCounter++);
-            elementList.add(element);
-        }
-        Element[] elementArray = new Element[elementList.size()];
-        for (int i = 0; i < elementArray.length; i++) {
-            elementArray[i] = elementList.get(i);
-        }
-        return elementArray;
-    }
 
     /**
      * Sets the Display of the next invisible Container to visible
@@ -190,11 +187,14 @@ public class LearningUnitController implements ILearningUnitController {
     private void displayNextSection() {
         if (model.getContainerIndicator() < model.getContainer().length - 1) {
             model.setContainerIndicator(model.getContainerIndicator() + 1);
+            logger.post(new SectionMessage("Displaying new Section"));
             Element currentContainer = model.getContainer()[model.getContainerIndicator()];
             if (LearningUnitUtils.getClasses(model.getContainer()[model.getContainerIndicator() - 1]).contains("diashow")) {
                 model.setCurrentSlideIndicator(model.getCurrentSlideIndicator() + 1);
+                logger.post(new SectionMessage( "Displaying Diashow"));
             } else if (LearningUnitUtils.getClasses(currentContainer).contains("info-and-slide")) {
                 model.setCurrentSlideIndicator(model.getCurrentSlideIndicator() + 1);
+                logger.post(new SectionMessage( "Displaying info-and-slide"));
             }
             listener.notifyMyself();
         }

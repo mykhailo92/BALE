@@ -1,5 +1,7 @@
 package de.bale.ui.dialogs;
 
+import de.bale.logger.Logger;
+import de.bale.messages.DialogAnswerMessage;
 import javafx.scene.control.ButtonType;
 import javafx.util.Pair;
 
@@ -13,6 +15,7 @@ public class CreateEntryDialog extends BaseEntryDialog {
         super(windowName);
         setResultConverter(dialogButton -> {
             if (dialogButton == ButtonType.FINISH && !titleField.getText().equals("") && !pathField.getText().equals("")) {
+                Logger.getInstance().post(new DialogAnswerMessage(titleField.getText(),pathField.getText()));
                 return new Pair<>(titleField.getText(), pathField.getText());
             }
             return null;
