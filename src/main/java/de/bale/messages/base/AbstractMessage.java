@@ -17,7 +17,7 @@ public abstract class AbstractMessage {
         return messageDateTime;
     }
 
-    public String getMessageDateTimeFormated() {
+    public String getMessageDateTimeFormatted() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("[yyyy/MM/dd HH:mm:ss]");
         return messageDateTime.format(dtf);
     }
