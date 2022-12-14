@@ -29,7 +29,7 @@ public class LearningUnitController implements ILearningUnitController {
     public Button closeButton;
     public Button scrollDownButton;
     @FXML
-    private WebView learningUnit = new WebView();
+    private WebView learningUnit;
     private WebEngine engine;
     private final String startPage;
     private ILearningUnitModel model;

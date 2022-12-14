@@ -1,5 +1,7 @@
 package de.bale.language;
 
+import de.bale.logger.Logger;
+import de.bale.messages.ErrorMessage;
 import de.bale.storage.PropertiesUtils;
 
 import java.util.*;
@@ -32,7 +34,7 @@ public class Localizations {
             Locale.setDefault(new Locale(languageCode, countryCode));
             bundle = ResourceBundle.getBundle("localization/Lang");
         } else {
-            System.err.println("UNKOWN LOCATION: " + languageCode + countryCode);
+            Logger.getInstance().post(new ErrorMessage("UNKOWN LOCATION: " + languageCode + countryCode));
         }
 
     }
@@ -56,7 +58,7 @@ public class Localizations {
             if (bundle != null) {
                 return bundle.getString(key);
             } else {
-                System.err.println("Locale not yet set.");
+                Logger.getInstance().post(new ErrorMessage("Locale not yet set."));
                 return "";
             }
         } catch (MissingResourceException e) {
