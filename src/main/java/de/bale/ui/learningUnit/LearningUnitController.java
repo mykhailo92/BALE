@@ -151,6 +151,8 @@ public class LearningUnitController implements ILearningUnitController {
                 element.setAttribute("value", Localizations.getLocalizedString("saveButton"));
             } else if (elementClasses.contains("preamble-button")) {
                 element.setTextContent(Localizations.getLocalizedString("preamble-button"));
+            } else if (getClasses(element).contains("demo-video")) {
+                element.setTextContent(Localizations.getLocalizedString("demoVideoButton"));
             }
         }
         logger.post(new TaskDoneMessage());
