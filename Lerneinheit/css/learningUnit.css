@@ -123,7 +123,7 @@ input[type=submit]:hover {
 
 .text-tim {
     margin-top: calc(var(--tim-img-height) / 2);
-    margin-bottom: calc(var(--tim-img-height) / 2.2);
+    margin-bottom: calc(var(--tim-img-height) / 2.5);
     text-align: justify;
     font-size: var(--textFontSize);
     font-family: 'Optima', cursive;
