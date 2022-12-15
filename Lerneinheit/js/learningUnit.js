@@ -105,11 +105,7 @@ function showVideo(video) {
     let number = video.getAttribute('track-number');
     let videoElem = document.getElementById('video-' + number);
     videoElem.setAttribute('src', 'video/video-' + number + '.mp4');
-
-    let delayInMilliseconds = 250;
-    setTimeout(function() {
-            videoElem.setAttribute('autoplay', 'autoplay');},
-        delayInMilliseconds);
+    videoElem.setAttribute('autoplay', 'autoplay');
 }
 
 // When the user clicks on <span> (x), close the modal
