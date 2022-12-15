@@ -12,7 +12,7 @@ body {
 }
 
 :root {
-    --tim-img-height: 250px;
+    --tim-img-height: 300px;
 }
 
 .section {
@@ -123,7 +123,7 @@ input[type=submit]:hover {
 
 .text-tim {
     margin-top: calc(var(--tim-img-height) / 2);
-    margin-bottom: calc(var(--tim-img-height) / 2.8);
+    margin-bottom: calc(var(--tim-img-height) / 2.2);
     text-align: justify;
     font-size: var(--textFontSize);
     font-family: 'Optima', cursive;
@@ -131,14 +131,15 @@ input[type=submit]:hover {
 
 .tim {
     height: var(--tim-img-height);
+    margin: 5px 12px 5px 0;
 }
 
 .eye-small {
-    height: 100px;
+    height: 240px;
 }
 
 .forest {
-    height: 250px;
+    height: 470px;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -147,17 +148,13 @@ input[type=submit]:hover {
 
 .forest-text {
     text-align: center;
-    margin-top: -14px;
+    margin-top: -11px;
     font-size: var(--textFontSize);
     font-family: 'Optima', cursive;
 }
 
 .light-bulb {
     margin-top: 10px;
-}
-
-#text_forest {
-    background-image: url("../testImages/Wald.png");
 }
 
 .wrap-figure {
@@ -200,19 +197,15 @@ input[type=submit]:hover {
 
 .slide {
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding: 10px;
+    margin: -5px 0 30px 30px;
 }
 
 .watermark {
-    background-image: url("../testImages/Auge_Watermark.png");
+    background-image: url("../images/eye_watermark.png");
     background-repeat: no-repeat;
     background-position: center;
     backface-visibility: inherit;
-    background-size: 500px;
+    background-size: 400px;
 }
 
 .clearfix {
@@ -269,8 +262,6 @@ input[type=submit]:hover {
     margin-right: auto;
     background-color: var(--dragableCardBackgroundColor);
     color: var(--mainButtonTextColor);
-    display: inline-block;
-    margin: 1px 1px 1px 1px;
     border-radius: 5px;
     font-size: var(--dragableCardFontSize);
     align-content: center;
@@ -378,7 +369,7 @@ input[type=submit]:hover {
     position: relative;
     width: 440px;
     height: 30px;
-    left: 340px;
+    left: 360px;
 }
 
 #dropdown-1 {
@@ -388,7 +379,7 @@ input[type=submit]:hover {
 
 #dropdown-2 {
     transform: rotate(-7deg);
-    top: 270px;
+    top: 272px;
 }
 
 .dropdown::before {
@@ -452,18 +443,18 @@ input[type=submit]:hover {
     color: #fff;
 }
 
-.tim-flashlight {
+.tim-lamp {
     float: left;
     height: 350px;
     margin-top: 50px;
-    margin-left: 80px;
+    margin-left: -20px;
 }
 
 .door {
-    float: right;
-    height: 250px;
-    margin-top: 60px;
-    margin-right: 110px;
+    position: absolute;
+    height: 350px;
+    left: 940px;
+    margin-top: 30px;
 }
 
 .task-img {
