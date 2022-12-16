@@ -96,7 +96,7 @@
                 <div id="modal-window-1" class="modal">
                     <div class="modal-content">
                         <span class="close">&times;</span>
-                        <video class="video" id="video-1" type="video/mp4"></video>
+                        <video class="video" id="video-1" type="video/mp4" loop></video>
                     </div>
                 </div>
                 Ordne die Begriffe zu. <br> Klicke auf das Wort und ziehe es an die richtige Stelle:
@@ -116,7 +116,7 @@
             <div class="drop-field" id="drop-2"></div>
             <div class="drop-field" id="drop-3"></div>
         </div>
-        <input class="submit save" type="submit" value="Speichern" onclick="save();enableNextButton()">
+        <input class="submit save" id="drag-and-drop-save-button" type="submit" value="Speichern" onclick="save()">
     </div>
     <br>
     <div class="section">
@@ -175,11 +175,9 @@
             <button class="reading" id="reading-button-2" onclick="playAudio(this)" track-number="2">Vorlesen</button>
             <br>
             Tim wacht in der Nacht auf und möchte sich etwas zu trinken holen. In seinem Zimmer ist es dunkel. Seine
-            Lampe
-            ist kaputt. Er hat aber eine Taschenlampe auf seinem Nachttisch stehen, mit der er den Weg zur Tür ganz
-            einfach
-            finden kann.<br>
-            <img src="testImages/Taschenlampe.png" alt=""/>
+            Lampe ist kaputt. <br>
+            Er hat aber eine Taschenlampe <img src="images/lamp.png" alt=""/>
+            auf seinem Nachttisch stehen, mit der er den Weg zur Tür ganz einfach finden kann.<br>
         </div>
     </div>
     <div class="section">
@@ -250,7 +248,7 @@
             </div>
             <img class="door" src="images/door.png" alt=""/>
         </div>
-        <input class="submit save" id="dropdown-button" type="submit" value="Speichern" track-number="2"
+        <input class="submit save" id="dropdown-save-button" type="submit" value="Speichern" track-number="2"
                onclick="checkAnswer(); showVideo(this)">
         <div id="modal-window-2" class="modal">
             <div class="modal-content">
@@ -274,6 +272,9 @@
 <div class="chapter">
     <div class="section" onVisible="renameCloseButton;Beenden">
         <img class="wrap-figure tim" src="images/Tim_with_glasses.png" alt="">
+    </div>
+    <div class="section" onVisible="disableNextButton">
+
     </div>
 </div>
 </body>

@@ -85,11 +85,19 @@ function allowDrop(event) {
 }
 
 function save() {
+    let count = 0;
     for (const [key, value] of answersMap.entries()) {
         if (value === true && document.getElementById(key).hasChildNodes()) {
             document.getElementById(key).style.background = '#6ceb75';
+            document.getElementById('drag-' + key.split('-').at(1))
+                .setAttribute('draggable', 'false');
+            count++
         } else {
             document.getElementById(key).style.background = '#d51c00';
         }
+    }
+    if (count === answersMap.size) {
+        enableNextButton();
+        document.getElementById('drag-and-drop-save-button').disabled = true;
     }
 }

@@ -42,7 +42,7 @@ function checkAnswer() {
                 }
                 if (count === textBox.length) {
                     enableNextButton();
-                    document.getElementById('dropdown-button').disabled = true;
+                    document.getElementById('dropdown-save-button').disabled = true;
                 }
             }
         })
