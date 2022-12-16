@@ -217,8 +217,8 @@
             sehen.
         </div>
     </div>
-    <div class="section">
-        <div class="task" onVisible="disableNextButton">
+    <div class="section" onVisible="disableNextButton">
+        <div class="task">
             Welchen Weg nimmt das Licht von der Taschenlampe zur Tür und von dort zurück zu Tim? Wähle aus in welche
             Richtung der Lichtstrahl geht.<br>
         </div>
@@ -228,10 +228,10 @@
                 <input class="text-box" id="text-box-1" type="image"
                        alt="Klicke hier und wähle die Richtung des Lichts">
                 <div class="options">
-                    <div onclick="show('right', 1)">
+                    <div class="options-answer" onclick="show(this)" direction="right" number="1" isCorrect="false">
                         <img src="icons/arrow-right.png" class="arrow-icon" id="right" alt="">
                     </div>
-                    <div onclick="show('left', 1)">
+                    <div class="options-answer" onclick="show(this)" direction="left" number="1" isCorrect="true">
                         <img src="icons/arrow-left.png" class="arrow-icon" id="left" alt="">
                     </div>
                 </div>
@@ -240,18 +240,19 @@
                 <input class="text-box" id="text-box-2" type="image"
                        alt="Klicke hier und wähle die Richtung des Lichts">
                 <div class="options">
-                    <div onclick="show('right', 2)">
+                    <div class="options-answer" onclick="show(this)" direction="right" number="2" isCorrect="true">
                         <img src="icons/arrow-right.png" class="arrow-icon" alt="">
                     </div>
-                    <div onclick="show('left', 2)">
+                    <div class="options-answer" onclick="show(this)" direction="left" number="2" isCorrect="false">
                         <img src="icons/arrow-left.png" class="arrow-icon" alt="">
                     </div>
                 </div>
             </div>
             <img class="door" src="images/door.png" alt=""/>
         </div>
+        <input class="submit save" id="dropdown-button" type="submit" value="Speichern" onclick="checkAnswer()">
     </div>
-    <div class="section" onVisible="renameCloseButton;Beenden">
+    <div class="section">
         <div class="information">
             <div class="text">
                 <img src="icons/lightbulb.png" class="task-icon" alt=""/> Unsere Augen sind Lichtempfänger. Wir
@@ -260,6 +261,12 @@
                 und das Licht von den Gegenständen auf unsere Augen trifft.
             </div>
         </div>
+    </div>
+</div>
+
+<div class="chapter">
+    <div class="section" onVisible="renameCloseButton;Beenden">
+        <img class="wrap-figure tim" src="images/Tim_with_glasses.png" alt="">
     </div>
 </div>
 </body>

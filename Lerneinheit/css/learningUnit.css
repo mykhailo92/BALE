@@ -117,6 +117,11 @@ input[type=submit]:hover {
     background-color: var(--mainButtonHovorColor);
 }
 
+input[type=submit]:disabled {
+    background: #dddddd;
+    transform: none;
+}
+
 .submit:active {
     transform: translateY(2px);
 }
@@ -312,7 +317,7 @@ input[type=submit]:hover {
     width: 1078px;
     height: 231px;
     padding: 50px;
-    background-image: url("../testImages/Auge_Gross.png");
+    background-image: url("../images/eye_drag_and_drop.png");
     background-repeat: no-repeat;
     background-position: center;
     backface-visibility: inherit;
