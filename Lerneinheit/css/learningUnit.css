@@ -91,6 +91,13 @@ textarea {
     transform: translateY(2px);
 }
 
+.reading:disabled {
+    background: #dddddd;
+    color: #262932FF;
+    transform: none;
+    box-shadow: 0 5px #666;
+}
+
 input[type=text], select {
     width: 50%;
     padding: 12px 20px;

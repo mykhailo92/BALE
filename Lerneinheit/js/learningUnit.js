@@ -1,7 +1,4 @@
 
-let audio = new Audio();
-let currentTrack;
-
 function changeBgColor() {
     document.body.style.backgroundColor = document.getElementById('color').value;
     document.getElementsByTagName('aufgabe');
@@ -61,41 +58,8 @@ function changeInnerTextById(id, text) {
     document.getElementById(id).innerText = text;
 }
 
-function playAudio(reading) {
-    let index = reading.getAttribute("track-number");
-    if (audio.autoplay && index === currentTrack) {
-        stopAudioPlaying();
-    } else if (audio.autoplay && index !== currentTrack) {
-        return;
-    } else {
-        startAudioPlaying(index);
-    }
-    audio.addEventListener("ended", function () {
-        audio.autoplay = false;
-        document.getElementById('reading-button-' + index).innerText = "Vorlesen";
-    });
-}
 
-function startAudioPlaying(index) {
-    let delayInMilliseconds = 200;
-    setTimeout(function() {
-        audio.src = 'audio/task_' + index + '.mp3';
-        audio.autoplay = true;
-        audio.currentTime = 0;
-        currentTrack = index;
-        document.getElementById('reading-button-' + index).innerText = "Vorlesen stoppen";},
-        delayInMilliseconds);
-}
-
-function stopAudioPlaying() {
-    let delayInMilliseconds = 200;
-    setTimeout(function() {
-            audio.pause();
-            audio.currentTime = 0;
-            audio.autoplay = false;
-            document.getElementById('reading-button-' + currentTrack).innerText = "Vorlesen";},
-        delayInMilliseconds);
-}
+/* --------------- Playing Video --------------- */
 
 let modal = document.getElementById("modal-window");
 let span = document.getElementsByClassName("close")[0];
@@ -108,18 +72,24 @@ function showVideo(video) {
     videoElem.setAttribute('autoplay', 'autoplay');
 }
 
-// When the user clicks on <span> (x), close the modal
+/* When the user clicks on <span> (x), close the modal */
 span.onclick = function() {
     modal.style.display = "none";
 }
 
-// When the user clicks anywhere outside the modal, close it
+/* When the user clicks anywhere outside the modal, close it */
 window.onclick = function(event) {
     if (event.target === modal) {
         modal.style.display = "none";
     }
 }
 
+/* ------------------------------------------- */
+
 function enableNextButton() {
     window.javaBridge.setNextButtonDisabled(false);
+}
+
+function disableNextButton() {
+    window.javaBridge.setNextButtonDisabled(true);
 }

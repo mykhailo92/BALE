@@ -2,7 +2,6 @@
 const dropdown = document.querySelectorAll('.dropdown');
 const textBox = document.querySelectorAll('.text-box');
 
-
 dropdown.forEach(function (item) {
     item.addEventListener('click', function () {
         item.classList.toggle("active")
@@ -47,8 +46,4 @@ function checkAnswer() {
                 }
             }
         })
-}
-
-function enableNextButton() {
-    window.javaBridge.setNextButtonDisabled(false);
 }
