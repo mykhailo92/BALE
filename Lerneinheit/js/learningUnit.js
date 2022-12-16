@@ -58,6 +58,17 @@ function changeInnerTextById(id, text) {
     document.getElementById(id).innerText = text;
 }
 
+function saveText (element) {
+    let number = element.getAttribute('number');
+    let target = document.getElementById("text-area-" + number);
+    let text = target.value;
+
+    if (text.length > 0) {
+        enableNextButton();
+    } else {
+        target.placeholder = "Schreibe bitte deine Antwort hier mit der Tastatur um weiterzugehen";
+    }
+}
 
 /* --------------- Playing Video --------------- */
 
