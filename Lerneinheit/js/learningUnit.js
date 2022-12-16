@@ -70,32 +70,27 @@ function saveText (element) {
     }
 }
 
-/* --------------- Playing Video --------------- */
-
-let modal = document.getElementById("modal-window");
-let span = document.getElementsByClassName("close")[0];
-
 function showVideo(video) {
-    modal.style.display = "block";
     let number = video.getAttribute('track-number');
+    let modal = document.getElementById("modal-window-" + number);
+    let span = document.getElementsByClassName("close")[number-1];
     let videoElem = document.getElementById('video-' + number);
+    modal.style.display = "block";
     videoElem.setAttribute('src', 'video/video-' + number + '.mp4');
     videoElem.setAttribute('autoplay', 'autoplay');
-}
 
-/* When the user clicks on <span> (x), close the modal */
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
-/* When the user clicks anywhere outside the modal, close it */
-window.onclick = function(event) {
-    if (event.target === modal) {
+    /* When the user clicks on <span> (x), close the modal */
+    span.onclick = function() {
         modal.style.display = "none";
     }
-}
 
-/* ------------------------------------------- */
+    /* When the user clicks anywhere outside the modal, close it */
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+}
 
 function enableNextButton() {
     window.javaBridge.setNextButtonDisabled(false);

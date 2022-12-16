@@ -93,10 +93,10 @@
                 <img src="icons/Draggable-Card.svg" class="task-icon" alt=""/>
                 <button class="demo-video" id="video-demo-1" onclick="showVideo(this)" track-number="1">Demo-Video
                 </button>
-                <div id="modal-window" class="modal">
+                <div id="modal-window-1" class="modal">
                     <div class="modal-content">
                         <span class="close">&times;</span>
-                        <video class="video" id="video-1" track-number="1" type="video/mp4" controls></video>
+                        <video class="video" id="video-1" type="video/mp4"></video>
                     </div>
                 </div>
                 Ordne die Begriffe zu. <br> Klicke auf das Wort und ziehe es an die richtige Stelle:
@@ -250,7 +250,14 @@
             </div>
             <img class="door" src="images/door.png" alt=""/>
         </div>
-        <input class="submit save" id="dropdown-button" type="submit" value="Speichern" onclick="checkAnswer()">
+        <input class="submit save" id="dropdown-button" type="submit" value="Speichern" track-number="2"
+               onclick="checkAnswer(); showVideo(this)">
+        <div id="modal-window-2" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <video class="video" id="video-2" type="video/mp4" loop></video>
+            </div>
+        </div>
     </div>
     <div class="section">
         <div class="information">
