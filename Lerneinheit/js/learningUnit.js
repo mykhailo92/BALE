@@ -65,6 +65,8 @@ function saveText (element) {
 
     if (text.length > 0) {
         enableNextButton();
+        target.disabled = true;
+        element.disabled = true;
     } else {
         target.placeholder = "Schreibe bitte deine Antwort hier mit der Tastatur um weiterzugehen";
     }

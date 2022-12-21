@@ -519,7 +519,7 @@ input[type=submit]:disabled {
     font-size: 38px;
     font-weight: bold;
     top: 100px;
-    right: 330px;
+    right: 270px;
 }
 
 .close:hover,
@@ -531,8 +531,11 @@ input[type=submit]:disabled {
 
 .video {
     display: block;
-    width: 60%;
-    height: 60%;
-    margin-right: auto;
-    margin-left: auto;
+    width: 70%;
+    height: 70%;
+    margin: auto;
+}
+
+.lamp {
+    height: 25px;
 }
