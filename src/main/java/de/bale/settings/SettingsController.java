@@ -2,6 +2,10 @@ package de.bale.settings;
 
 
 import de.bale.language.Localizations;
+import de.bale.logger.Logger;
+import de.bale.messages.InitMessage;
+import de.bale.messages.SceneChangeMessage;
+import de.bale.messages.TaskDoneMessage;
 import de.bale.settings.interfaces.ISettingsController;
 import de.bale.storage.PropertiesUtils;
 import de.bale.ui.SceneHandler;
@@ -46,10 +50,12 @@ public class SettingsController implements ISettingsController {
     }
 
     private void createLocalizedLabels() {
+        Logger.getInstance().post(new InitMessage("Started Creating Labels"));
         languageLabel.setText(Localizations.getLocalizedString("language"));
         saveButton.setText(Localizations.getLocalizedString("saveButton"));
         openStartScreenButton.setText(Localizations.getLocalizedString("openStartScreenButton"));
         themeLabel.setText(Localizations.getLocalizedString("themeLabel"));
+        Logger.getInstance().post(new TaskDoneMessage());
     }
 
     @FXML @Override
@@ -71,6 +77,7 @@ public class SettingsController implements ISettingsController {
 
     @FXML @Override
     public void openStartScreen() {
+        Logger.getInstance().post(new SceneChangeMessage("StartScreen"));
         SceneHandler sceneHandler = SceneHandler.getInstance();
         sceneHandler.changeScene(new StartScreenController(), "startScreen.fxml", "selectionTitle");
         ((StartScreenController) sceneHandler.getController()).setModel(new StartScreenModel());

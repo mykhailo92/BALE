@@ -7,10 +7,12 @@ import java.time.format.DateTimeFormatter;
 public abstract class AbstractMessage {
     private LocalDateTime messageDateTime;
     private String message;
+    private int logLevel;
 
-    protected AbstractMessage(String message) {
+    protected AbstractMessage(String message,int logLevel) {
         this.message=message;
         this.messageDateTime = LocalDateTime.now();
+        this.logLevel = logLevel;
     }
 
     public LocalDateTime getMessageDateTime() {
@@ -32,5 +34,8 @@ public abstract class AbstractMessage {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+    public int getLogLevel() {
+        return logLevel;
     }
 }

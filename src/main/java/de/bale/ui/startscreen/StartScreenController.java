@@ -1,6 +1,10 @@
 package de.bale.ui.startscreen;
 
 import de.bale.language.Localizations;
+import de.bale.logger.Logger;
+import de.bale.messages.InitMessage;
+import de.bale.messages.SceneChangeMessage;
+import de.bale.messages.TaskDoneMessage;
 import de.bale.settings.SettingsController;
 import de.bale.storage.XMLUtils;
 import de.bale.ui.SceneHandler;
@@ -70,6 +74,7 @@ public class StartScreenController implements IStartScreenController {
             String name = xmlElement.getElementsByTagName("name").item(0).getTextContent();
             String path = xmlElement.getElementsByTagName("path").item(0).getTextContent();
             model.addEntry(name, path);
+            Logger.getInstance().post(new InitMessage("Added TableEntry: " + name + " " + path));
         }
     }
 
@@ -87,6 +92,7 @@ public class StartScreenController implements IStartScreenController {
     }
 
     private void createLocalizedLabels() {
+        Logger.getInstance().post(new InitMessage("Started Creating Labels"));
         nameColumn.setText(Localizations.getLocalizedString("nameColumn"));
         pathColumn.setText(Localizations.getLocalizedString("pathColumn"));
         openLearningUnitButton.setText(Localizations.getLocalizedString("openLearningUnit"));
@@ -94,6 +100,7 @@ public class StartScreenController implements IStartScreenController {
         newEntryButton.setText(Localizations.getLocalizedString("newEntryButton"));
         editOrDeleteEntryButton.setText(Localizations.getLocalizedString("editOrDeleteEntryButton"));
         saveTableViewButton.setText(Localizations.getLocalizedString("saveButton"));
+        Logger.getInstance().post(new TaskDoneMessage());
     }
 
     /**
@@ -105,6 +112,8 @@ public class StartScreenController implements IStartScreenController {
         if (selectedEntry == null) {
             return;
         }
+        Logger.getInstance().post(new SceneChangeMessage("Learning Unit - " + selectedEntry.getLearningUnitTitle()));
+
         SceneHandler sceneHandler = SceneHandler.getInstance();
         sceneHandler.changeScene(new LearningUnitController(selectedEntry.getLearningUnitPath()), "learningUnit.fxml", "title");
         ILearningUnitModel learningUnitModel = new LearningUnitModel();
@@ -114,6 +123,7 @@ public class StartScreenController implements IStartScreenController {
 
     @FXML
     public void openSettings() {
+        Logger.getInstance().post(new SceneChangeMessage("Settings"));
         SceneHandler sceneHandler = SceneHandler.getInstance();
         sceneHandler.changeScene(new SettingsController(), "settings.fxml", "settingsTitle");
         sceneHandler.setStageFullScreen(false);
@@ -127,6 +137,7 @@ public class StartScreenController implements IStartScreenController {
         CreateEntryDialog dialog = new CreateEntryDialog(Localizations.getLocalizedString("newEntryButton"));
         dialog.initOwner(learningUnitTable.getScene().getWindow());
         dialog.initModality(Modality.NONE);
+        Logger.getInstance().post(new SceneChangeMessage("CreateEntryDialog"));
         Optional<Pair<String, String>> resultPair = dialog.showAndWait();
         resultPair.ifPresent(result -> {
             LearningUnitEntry newEntry = new LearningUnitEntry(result.getKey(), result.getValue());

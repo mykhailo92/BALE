@@ -1,6 +1,8 @@
 package de.bale.storage;
 
 import de.bale.Utils;
+import de.bale.logger.Logger;
+import de.bale.messages.InitMessage;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -19,7 +21,8 @@ public class PropertiesUtils extends Utils {
      */
     public static void writeProperty(Properties property, String propertyName) {
         try {
-            OutputStream fileOutputStream = new FileOutputStream(getSettingsDir() + "/settings.properties");
+            OutputStream fileOutputStream = new FileOutputStream(getSettingsDir() + propertyName + ".properties");
+            Logger.getInstance().post(new InitMessage("Saving Property: " + getSettingsDir() + propertyName + ".properties"));
             property.store(fileOutputStream, "");
             fileOutputStream.close();
         } catch (IOException e) {
@@ -44,7 +47,8 @@ public class PropertiesUtils extends Utils {
         return properties;
     }
 
-    /**+
+    /**
+     * +
      * Creates and Writes a default settings.properties
      */
     private static void createDefaultSettingsProperties() {

@@ -7,7 +7,7 @@ public class Logger extends EventBus {
     private static Logger instance;
 
     private Logger() {
-        register(new ConsoleListener());
+        register(new ConsoleListener(0));
     }
 
     public static Logger getInstance() {

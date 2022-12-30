@@ -1,6 +1,8 @@
 package de.bale.storage;
 
 import de.bale.Utils;
+import de.bale.logger.Logger;
+import de.bale.messages.InitMessage;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -30,6 +32,7 @@ public class XMLUtils extends Utils {
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             DOMSource source = new DOMSource(doc);
             FileOutputStream fileOutputStream = new FileOutputStream(getSettingsDir() + "/" + filename);
+            Logger.getInstance().post(new InitMessage("Saving XML: " + getSettingsDir() + "/" + filename));
             StreamResult result = new StreamResult(fileOutputStream);
             transformer.transform(source, result);
         } catch (FileNotFoundException | TransformerException e) {
@@ -44,6 +47,7 @@ public class XMLUtils extends Utils {
      * @return w3c DOM Document
      */
     public static Document readXML(String filepath) {
+        Logger.getInstance().post(new InitMessage("Loading XML: "+filepath));
         Document domDoc;
         try {
             domDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(getSettingsDir() + "/" + filepath);

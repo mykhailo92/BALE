@@ -2,6 +2,9 @@ package de.bale.ui;
 
 import de.bale.Utils;
 import de.bale.language.Localizations;
+import de.bale.logger.Logger;
+import de.bale.messages.ErrorMessage;
+import de.bale.messages.InitMessage;
 import de.bale.storage.PropertiesUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -70,8 +73,9 @@ public class SceneHandler {
     public void setThemeName(String themeName) {
         if (allowedThemes.contains(themeName)) {
             this.themeName = themeName;
+            Logger.getInstance().post(new InitMessage("Setting Theme: "+themeName));
         } else {
-            System.err.println("Themename:" + themeName + " is unknown! Loading Default Theme");
+            Logger.getInstance().post(new ErrorMessage("Themename:" + themeName + " is unknown! Loading Default Theme"));
             this.themeName = "default";
         }
         if (primaryScene != null) {
@@ -88,6 +92,7 @@ public class SceneHandler {
     }
 
     public void setStageFullScreen(boolean fulLScreenEnabled) {
+        Logger.getInstance().post(new InitMessage("Setting Fullscreen to: " + fulLScreenEnabled));
         primaryStage.setFullScreen(fulLScreenEnabled);
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
     }
