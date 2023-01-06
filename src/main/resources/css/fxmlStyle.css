@@ -78,7 +78,7 @@
 }
 
 .dialog-pane .text-field {
-    -fx-background-color:  -fx-textAreaBackgroundColor;
+    -fx-background-color: -fx-textAreaBackgroundColor;
     -fx-text-fill: -fx-globalFontColor;
     -fx-border-color: -fx-taskBorderColor;
 }
@@ -104,7 +104,16 @@
 }
 
 .dialog-pane .header-panel {
-    -fx-background-color:  -fx-backgroundColor;
+    -fx-background-color: -fx-backgroundColor;
     -fx-border-color: -fx-taskBorderColor;
     -fx-border-style: hidden hidden solid hidden;
+}
+
+.slider-settings .thumb {
+    -fx-pref-height: 20px;
+    -fx-pref-width: 10px;
+}
+
+.slider-settings .axis {
+    -fx-tick-label-fill: -fx-globalFontColor;
 }

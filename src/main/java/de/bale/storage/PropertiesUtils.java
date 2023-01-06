@@ -42,7 +42,8 @@ public class PropertiesUtils extends Utils {
             resource.close();
         } catch (IOException e) {
             System.err.println("File not found: " + getSettingsDir() + "/settings.properties. Creating default Settings!");
-            createDefaultSettingsProperties();
+            properties = createDefaultSettingsProperties();
+            return properties;
         }
         return properties;
     }
@@ -51,10 +52,12 @@ public class PropertiesUtils extends Utils {
      * +
      * Creates and Writes a default settings.properties
      */
-    private static void createDefaultSettingsProperties() {
+    private static Properties createDefaultSettingsProperties() {
         Properties defaultProperties = new Properties();
         defaultProperties.setProperty("language", "de_DE");
         defaultProperties.setProperty("theme", "default");
+        defaultProperties.setProperty("loglevel", "0");
         writeProperty(defaultProperties, "settings");
+        return defaultProperties;
     }
 }

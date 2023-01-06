@@ -13,7 +13,7 @@ public class ConsoleListener {
 
     @Subscribe
     public void gotMessage(AbstractMessage message) {
-        if (currentLogLevel<=message.getLogLevel()) {
+        if (currentLogLevel <= message.getLogLevel()) {
             System.out.println("[" + message.getMessageDateTimeFormatted() + "] " + message.getMessage());
         }
     }

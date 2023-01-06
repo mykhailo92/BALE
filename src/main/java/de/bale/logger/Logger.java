@@ -1,13 +1,25 @@
 package de.bale.logger;
 
 import com.google.common.eventbus.EventBus;
+import de.bale.storage.PropertiesUtils;
+
+import java.util.Properties;
 
 public class Logger extends EventBus {
 
     private static Logger instance;
+    private ConsoleListener listener;
 
     private Logger() {
-        register(new ConsoleListener(0));
+        Properties settings = PropertiesUtils.getSettingsProperties();
+        int loglevel;
+        try {
+            loglevel = Integer.parseInt(settings.getProperty("loglevel"));
+        } catch (NumberFormatException e) {
+            loglevel = 0;
+        }
+        listener = new ConsoleListener(loglevel);
+        register(listener);
     }
 
     public static Logger getInstance() {
@@ -15,5 +27,9 @@ public class Logger extends EventBus {
             instance = new Logger();
         }
         return instance;
+    }
+
+    public void changeLogLevel(int loglevel) {
+        listener.currentLogLevel = loglevel;
     }
 }
