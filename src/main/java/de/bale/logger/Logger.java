@@ -1,6 +1,8 @@
 package de.bale.logger;
 
 import com.google.common.eventbus.EventBus;
+import de.bale.messages.LogLevelMessage;
+import de.bale.messages.SessionStartMessage;
 import de.bale.storage.PropertiesUtils;
 
 import java.util.Properties;
@@ -20,6 +22,7 @@ public class Logger extends EventBus {
         }
         listener = new ConsoleListener(loglevel);
         register(listener);
+        post(new SessionStartMessage());
     }
 
     public static Logger getInstance() {
@@ -30,6 +33,7 @@ public class Logger extends EventBus {
     }
 
     public void changeLogLevel(int loglevel) {
+        post(new LogLevelMessage(loglevel));
         listener.currentLogLevel = loglevel;
     }
 }
