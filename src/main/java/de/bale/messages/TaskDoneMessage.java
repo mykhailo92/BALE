@@ -4,6 +4,6 @@ import de.bale.messages.base.AbstractMessage;
 
 public class TaskDoneMessage extends AbstractMessage {
     public TaskDoneMessage() {
-        super("Done");
+        super("Done",0);
     }
 }

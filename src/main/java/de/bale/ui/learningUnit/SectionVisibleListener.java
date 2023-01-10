@@ -1,5 +1,8 @@
 package de.bale.ui.learningUnit;
 
+import de.bale.logger.Logger;
+import de.bale.messages.ErrorMessage;
+import de.bale.messages.InformationMessage;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitModel;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -32,15 +35,21 @@ public class SectionVisibleListener {
         try {
             String[] onVisible = section.getAttribute("onVisible").split(";");
             switch (onVisible[0]) {
-                case "disableNextButton" -> model.setNextButtonDisabled(true);
+                case "disableNextButton" -> {
+                    model.setNextButtonDisabled(true);
+                    Logger.getInstance().post(new InformationMessage("Disabling Next Button"));
+                }
                 case "renameCloseButton" -> model.setCloseButtonText(onVisible[1]);
-                default -> System.err.println("Unknown Value:" + onVisible[0]);
+                default -> {
+                    Logger.getInstance().post(new ErrorMessage("Unknown Value:" + onVisible[0]));
+                }
             }
         } catch (NullPointerException ignored) {
         }
         //Check Chapter
         Element currentChapter = getSectionChapter(section);
         if (!LearningUnitUtils.getID(lastChapter).equals(LearningUnitUtils.getID(currentChapter))) {
+            Logger.getInstance().post(new InformationMessage("Displaying Chapter " + model.getChapterIndicator()));
             lastChapter = currentChapter;
             model.setChapterIndicator(model.getChapterIndicator() + 1);
         }

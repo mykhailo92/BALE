@@ -4,14 +4,17 @@
 <?import javafx.scene.layout.*?>
 <GridPane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          prefHeight="400.0" prefWidth="600.0" styleClass="root-pane">
+          prefHeight="400.0" prefWidth="600.0" styleClass="root-pane"
+          style="-fx-padding: 0 10 10 5;">
     <columnConstraints>
         <ColumnConstraints percentWidth="20"/>
         <ColumnConstraints percentWidth="20"/>
+        <ColumnConstraints percentWidth="60"/>
     </columnConstraints>
     <rowConstraints>
         <RowConstraints percentHeight="10"/>
         <RowConstraints percentHeight="10"/>
+        <RowConstraints percentHeight="10" vgrow="ALWAYS"/>
     </rowConstraints>
 
     <Label GridPane.columnIndex="0" fx:id="languageLabel">Sprache:</Label>
@@ -19,10 +22,14 @@
     <Label GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="themeLabel">Thema:
     </Label>
     <ComboBox GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="themeCombobox"/>
-    <Button styleClass="bottom-nav-button" GridPane.rowIndex="2" GridPane.columnIndex="0" fx:id="saveButton"
+    <Label GridPane.columnIndex="0" GridPane.rowIndex="2" fx:id="loglevelLabel">Loglevel:</Label>
+    <Slider styleClass="slider-settings" fx:id="loglevelSlider" GridPane.columnIndex="1" GridPane.rowIndex="2"
+            blockIncrement="1.0" cache="true" majorTickUnit="1.0" max="2.0" minorTickCount="0"
+            showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0"/>
+    <Label fx:id="loglevelExplanation" GridPane.columnIndex="2" GridPane.rowIndex="2" wrapText="true"/>
+    <Button styleClass="bottom-nav-button" GridPane.rowIndex="3" GridPane.columnIndex="0" fx:id="saveButton"
             onMousePressed="#saveSettings"/>
-    <Button styleClass="bottom-nav-button" GridPane.rowIndex="2" GridPane.columnIndex="1" fx:id="openStartScreenButton"
+    <Button styleClass="bottom-nav-button" GridPane.rowIndex="3" GridPane.columnIndex="1" fx:id="openStartScreenButton"
             onMousePressed="#openStartScreen"/>
-
 
 </GridPane>
