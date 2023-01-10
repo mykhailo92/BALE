@@ -1,5 +1,6 @@
 package de.bale.ui.learningUnit;
 
+import de.bale.eyetracking.Eyetracker;
 import de.bale.language.Localizations;
 import de.bale.logger.Logger;
 import de.bale.messages.InitMessage;
@@ -36,6 +37,7 @@ public class LearningUnitController implements ILearningUnitController {
     private JSBridge bridge;
     private SectionVisibleListener listener;
     private Logger logger;
+    private Eyetracker eyetracker;
 
     public LearningUnitController(String filePath) {
         startPage = "file:///" + filePath;
@@ -72,6 +74,7 @@ public class LearningUnitController implements ILearningUnitController {
                     }
                 }
         );
+        eyetracker = new Eyetracker();
         createControlLabels();
     }
 

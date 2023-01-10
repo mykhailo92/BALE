@@ -9,6 +9,7 @@ module de.bale {
     requires jdk.jsobject;
     requires javafx.media;
     requires com.google.common;
+    requires opencv;
     exports de.bale.logger;
     opens de.bale.ui to javafx.fxml;
     exports de.bale.ui;
@@ -24,4 +25,6 @@ module de.bale {
     exports de.bale.ui.learningUnit.interfaces;
     opens de.bale.ui.learningUnit.interfaces to javafx.fxml;
     opens de.bale.ui.dialogs to javafx.base, javafx.fxml;
+
+    exports de.bale.eyetracking to javafx.graphics;
 }
