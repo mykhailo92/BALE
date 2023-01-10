@@ -18,6 +18,10 @@ public class WriteLog extends Utils {
         }
     }
 
+    /**
+     * Adds and writes a line with a new line to the log
+     * @param newline Line which is added to the Log
+     */
     public void addLinetoAllLog(String newline) {
         try {
             logWriter.append(newline);
