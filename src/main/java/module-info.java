@@ -4,12 +4,10 @@ module de.bale {
 
     requires org.controlsfx.controls;
     requires org.kordamp.ikonli.javafx;
-
     requires javafx.web;
     requires jdk.jsobject;
     requires javafx.media;
     requires com.google.common;
-    requires opencv;
     exports de.bale.logger;
     opens de.bale.ui to javafx.fxml;
     exports de.bale.ui;

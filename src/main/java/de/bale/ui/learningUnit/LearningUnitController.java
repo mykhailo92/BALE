@@ -75,6 +75,7 @@ public class LearningUnitController implements ILearningUnitController {
                 }
         );
         eyetracker = new Eyetracker();
+        eyetracker.startEyetracking();
         createControlLabels();
     }
 
