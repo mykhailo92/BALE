@@ -3,19 +3,25 @@ package de.bale.ui.learningUnit;
 import de.bale.eyetracking.Eyetracker;
 import de.bale.language.Localizations;
 import de.bale.logger.Logger;
+import de.bale.messages.ErrorMessage;
 import de.bale.messages.InitMessage;
 import de.bale.messages.SectionMessage;
 import de.bale.messages.TaskDoneMessage;
 import de.bale.ui.JSBridge;
 import de.bale.ui.SceneHandler;
+import de.bale.ui.learningUnit.interfaces.EyeTrackerListener;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitController;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitModel;
 import javafx.application.Platform;
 import javafx.concurrent.Worker;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Stage;
+import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 import netscape.javascript.JSObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -44,6 +50,12 @@ public class LearningUnitController implements ILearningUnitController {
         logger = Logger.getInstance();
     }
 
+    public void newEyePosition(int x, int y) {
+        Platform.runLater(()-> {
+            engine.executeScript("drawCircleAtPosition(" + x + "," + y + ");");
+        });
+
+    }
 
     /**
      * Start the WebEngine with example.html
@@ -61,6 +73,7 @@ public class LearningUnitController implements ILearningUnitController {
         engine.getLoadWorker().stateProperty().addListener(
                 (observableValue, oldState, newState) -> {
                     if (oldState.equals(Worker.State.RUNNING) && newState.equals(Worker.State.SUCCEEDED)) {
+                        closeAllOnExit();
                         logger.post(new TaskDoneMessage());
                         LearningUnitUtils.createStyleNode(engine, SceneHandler.getInstance().getThemeName());
                         model.setContainer(getContainerFromDocument());
@@ -74,10 +87,13 @@ public class LearningUnitController implements ILearningUnitController {
                     }
                 }
         );
+        //Start the Eyetracker and register a new Listener to the Logger
         eyetracker = new Eyetracker();
-        eyetracker.startEyetracking();
+        eyetracker.startRunning();
+        Logger.getInstance().register(new EyeTrackerListener(this));
         createControlLabels();
     }
+
 
     /**
      * prepares Index and Jump Marks to the Chapters
@@ -197,10 +213,10 @@ public class LearningUnitController implements ILearningUnitController {
             Element currentContainer = model.getContainer()[model.getContainerIndicator()];
             if (LearningUnitUtils.getClasses(model.getContainer()[model.getContainerIndicator() - 1]).contains("diashow")) {
                 model.setCurrentSlideIndicator(model.getCurrentSlideIndicator() + 1);
-                logger.post(new SectionMessage( "Displaying Diashow"));
+                logger.post(new SectionMessage("Displaying Diashow"));
             } else if (LearningUnitUtils.getClasses(currentContainer).contains("info-and-slide")) {
                 model.setCurrentSlideIndicator(model.getCurrentSlideIndicator() + 1);
-                logger.post(new SectionMessage( "Displaying info-and-slide"));
+                logger.post(new SectionMessage("Displaying info-and-slide"));
             }
             listener.notifyMyself();
         }
@@ -211,7 +227,20 @@ public class LearningUnitController implements ILearningUnitController {
      */
     @FXML
     private void closeApp() {
-        Platform.exit();
+        Window window = closeButton.getScene().getWindow();  // Get the primary stage from your Application class
+        window.fireEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSE_REQUEST));
+    }
+
+    private void closeAllOnExit() {
+        Stage mainStage = (Stage) closeButton.getScene().getWindow();
+        mainStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent e) {
+                eyetracker.stopRunning();
+                Platform.exit();
+                System.exit(0);
+            }
+        });
     }
 
     /**
@@ -237,9 +266,13 @@ public class LearningUnitController implements ILearningUnitController {
         });
 
         model.addListener((listenedModel) -> {
-            setVisible(model.getSlides()[listenedModel.getCurrentSlideIndicator()]);
-            if (listenedModel.getCurrentSlideIndicator() != 0) {
-                setInvisible(model.getSlides()[listenedModel.getCurrentSlideIndicator() - 1]);
+            try {
+                setVisible(model.getSlides()[listenedModel.getCurrentSlideIndicator()]);
+                if (listenedModel.getCurrentSlideIndicator() != 0) {
+                    setInvisible(model.getSlides()[listenedModel.getCurrentSlideIndicator() - 1]);
+                }
+            } catch (ArrayIndexOutOfBoundsException exception) {
+                Logger.getInstance().post(new ErrorMessage(exception.getMessage()));
             }
         });
     }
