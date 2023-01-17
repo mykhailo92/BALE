@@ -74,7 +74,7 @@ epochs = 200
 printToJava("Beginning fitting Model, epochs = {}".format(epochs))
 for epoch in range(epochs):
     model.fit(X, Y, batch_size=32)
-    print("{}/{} epochs".format(epoch,epochs))
+    printToJava("{}/{} epochs".format(epoch + 1, epochs))
 
 printToJava("Tracking can now start")
 while True:

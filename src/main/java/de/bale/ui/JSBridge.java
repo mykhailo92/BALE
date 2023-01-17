@@ -16,12 +16,6 @@ public class JSBridge {
      * Public Class which holds function that can be called from JavaScript
      */
     public class Bridge {
-
-        public void log(String text)
-        {
-            System.out.println(text);
-        }
-
         public void disablePreamble() {
             try {
                 Platform.runLater(() -> {
