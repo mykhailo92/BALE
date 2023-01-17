@@ -88,7 +88,7 @@ public class LearningUnitController implements ILearningUnitController {
                 }
         );
         //Start the Eyetracker and register a new Listener to the Logger
-        eyetracker = new Eyetracker();
+        eyetracker = new Eyetracker(engine);
         eyetracker.startRunning();
         Logger.getInstance().register(new EyeTrackerListener(this));
         createControlLabels();

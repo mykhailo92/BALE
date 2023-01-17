@@ -17,6 +17,11 @@ public class JSBridge {
      */
     public class Bridge {
 
+        public void log(String text)
+        {
+            System.out.println(text);
+        }
+
         public void disablePreamble() {
             try {
                 Platform.runLater(() -> {
