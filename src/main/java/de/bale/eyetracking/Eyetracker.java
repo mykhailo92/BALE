@@ -22,7 +22,7 @@ public class Eyetracker {
 
     public Eyetracker(WebEngine webEngine) {
         Logger.getInstance().post(new InitMessage("CREATING PROCESS BUILDER"));
-        processBuilder = new ProcessBuilder("conda", "run", "--no-capture-output", "-n", "bale", "python", "src/main/resources/de/bale/eyetracking/eyetracking_test.py");
+        processBuilder = new ProcessBuilder("conda", "run", "--no-capture-output", "-n", "bale", "python", "src/main/resources/de/bale/eyetracking/eyetracking_predict.py");
         processBuilder.redirectErrorStream(true);
         consoleThread = new Thread(() -> {
             try {

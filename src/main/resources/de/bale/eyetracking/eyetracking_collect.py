@@ -69,17 +69,12 @@ right = [42, 43, 44, 45, 46, 47]
 
 cap = cv2.VideoCapture(0)
 ret, img = cap.read()
-thresh = img.copy()
 
-cv2.namedWindow('image')
 kernel = np.ones((9, 9), np.uint8)
 
 
 def nothing(x):
     pass
-
-
-cv2.createTrackbar('threshold', 'image', 0, 255, nothing)
 
 
 def drawBoxAround(img, right=False) -> object:
@@ -102,7 +97,7 @@ def drawBoxAround(img, right=False) -> object:
     cropped_image = img.copy();
     cv2.rectangle(img, (min_x, min_y), (max_x, max_y), (255, 255, 0), 1)
     cropped_image = cropped_image[min_y:max_y, min_x:max_x]
-    # cropped_image = cv2.cvtColor(cropped_image, cv2.COLOR_BGR2GRAY)
+    cropped_image = cv2.cvtColor(cropped_image, cv2.COLOR_BGR2GRAY)
     return cropped_image
 
 
@@ -125,17 +120,9 @@ while (True):
         eyes[mask] = [255, 255, 255]
         mid = (shape[42][0] + shape[39][0]) // 2
         eyes_gray = cv2.cvtColor(eyes, cv2.COLOR_BGR2GRAY)
-        threshold = cv2.getTrackbarPos('threshold', 'image')
-        _, thresh = cv2.threshold(eyes_gray, threshold, 255, cv2.THRESH_BINARY)
-        thresh = cv2.erode(thresh, None, iterations=2)  # 1
-        thresh = cv2.dilate(thresh, None, iterations=4)  # 2
-        thresh = cv2.medianBlur(thresh, 3)  # 3
-        thresh = cv2.bitwise_not(thresh)
-        contouring(thresh[:, 0:mid], mid, img)
-        contouring(thresh[:, mid:], mid, img, True)
         left_eye_cropped = drawBoxAround(img)
         right_eye_cropped = drawBoxAround(img, right=True)
-        size = (100, 50)
+        size = (44, 12)
         left_eye_cropped = cv2.resize(left_eye_cropped, size, interpolation=cv2.INTER_AREA)
         right_eye_cropped = cv2.resize(right_eye_cropped, size, interpolation=cv2.INTER_AREA)
         both_eyes_cropped = np.concatenate((left_eye_cropped, right_eye_cropped), axis=1)
@@ -144,7 +131,6 @@ while (True):
 
     # show the image with the face detections + facial landmarks
     cv2.imshow('eyes', img)
-    cv2.imshow("image", thresh)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
