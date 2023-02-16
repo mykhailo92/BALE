@@ -9,6 +9,8 @@ module de.bale {
     requires jdk.jsobject;
     requires javafx.media;
     requires guava;
+    requires java.sql;
+    requires org.xerial.sqlitejdbc;
     exports de.bale.logger;
     opens de.bale.ui to javafx.fxml;
     exports de.bale.ui;

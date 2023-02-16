@@ -58,13 +58,20 @@ function changeInnerTextById(id, text) {
     document.getElementById(id).innerText = text;
 }
 
+let attempts = 0;
 function saveText (element) {
+
+    let experimentID = 12345;
     let number = element.getAttribute('number');
     let target = document.getElementById("text-area-" + number);
     let text = target.value;
+    let description = element.getAttribute('description');
+    attempts++
 
     if (text.length > 0) {
         enableNextButton();
+        saveUsersAnswer(attempts);
+        attempts = 0;
         target.disabled = true;
         element.disabled = true;
     } else {
@@ -100,4 +107,8 @@ function enableNextButton() {
 
 function disableNextButton() {
     window.javaBridge.setNextButtonDisabled(true);
+}
+
+function saveUsersAnswer(text) {
+    window.javaBridge.saveUsersAnswer(text);
 }

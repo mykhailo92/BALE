@@ -1,10 +1,13 @@
 package de.bale.ui;
 
+import de.bale.repository.UsersAnswers.UsersAnswers;
+import de.bale.repository.UsersAnswersRepository;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitModel;
 import javafx.application.Platform;
 import javafx.scene.web.WebEngine;
 import netscape.javascript.JSObject;
 import org.w3c.dom.Element;
+
 
 public class JSBridge {
 
@@ -31,6 +34,10 @@ public class JSBridge {
         }
         public void setNextButtonDisabled(boolean disabled) {
             model.setNextButtonDisabled(disabled);
+        }
+        public void saveUsersAnswer(int attempts) {
+            UsersAnswers usersAnswers = new UsersAnswers(123, "description", "njn", attempts);
+            new UsersAnswersRepository().save(usersAnswers);
         }
     }
 
