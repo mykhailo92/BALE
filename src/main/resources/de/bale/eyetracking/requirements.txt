@@ -1,5 +1,0 @@
-cv2
-numpy
-shutil
-pynput
-pyautogui

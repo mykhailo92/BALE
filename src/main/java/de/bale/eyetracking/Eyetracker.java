@@ -74,8 +74,8 @@ public class Eyetracker {
                     case "EYETRACKING":
                         if (splittedLine.length >= 2) {
                             String[] coordinates = splittedLine[1].split(" ");
-                            int xCoordinate = Integer.parseInt(coordinates[0].substring(2));
-                            int yCoordinate = Integer.parseInt(coordinates[1].substring(2));
+                            int xCoordinate = (int) Float.parseFloat(coordinates[0].substring(2));
+                            int yCoordinate = (int) Float.parseFloat(coordinates[1].substring(2));
                             Logger.getInstance().post(new EyeTrackingDataMessage(xCoordinate, yCoordinate));
                         }
                         break;

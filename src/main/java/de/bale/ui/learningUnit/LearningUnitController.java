@@ -14,7 +14,6 @@ import de.bale.ui.learningUnit.interfaces.ILearningUnitController;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitModel;
 import javafx.application.Platform;
 import javafx.concurrent.Worker;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.web.WebEngine;
@@ -233,13 +232,10 @@ public class LearningUnitController implements ILearningUnitController {
 
     private void closeAllOnExit() {
         Stage mainStage = (Stage) closeButton.getScene().getWindow();
-        mainStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent e) {
-                eyetracker.stopRunning();
-                Platform.exit();
-                System.exit(0);
-            }
+        mainStage.setOnCloseRequest(e -> {
+            eyetracker.stopRunning();
+            Platform.exit();
+            System.exit(0);
         });
     }
 

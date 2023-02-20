@@ -18,8 +18,6 @@ def printToJava(text, type="PLAIN"):
 
 def getTrainingData(root):
     width, height = pyautogui.size()
-    width -= 1
-    height -= 1
     printToJava("Resolution: {} X {}".format(width, height))
     filepaths = os.listdir(root)
     X, Y = [], []
@@ -95,11 +93,13 @@ def train_model(model, X, Y, epochs=200):
         printToJava("{}/{} epochs".format(epoch + 1, epochs))
 
 
+printToJava("test")
 width, height = pyautogui.size()
 detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor('shape_68.dat')
+predictor = dlib.shape_predictor('D:/Uni/ba/bale/src/main/resources/de/bale/eyetracking/shape_68.dat')
 X, Y = getTrainingData("D:/eyetrackertest/")
 model = create_model()
+printToJava("start training")
 train_model(model, X, Y)
 left = [36, 37, 38, 39, 40, 41]
 right = [42, 43, 44, 45, 46, 47]
@@ -107,7 +107,7 @@ cap = cv2.VideoCapture(0)
 max = 20
 while (True):
     ret, img = cap.read()
-    cv2.imshow('eyes', img)
+    # cv2.imshow('eyes', img)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     rects = detector(gray, 1)
     for rect in rects:
@@ -119,17 +119,17 @@ while (True):
         left_eye_cropped = cv2.resize(left_eye_cropped, size, interpolation=cv2.INTER_AREA)
         right_eye_cropped = cv2.resize(right_eye_cropped, size, interpolation=cv2.INTER_AREA)
         both_eyes_cropped = np.concatenate((left_eye_cropped, right_eye_cropped), axis=1)
-        cv2.imshow("test",both_eyes_cropped)
+        # cv2.imshow("test",both_eyes_cropped)
         current_image = np.expand_dims(both_eyes_cropped / 255.0, axis=0)
 
         x, y = model.predict(current_image)[0]
         text = "X:{} Y:{}".format(x * width, y * height)
-        print(text)
+        printToJava(text,"EYETRACKING")
     # max -= 1
     # print(max)
     # if max == 0:
     #     break
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+    # if cv2.waitKey(1) & 0xFF == ord('q'):
+    #     break
 
-cap.release()
+# cap.release()
