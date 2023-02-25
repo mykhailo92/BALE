@@ -5,6 +5,8 @@ import de.bale.logger.Logger;
 import de.bale.messages.InitMessage;
 import de.bale.messages.SectionMessage;
 import de.bale.messages.TaskDoneMessage;
+import de.bale.repository.TimeStampRepository;
+import de.bale.repository.timeStamp.TimeStamp;
 import de.bale.ui.JSBridge;
 import de.bale.ui.SceneHandler;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitController;
@@ -19,6 +21,8 @@ import netscape.javascript.JSObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class LearningUnitController implements ILearningUnitController {
@@ -36,6 +40,7 @@ public class LearningUnitController implements ILearningUnitController {
     private JSBridge bridge;
     private SectionVisibleListener listener;
     private Logger logger;
+    public int experimentID = 12345;
 
     public LearningUnitController(String filePath) {
         startPage = "file:///" + filePath;
@@ -199,6 +204,8 @@ public class LearningUnitController implements ILearningUnitController {
                 logger.post(new SectionMessage( "Displaying info-and-slide"));
             }
             listener.notifyMyself();
+            TimeStamp timeStamp = new TimeStamp(experimentID, "Next Button", getCurrentDateTime());
+            new TimeStampRepository().save(timeStamp);
         }
     }
 
@@ -207,6 +214,8 @@ public class LearningUnitController implements ILearningUnitController {
      */
     @FXML
     private void closeApp() {
+        TimeStamp timeStamp = new TimeStamp(experimentID, "Beendet", getCurrentDateTime());
+        new TimeStampRepository().save(timeStamp);
         Platform.exit();
     }
 
@@ -240,6 +249,10 @@ public class LearningUnitController implements ILearningUnitController {
         });
     }
 
+    private String getCurrentDateTime() {
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"));
+    }
+
     private void setInvisible(Element disableElement) {
         disableElement.setAttribute("style", "display:none");
     }
@@ -251,7 +264,5 @@ public class LearningUnitController implements ILearningUnitController {
     /**
      * Executes JavaScript to smoothly scroll to the Bottom of the Webview
      */
-    public void scrollToBottom() {
-        engine.executeScript("scrollToBottom();");
-    }
+    public void scrollToBottom() { engine.executeScript("scrollToBottom();"); }
 }

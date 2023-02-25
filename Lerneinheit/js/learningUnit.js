@@ -58,10 +58,10 @@ function changeInnerTextById(id, text) {
     document.getElementById(id).innerText = text;
 }
 
+let id = 12345;
 let attempts = 0;
 function saveText (element) {
 
-    let experimentID = 12345;
     let number = element.getAttribute('number');
     let target = document.getElementById("text-area-" + number);
     let text = target.value;
@@ -70,13 +70,14 @@ function saveText (element) {
 
     if (text.length > 0) {
         enableNextButton();
-        saveUsersAnswer(attempts);
+        window.javaBridge.saveUsersAnswer(id,description,text,attempts);
         attempts = 0;
         target.disabled = true;
         element.disabled = true;
     } else {
         target.placeholder = "Schreibe bitte deine Antwort hier mit der Tastatur um weiterzugehen";
     }
+    saveTimestamp(element);
 }
 
 function showVideo(video) {
@@ -110,5 +111,11 @@ function disableNextButton() {
 }
 
 function saveUsersAnswer(text) {
-    window.javaBridge.saveUsersAnswer(text);
+}
+
+function saveTimestamp(elem) {
+    const date = new Date(Date.now());
+    const options = {year:'numeric', month:'numeric', day:'numeric', hour:'numeric', minute:'numeric', second:'numeric' };
+    const formattedDate = date.toLocaleString('de-DE', options);
+    window.javaBridge.saveTimestamp(id, elem.getAttribute('description'), formattedDate);
 }

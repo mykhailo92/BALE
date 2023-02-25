@@ -35,9 +35,9 @@ public class UsersAnswersRepository implements IUsersAnswers {
                 if (stmt != null) {
                     stmt.close();
                 }
-                if (dbConnection != null) {
-                    dbConnection.close();
-                }
+//                if (dbConnection != null) {
+//                    dbConnection.close();
+//                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }

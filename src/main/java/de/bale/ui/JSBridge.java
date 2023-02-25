@@ -1,7 +1,9 @@
 package de.bale.ui;
 
+import de.bale.repository.TimeStampRepository;
 import de.bale.repository.UsersAnswers.UsersAnswers;
 import de.bale.repository.UsersAnswersRepository;
+import de.bale.repository.timeStamp.TimeStamp;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitModel;
 import javafx.application.Platform;
 import javafx.scene.web.WebEngine;
@@ -35,9 +37,13 @@ public class JSBridge {
         public void setNextButtonDisabled(boolean disabled) {
             model.setNextButtonDisabled(disabled);
         }
-        public void saveUsersAnswer(int attempts) {
-            UsersAnswers usersAnswers = new UsersAnswers(123, "description", "njn", attempts);
-            new UsersAnswersRepository().save(usersAnswers);
+        public void saveUsersAnswer(Integer id, String des, String answer, Integer attempts) {
+            UsersAnswers ua = new UsersAnswers(id, des, answer, attempts);
+            new UsersAnswersRepository().save(ua);
+        }
+        public void saveTimestamp(Integer id, String des, String date) {
+            TimeStamp ts = new TimeStamp(id, des, date);
+            new TimeStampRepository().save(ts);
         }
     }
 
