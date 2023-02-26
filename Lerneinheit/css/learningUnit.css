@@ -256,15 +256,25 @@ input[type=submit]:disabled {
     transform: translateY(2px);;
 }
 
+
 .preamble {
     position: absolute;
     left: 0;
-    width: 98vw;
     height: 100%;
     background-color: var(--backgroundColor);
-    display: flex;
     align-items: center;
     justify-content: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 0 250px;
+}
+
+#experiment-id {
+    width: 380px;
+    text-align: center;
+    font-size: 19px;
+    padding: 4px;
 }
 
 .draggable-card {

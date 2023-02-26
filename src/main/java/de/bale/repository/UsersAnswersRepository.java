@@ -1,6 +1,6 @@
 package de.bale.repository;
 
-import de.bale.db.AppDatabase;
+import de.bale.db.DatabaseHandler;
 import de.bale.db.Const;
 import de.bale.repository.UsersAnswers.IUsersAnswers;
 import de.bale.repository.UsersAnswers.UsersAnswers;
@@ -13,7 +13,7 @@ public class UsersAnswersRepository implements IUsersAnswers {
     private PreparedStatement stmt;
 
     public UsersAnswersRepository() {
-        dbConnection = AppDatabase.getInstance().dbConnection;
+        dbConnection = DatabaseHandler.getInstance().dbConnection;
     }
     @Override
     public void save(UsersAnswers usersAnswers) {
@@ -35,9 +35,6 @@ public class UsersAnswersRepository implements IUsersAnswers {
                 if (stmt != null) {
                     stmt.close();
                 }
-//                if (dbConnection != null) {
-//                    dbConnection.close();
-//                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }

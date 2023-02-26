@@ -40,7 +40,6 @@ public class LearningUnitController implements ILearningUnitController {
     private JSBridge bridge;
     private SectionVisibleListener listener;
     private Logger logger;
-    public int experimentID = 12345;
 
     public LearningUnitController(String filePath) {
         startPage = "file:///" + filePath;
@@ -204,7 +203,7 @@ public class LearningUnitController implements ILearningUnitController {
                 logger.post(new SectionMessage( "Displaying info-and-slide"));
             }
             listener.notifyMyself();
-            TimeStamp timeStamp = new TimeStamp(experimentID, "Next Button", getCurrentDateTime());
+            TimeStamp timeStamp = new TimeStamp(model.getExperimentID(), "Next Button", getCurrentDateTime());
             new TimeStampRepository().save(timeStamp);
         }
     }
@@ -214,7 +213,7 @@ public class LearningUnitController implements ILearningUnitController {
      */
     @FXML
     private void closeApp() {
-        TimeStamp timeStamp = new TimeStamp(experimentID, "Beendet", getCurrentDateTime());
+        TimeStamp timeStamp = new TimeStamp(model.getExperimentID(), "Beendet", getCurrentDateTime());
         new TimeStampRepository().save(timeStamp);
         Platform.exit();
     }
@@ -265,4 +264,5 @@ public class LearningUnitController implements ILearningUnitController {
      * Executes JavaScript to smoothly scroll to the Bottom of the Webview
      */
     public void scrollToBottom() { engine.executeScript("scrollToBottom();"); }
+
 }

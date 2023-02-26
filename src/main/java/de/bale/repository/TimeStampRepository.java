@@ -1,6 +1,6 @@
 package de.bale.repository;
 
-import de.bale.db.AppDatabase;
+import de.bale.db.DatabaseHandler;
 import de.bale.db.Const;
 import de.bale.repository.timeStamp.ITimestamp;
 import de.bale.repository.timeStamp.TimeStamp;
@@ -14,7 +14,7 @@ public class TimeStampRepository implements ITimestamp {
     private PreparedStatement stmt;
 
     public TimeStampRepository() {
-        dbConnection = AppDatabase.getInstance().dbConnection;
+        dbConnection = DatabaseHandler.getInstance().dbConnection;
     }
     @Override
     public void save(TimeStamp timeStamp) {

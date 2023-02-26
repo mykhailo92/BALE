@@ -42,4 +42,9 @@ public interface ILearningUnitModel {
     String getCloseButtonText();
 
     void setCloseButtonText(String closeButtonText);
+
+    int getExperimentID();
+
+    void setExperimentID(int i);
+
 }

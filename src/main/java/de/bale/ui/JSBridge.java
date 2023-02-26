@@ -22,13 +22,15 @@ public class JSBridge {
      */
     public class Bridge {
 
-        public void disablePreamble() {
+        public void disablePreamble(int id) {
+            if (id == 0) { return; }
             try {
                 Platform.runLater(() -> {
                     Element preamble = engine.getDocument().getElementById("preamble");
                     preamble.setAttribute("style", "display:none");
                     model.setContainerIndicator(model.getContainerIndicator() + 1);
                     model.setNextButtonDisabled(false);
+                    model.setExperimentID(id);
                 });
             } catch (NullPointerException npe) {
                 System.err.println("Preamble not found!");
@@ -37,11 +39,11 @@ public class JSBridge {
         public void setNextButtonDisabled(boolean disabled) {
             model.setNextButtonDisabled(disabled);
         }
-        public void saveUsersAnswer(Integer id, String des, String answer, Integer attempts) {
-            UsersAnswers ua = new UsersAnswers(id, des, answer, attempts);
-            new UsersAnswersRepository().save(ua);
+        public void saveUsersAnswer(int id, String des, String answer, int attempts) {
+            UsersAnswers answers = new UsersAnswers(id, des, answer, attempts);
+            new UsersAnswersRepository().save(answers);
         }
-        public void saveTimestamp(Integer id, String des, String date) {
+        public void saveTimestamp(int id, String des, String date) {
             TimeStamp ts = new TimeStamp(id, des, date);
             new TimeStampRepository().save(ts);
         }

@@ -10,7 +10,7 @@ module de.bale {
     requires javafx.media;
     requires guava;
     requires java.sql;
-    requires org.xerial.sqlitejdbc;
+    requires mysql.connector.java;
     exports de.bale.logger;
     opens de.bale.ui to javafx.fxml;
     exports de.bale.ui;

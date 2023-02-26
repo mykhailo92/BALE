@@ -18,6 +18,7 @@ public class LearningUnitModel implements ILearningUnitModel {
     private Element[] slides;
     private int currentSlideIndicator = 0;
     private String closeButtonText="";
+    private int experimentID;
 
     @Override
     public void addListener(Listener listener) {
@@ -115,4 +116,8 @@ public class LearningUnitModel implements ILearningUnitModel {
         this.closeButtonText = closeButtonText;
         notifyObserver();
     }
+    @Override
+    public int getExperimentID() { return experimentID; }
+    @Override
+    public void setExperimentID(int experimentID) { this.experimentID = experimentID; }
 }

@@ -58,10 +58,14 @@ function changeInnerTextById(id, text) {
     document.getElementById(id).innerText = text;
 }
 
-let id = 12345;
+function getExperimentID() {
+    return document.getElementById("experiment-id").value;
+}
+
 let attempts = 0;
 function saveText (element) {
 
+    let id = getExperimentID();
     let number = element.getAttribute('number');
     let target = document.getElementById("text-area-" + number);
     let text = target.value;
@@ -110,12 +114,13 @@ function disableNextButton() {
     window.javaBridge.setNextButtonDisabled(true);
 }
 
-function saveUsersAnswer(text) {
-}
-
 function saveTimestamp(elem) {
     const date = new Date(Date.now());
     const options = {year:'numeric', month:'numeric', day:'numeric', hour:'numeric', minute:'numeric', second:'numeric' };
     const formattedDate = date.toLocaleString('de-DE', options);
-    window.javaBridge.saveTimestamp(id, elem.getAttribute('description'), formattedDate);
+    window.javaBridge.saveTimestamp(getExperimentID(), elem.getAttribute('description'), formattedDate);
+}
+
+function disablePreamble() {
+    window.javaBridge.disablePreamble(getExperimentID());
 }
