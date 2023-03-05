@@ -54,18 +54,27 @@ function getControlLabels() {
     return document.querySelectorAll(".reading,.save,.preamble-button");
 }
 
+function getTitle() {
+    return document.head.querySelector('title').textContent;
+}
+
 function changeInnerTextById(id, text) {
     document.getElementById(id).innerText = text;
 }
 
-function getExperimentID() {
-    return document.getElementById("experiment-id").value;
+function getSchoolchildName() {
+    return document.getElementById("schoolchild-name").value;
+}
+
+function getDateTime() {
+    const date = new Date(Date.now());
+    const options = {year:'numeric', month:'numeric', day:'numeric', hour:'numeric', minute:'numeric', second:'numeric' };
+    return date.toLocaleString('de-DE', options);
 }
 
 let attempts = 0;
 function saveText (element) {
 
-    let id = getExperimentID();
     let number = element.getAttribute('number');
     let target = document.getElementById("text-area-" + number);
     let text = target.value;
@@ -73,15 +82,15 @@ function saveText (element) {
     attempts++
 
     if (text.length > 0) {
+        text = 'Answer: ' + text;
+        window.javaBridge.saveFeedback(description,getDateTime(),attempts,text);
         enableNextButton();
-        window.javaBridge.saveUsersAnswer(id,description,text,attempts);
         attempts = 0;
         target.disabled = true;
         element.disabled = true;
     } else {
         target.placeholder = "Schreibe bitte deine Antwort hier mit der Tastatur um weiterzugehen";
     }
-    saveTimestamp(element);
 }
 
 function showVideo(video) {
@@ -92,16 +101,20 @@ function showVideo(video) {
     modal.style.display = "block";
     videoElem.setAttribute('src', 'video/video-' + number + '.mp4');
     videoElem.setAttribute('autoplay', 'autoplay');
+    window.javaBridge.saveFeedback("Demo-video",getDateTime(),0,"Start playing");
+
 
     /* When the user clicks on <span> (x), close the modal */
     span.onclick = function() {
         modal.style.display = "none";
+        window.javaBridge.saveFeedback("Demo-video",getDateTime(),0,"Stop playing");
     }
 
     /* When the user clicks anywhere outside the modal, close it */
     window.onclick = function(event) {
         if (event.target === modal) {
             modal.style.display = "none";
+            window.javaBridge.saveFeedback("Demo-video",getDateTime(),0,"Stop playing");
         }
     }
 }
@@ -114,13 +127,6 @@ function disableNextButton() {
     window.javaBridge.setNextButtonDisabled(true);
 }
 
-function saveTimestamp(elem) {
-    const date = new Date(Date.now());
-    const options = {year:'numeric', month:'numeric', day:'numeric', hour:'numeric', minute:'numeric', second:'numeric' };
-    const formattedDate = date.toLocaleString('de-DE', options);
-    window.javaBridge.saveTimestamp(getExperimentID(), elem.getAttribute('description'), formattedDate);
-}
-
 function disablePreamble() {
-    window.javaBridge.disablePreamble(getExperimentID());
+    window.javaBridge.disablePreamble(getSchoolchildName(), getDateTime(), getTitle());
 }

@@ -1,13 +1,13 @@
-package de.bale.repository.UsersAnswers;
+package de.bale.repository.eyetracking;
 
 
-public class UsersAnswers {
+public class Eyetracking {
     private int experimentID;
     private String description;
     private String answer;
     private int solutionAttempts;
 
-    public UsersAnswers(int id, String description, String answer, int attempts) {
+    public Eyetracking(int id, String description, String answer, int attempts) {
         this.experimentID = id;
         this.description = description;
         this.answer = answer;

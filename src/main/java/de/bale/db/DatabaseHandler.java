@@ -29,12 +29,29 @@ public class DatabaseHandler extends Configs {
         try {
             assert dbConnection != null;
             Statement stmt = dbConnection.createStatement();
-            String sqlAnswers = "CREATE TABLE IF NOT EXISTS " + Const.ANSWER_TABLE + " (experimentID INT PRIMARY KEY, " +
-                    "description VARCHAR(50), answer VARCHAR(200), attempts INT)";
-            stmt.executeUpdate(sqlAnswers);
-            String sqlTimestamp = "CREATE TABLE IF NOT EXISTS " + Const.TIMESTAMP_TABLE + " (id INT PRIMARY KEY, " +
-                    "experimentID VARCHAR(50), description VARCHAR(50), answer VARCHAR(200), attempts INT)";
-            stmt.executeUpdate(sqlTimestamp);
+
+            String sqlExperiment = "CREATE TABLE IF NOT EXISTS " + Const.EXPERIMENT_TABLE +
+                    " (" + Const.EXPERIMENT_ID + " INT AUTO_INCREMENT NOT NULL, " + Const.NAME + " VARCHAR(50) NOT NULL," +
+                    Const.DATE + " VARCHAR(50)," + Const.LE_TITLE + " VARCHAR(50), PRIMARY KEY (" + Const.EXPERIMENT_ID
+                    + "," + Const.NAME + "))";
+            stmt.executeUpdate(sqlExperiment);
+
+            String sqlFeedback = "CREATE TABLE IF NOT EXISTS " + Const.FEEDBACK_TABLE +
+                    " (" + Const.EXPERIMENT_ID + " INT NOT NULL, " + Const.CLICK_ID + " INT AUTO_INCREMENT NOT NULL, " +
+                    Const.DESCRIPTION + " VARCHAR(50)," + Const.DATE_TIME + " VARCHAR(50)," + Const.ANSWER_ATTEMPTS +
+                    " INT," + Const.COMMENTS + " VARCHAR(300), PRIMARY KEY (" + Const.CLICK_ID + "), FOREIGN KEY (" +
+                    Const.EXPERIMENT_ID + ") REFERENCES " + Const.EXPERIMENT_TABLE + "(" + Const.EXPERIMENT_ID + ")" +
+                    " ON DELETE CASCADE)";
+            stmt.executeUpdate(sqlFeedback);
+
+            String sqlEyetracking = "CREATE TABLE IF NOT EXISTS " + Const.EYETRACKING_TABLE +
+                    " (" + Const.EXPERIMENT_ID + " INT NOT NULL, " + Const.BLICK_ID + " INT AUTO_INCREMENT NOT NULL," +
+                    Const.TIMESTAMP + " TIMESTAMP," + Const.X + " INT," + Const.Y + " INT," + Const.ELEMENT +
+                    " VARCHAR(50), PRIMARY KEY (" + Const.BLICK_ID + "), FOREIGN KEY (" +
+                    Const.EXPERIMENT_ID + ") REFERENCES " + Const.EXPERIMENT_TABLE + "(" + Const.EXPERIMENT_ID + ")" +
+                    " ON DELETE CASCADE)";
+            stmt.executeUpdate(sqlEyetracking);
+
         } catch (SQLException e) { throw new RuntimeException(e); }
 
     }

@@ -17,10 +17,10 @@
     <div class="preamble" id="preamble">
         <div class="text">Hallo alle zusammen, dies ist ein Test für die Bachelorarbeit für digitale Lerninhalte!</div>
         <label>
-            <input type="text" id="experiment-id" placeholder="Bitte geben Sie die Experiment-ID hier ein"/>
+            <input type="text" id="schoolchild-name" placeholder="Bitte geben Sie die Name hier ein"/>
         </label>
         <button class="nav-button preamble-button" description="Verstanden Taste"
-                onclick="disablePreamble(); saveTimestamp(this)">Verstanden!</button>
+                onclick="disablePreamble()">Verstanden!</button>
     </div>
 </div>
 
@@ -31,7 +31,7 @@
             <div class="text-tim">Das ist Tim.</div>
         </div>
         <div class="section">
-            <button class="reading" id="reading-button-0" onclick="playAudio(this); saveTimestamp(this)"
+            <button class="reading" id="reading-button-0" onclick="playAudio(this)"
                     track-number="0" description="Vorlesen Kapitel 0'">Vorlesen</button>
             <div class="text">
                 Tim ist 10 Jahre alt und geht in die 4. Klasse. Er sitzt im Klassenraum in der letzten Reihe. Er hat oft
@@ -69,7 +69,7 @@
     <div class="watermark">
         <div class="section">
             <div class="text">
-                <button class="reading" id="reading-button-1-1" onclick="playAudio(this); saveTimestamp(this)"
+                <button class="reading" id="reading-button-1-1" onclick="playAudio(this)"
                         track-number="1-1" description="Vorlesen 'Kapitel 1, Text 1'">Vorlesen
                 </button>
                 <br>
@@ -84,7 +84,7 @@
     <div>
         <div class="section">
             <div class="text">
-                <button class="reading" id="reading-button-1-2" onclick="playAudio(this); saveTimestamp(this)"
+                <button class="reading" id="reading-button-1-2" onclick="playAudio(this)"
                         track-number="1-2" description="Vorlesen 'Kapitel 1, Text 2'">Vorlesen
                 </button>
                 <br>
@@ -101,7 +101,7 @@
         <div class="task">
             <div class="wrap-text">
                 <img src="icons/Draggable-Card.svg" class="task-icon" alt=""/>
-                <button class="demo-video" id="video-demo-1" onclick="showVideo(this); saveTimestamp(this)"
+                <button class="demo-video" id="video-demo-1" onclick="showVideo(this)"
                         track-number="1" description="Demo-Video Drag&Drop">Demo-Video
                 </button>
                 <div id="modal-window-1" class="modal">
@@ -128,7 +128,7 @@
             <div class="drop-field" id="drop-3"></div>
         </div>
         <input class="submit save" id="drag-and-drop-save-button" type="submit" value="Speichern"
-               description="Speichern Drag&Drop" onclick="save(); saveTimestamp(this)">
+               description="Speichern Drag&Drop" onclick="save()">
     </div>
     <br>
     <div class="section">
@@ -184,7 +184,7 @@
     <div class="section">
         <h1>2 Ausbreitung von Licht</h1>
         <div class="text">
-            <button class="reading" id="reading-button-2" onclick="playAudio(this); saveTimestamp(this)"
+            <button class="reading" id="reading-button-2" onclick="playAudio(this)"
                     track-number="2" description="Vorlesen Kapitel 2">Vorlesen</button>
             <br> Tim wacht in der Nacht auf und möchte sich etwas zu trinken holen. In seinem Zimmer ist es dunkel.
             Seine Lampe ist kaputt. Er hat aber eine Taschenlampe auf seinem Nachttisch stehen,
@@ -216,7 +216,7 @@
     <div class="section">
         <h1>3 Der Weg des Lichts</h1>
         <div class="text">
-            <button class="reading" id="reading-button-3" onclick="playAudio(this); saveTimestamp(this)"
+            <button class="reading" id="reading-button-3" onclick="playAudio(this)"
                     track-number="3" description="Vorlesen Kapitel 3">Vorlesen</button>
             <br>
             Auch das Licht der Taschenlampe breitet sich geradlinig aus. Alles, was Tim nicht mit dem Lichtstrahl
@@ -262,7 +262,7 @@
             <img class="door" src="images/door.png" alt=""/>
         </div>
         <input class="submit save" id="dropdown-save-button" type="submit" value="Speichern" track-number="2"
-              description="Speichern DropDown Aufgabe" onclick="checkAnswer(); showVideo(this); saveTimestamp(this)">
+              description="Speichern DropDown Aufgabe" onclick="checkAnswer(); showVideo(this)">
         <div id="modal-window-2" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>

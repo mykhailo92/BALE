@@ -5,8 +5,8 @@ import de.bale.logger.Logger;
 import de.bale.messages.InitMessage;
 import de.bale.messages.SectionMessage;
 import de.bale.messages.TaskDoneMessage;
-import de.bale.repository.TimeStampRepository;
-import de.bale.repository.timeStamp.TimeStamp;
+import de.bale.repository.FeedbackRepository;
+import de.bale.repository.feedback.Feedback;
 import de.bale.ui.JSBridge;
 import de.bale.ui.SceneHandler;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitController;
@@ -203,8 +203,9 @@ public class LearningUnitController implements ILearningUnitController {
                 logger.post(new SectionMessage( "Displaying info-and-slide"));
             }
             listener.notifyMyself();
-            TimeStamp timeStamp = new TimeStamp(model.getExperimentID(), "Next Button", getCurrentDateTime());
-            new TimeStampRepository().save(timeStamp);
+            Feedback feedback = new Feedback(model.getExperimentID(), "Next Button", getCurrentDateTime(),
+                    0, "");
+            new FeedbackRepository().save(feedback);
         }
     }
 
@@ -213,8 +214,9 @@ public class LearningUnitController implements ILearningUnitController {
      */
     @FXML
     private void closeApp() {
-        TimeStamp timeStamp = new TimeStamp(model.getExperimentID(), "Beendet", getCurrentDateTime());
-        new TimeStampRepository().save(timeStamp);
+        Feedback feedback = new Feedback(model.getExperimentID(), "Beendet", getCurrentDateTime(), 0,
+                "App closed");
+        new FeedbackRepository().save(feedback);
         Platform.exit();
     }
 
@@ -249,7 +251,7 @@ public class LearningUnitController implements ILearningUnitController {
     }
 
     private String getCurrentDateTime() {
-        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"));
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("d.M.yyyy HH:mm:ss"));
     }
 
     private void setInvisible(Element disableElement) {
