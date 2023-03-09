@@ -251,7 +251,7 @@ public class LearningUnitController implements ILearningUnitController {
     }
 
     private String getCurrentDateTime() {
-        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("d.M.yyyy HH:mm:ss"));
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"));
     }
 
     private void setInvisible(Element disableElement) {

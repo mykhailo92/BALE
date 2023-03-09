@@ -68,8 +68,9 @@ function getSchoolchildName() {
 
 function getDateTime() {
     const date = new Date(Date.now());
-    const options = {year:'numeric', month:'numeric', day:'numeric', hour:'numeric', minute:'numeric', second:'numeric' };
-    return date.toLocaleString('de-DE', options);
+    const options = {year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit',
+        second:'2-digit', hour12: false};
+    return date.toLocaleString('de-DE', options).replace(',', '');
 }
 
 let attempts = 0;
