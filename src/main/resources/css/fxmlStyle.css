@@ -117,3 +117,8 @@
 .slider-settings .axis {
     -fx-tick-label-fill: -fx-globalFontColor;
 }
+
+.bottom-progress-indicator {
+    -fx-max-height: 2em;
+    -fx-max-width: 2em;
+}

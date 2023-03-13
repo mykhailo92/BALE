@@ -1,26 +1,21 @@
 package de.bale.ui.learningUnit;
 
-import de.bale.eyetracking.Eyetracker;
 import de.bale.language.Localizations;
 import de.bale.logger.Logger;
-import de.bale.messages.ErrorMessage;
-import de.bale.messages.InitMessage;
-import de.bale.messages.SectionMessage;
-import de.bale.messages.TaskDoneMessage;
+import de.bale.messages.*;
 import de.bale.ui.JSBridge;
 import de.bale.ui.SceneHandler;
 import de.bale.ui.learningUnit.interfaces.EyeTrackerListener;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitController;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitModel;
+import de.bale.ui.startscreen.StartScreenController;
+import de.bale.ui.startscreen.StartScreenModel;
 import javafx.application.Platform;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.stage.WindowEvent;
 import netscape.javascript.JSObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -42,7 +37,6 @@ public class LearningUnitController implements ILearningUnitController {
     private JSBridge bridge;
     private SectionVisibleListener listener;
     private Logger logger;
-    private Eyetracker eyetracker;
 
     public LearningUnitController(String filePath) {
         startPage = "file:///" + filePath;
@@ -66,13 +60,13 @@ public class LearningUnitController implements ILearningUnitController {
     @FXML
     private void initialize() {
         learningUnit.setContextMenuEnabled(false);
+        SceneHandler.getInstance().printToEyeTracker("start");
         engine = learningUnit.getEngine();
         logger.post(new InitMessage("Loading LearningUnit: " + startPage + "..."));
         engine.load(startPage);
         engine.getLoadWorker().stateProperty().addListener(
                 (observableValue, oldState, newState) -> {
                     if (oldState.equals(Worker.State.RUNNING) && newState.equals(Worker.State.SUCCEEDED)) {
-                        closeAllOnExit();
                         logger.post(new TaskDoneMessage());
                         LearningUnitUtils.createStyleNode(engine, SceneHandler.getInstance().getThemeName());
                         model.setContainer(getContainerFromDocument());
@@ -86,9 +80,6 @@ public class LearningUnitController implements ILearningUnitController {
                     }
                 }
         );
-        //Start the Eyetracker and register a new Listener to the Logger
-        eyetracker = new Eyetracker(engine);
-        eyetracker.startRunning();
         Logger.getInstance().register(new EyeTrackerListener(this));
         createControlLabels();
     }
@@ -226,18 +217,15 @@ public class LearningUnitController implements ILearningUnitController {
      */
     @FXML
     private void closeApp() {
-        Window window = closeButton.getScene().getWindow();  // Get the primary stage from your Application class
-        window.fireEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSE_REQUEST));
+//        Window window = closeButton.getScene().getWindow();  // Get the primary stage from your Application class
+//        window.fireEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSE_REQUEST));
+        Logger.getInstance().post(new SceneChangeMessage("Startscreen"));
+        SceneHandler sceneHandler = SceneHandler.getInstance();
+        sceneHandler.changeScene(new StartScreenController(), "startscreen.fxml", "selectionTitle");
+        ((StartScreenController) sceneHandler.getController()).setModel(new StartScreenModel());
+        sceneHandler.setStageFullScreen(false);
     }
 
-    private void closeAllOnExit() {
-        Stage mainStage = (Stage) closeButton.getScene().getWindow();
-        mainStage.setOnCloseRequest(e -> {
-            eyetracker.stopRunning();
-            Platform.exit();
-            System.exit(0);
-        });
-    }
 
     /**
      * Set a Model for the Controller and add a Listener that is fired whenever the Model gets updated

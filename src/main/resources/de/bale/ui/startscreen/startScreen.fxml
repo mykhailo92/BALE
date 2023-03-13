@@ -19,7 +19,8 @@
         </columns>
     </TableView>
     <HBox GridPane.columnIndex="0" GridPane.rowIndex="1" alignment="CENTER" styleClass="bottom-nav">
-        <Button styleClass="bottom-nav-button" fx:id="openLearningUnitButton" onMousePressed="#openLearningUnit">Öffnen
+        <ProgressIndicator fx:id="progressIndicator" styleClass="bottom-progress-indicator"/>
+        <Button styleClass="bottom-nav-button" fx:id="openLearningUnitButton" disable="true" onMousePressed="#openLearningUnit">Öffnen
         </Button>
         <Button styleClass="bottom-nav-button" fx:id="openSettingsButton" onMousePressed="#openSettings"/>
         <Button styleClass="bottom-nav-button" fx:id="editOrDeleteEntryButton" onMousePressed="#editOrDeleteEntry"/>

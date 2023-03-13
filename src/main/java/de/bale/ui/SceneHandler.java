@@ -1,11 +1,13 @@
 package de.bale.ui;
 
 import de.bale.Utils;
+import de.bale.eyetracking.Eyetracker;
 import de.bale.language.Localizations;
 import de.bale.logger.Logger;
 import de.bale.messages.ErrorMessage;
 import de.bale.messages.InitMessage;
 import de.bale.storage.PropertiesUtils;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
@@ -15,6 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+
 public class SceneHandler {
 
     private FXMLLoader fxmlLoader;
@@ -22,12 +25,16 @@ public class SceneHandler {
     private static SceneHandler instance;
     private String themeName;
     private Scene primaryScene;
+    private Eyetracker eyetracker;
     private ArrayList<String> allowedThemes = new ArrayList<>() {{
         add("default");
         add("darcula");
     }};
 
     private SceneHandler() {
+        //Start the Eyetracker and register a new Listener to the Logger
+        eyetracker = new Eyetracker();
+        eyetracker.startRunning();
     }
 
     public static SceneHandler getInstance() {
@@ -35,15 +42,28 @@ public class SceneHandler {
             instance = new SceneHandler();
             Properties properties = PropertiesUtils.getSettingsProperties();
             instance.setThemeName(properties.getProperty("theme"));
+            instance.closeAllOnExit();
         }
         return instance;
     }
 
+    public void printToEyeTracker(String text) {
+        eyetracker.answerToPython(text);
+    }
+    private void closeAllOnExit() {
+        Platform.runLater(() -> primaryStage.setOnCloseRequest(e -> {
+            eyetracker.destroyProcess();
+            Platform.exit();
+            System.exit(0);
+        }));
+    }
+
     /**
      * Changes the primaryScene of the primaryStage
+     *
      * @param controller Controller Object, e.g. LearningUnitController
-     * @param fxmlName Name of the associated .fxml File, e.g. learningUnit.fxml
-     * @param titleKey Key of the Title in the localization
+     * @param fxmlName   Name of the associated .fxml File, e.g. learningUnit.fxml
+     * @param titleKey   Key of the Title in the localization
      */
     public void changeScene(Object controller, String fxmlName, String titleKey) {
         if (primaryStage == null) {
@@ -68,12 +88,13 @@ public class SceneHandler {
 
     /**
      * Sets the Themename an updated the primaryScene to use the Theme
+     *
      * @param themeName Name of the Theme, must be added in the allowedThemes List!
      */
     public void setThemeName(String themeName) {
         if (allowedThemes.contains(themeName)) {
             this.themeName = themeName;
-            Logger.getInstance().post(new InitMessage("Setting Theme: "+themeName));
+            Logger.getInstance().post(new InitMessage("Setting Theme: " + themeName));
         } else {
             Logger.getInstance().post(new ErrorMessage("Themename:" + themeName + " is unknown! Loading Default Theme"));
             this.themeName = "default";

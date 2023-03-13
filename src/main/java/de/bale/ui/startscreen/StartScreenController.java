@@ -1,7 +1,9 @@
 package de.bale.ui.startscreen;
 
+import com.google.common.eventbus.Subscribe;
 import de.bale.language.Localizations;
 import de.bale.logger.Logger;
+import de.bale.messages.EyetrackingStartMessage;
 import de.bale.messages.InitMessage;
 import de.bale.messages.SceneChangeMessage;
 import de.bale.messages.TaskDoneMessage;
@@ -17,10 +19,7 @@ import de.bale.ui.startscreen.interfaces.IStartScreenController;
 import de.bale.ui.startscreen.interfaces.IStartScreenModel;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.skin.TableHeaderRow;
 import javafx.stage.Modality;
@@ -49,17 +48,26 @@ public class StartScreenController implements IStartScreenController {
     Button newEntryButton;
     @FXML
     Button saveTableViewButton;
+    @FXML
+    ProgressIndicator progressIndicator;
     IStartScreenModel model;
 
     @Override
     public void setModel(IStartScreenModel model) {
         this.model = model;
+        Logger.getInstance().register(this);
         Platform.runLater(() -> {
             nameColumn.setCellValueFactory(new PropertyValueFactory<>("learningUnitTitle"));
             pathColumn.setCellValueFactory(new PropertyValueFactory<>("learningUnitPath"));
             populateLearningUnitTable();
             learningUnitTable.setItems(model.getEntries());
         });
+    }
+
+    @Subscribe
+    public void gotEyetrackingStart(EyetrackingStartMessage startMessage) {
+        openLearningUnitButton.setDisable(false);
+        progressIndicator.setVisible(false);
     }
 
     /**
