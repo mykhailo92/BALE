@@ -5,7 +5,6 @@ import de.bale.logger.Logger;
 import de.bale.messages.*;
 import de.bale.ui.JSBridge;
 import de.bale.ui.SceneHandler;
-import de.bale.ui.learningUnit.interfaces.EyeTrackerListener;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitController;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitModel;
 import de.bale.ui.startscreen.StartScreenController;
@@ -48,6 +47,12 @@ public class LearningUnitController implements ILearningUnitController {
             engine.executeScript("drawCircleAtPosition(" + x + "," + y + ");");
         });
 
+    }
+
+    @Override
+    public void notifyCallibration(float clickX, float clickY) {
+        System.out.println(clickX);
+        System.out.println(clickY);
     }
 
     /**
@@ -224,6 +229,7 @@ public class LearningUnitController implements ILearningUnitController {
         sceneHandler.changeScene(new StartScreenController(), "startscreen.fxml", "selectionTitle");
         ((StartScreenController) sceneHandler.getController()).setModel(new StartScreenModel());
         sceneHandler.setStageFullScreen(false);
+        SceneHandler.getInstance().printToEyeTracker("stop");
     }
 
 

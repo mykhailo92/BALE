@@ -1,5 +1,7 @@
 package de.bale.ui;
 
+import de.bale.logger.Logger;
+import de.bale.messages.eyetracking.EyetrackingCallibrationDoneMessage;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitModel;
 import javafx.application.Platform;
 import javafx.scene.web.WebEngine;
@@ -30,6 +32,9 @@ public class JSBridge {
         }
         public void setNextButtonDisabled(boolean disabled) {
             model.setNextButtonDisabled(disabled);
+        }
+        public void callibrationDone() {
+            Logger.getInstance().post(new EyetrackingCallibrationDoneMessage());
         }
     }
 

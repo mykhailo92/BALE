@@ -37,5 +37,8 @@ def create_basic_model():
 def fit_basic_model(images_and_coordinates, positions, epochs):
     model = create_basic_model()
     callback = EarlyStopping(monitor='loss', patience=20, min_delta=0, verbose=1, restore_best_weights=True)
-    model.fit(images_and_coordinates, positions, batch_size=32, epochs=epochs, callbacks=[callback], verbose=0)
+    try:
+        model.fit(images_and_coordinates, positions, batch_size=32, epochs=epochs, callbacks=[callback], verbose=0)
+    except ValueError:
+        pass
     return model

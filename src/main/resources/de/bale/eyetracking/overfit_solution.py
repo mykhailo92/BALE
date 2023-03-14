@@ -4,7 +4,6 @@ import threading
 import cv2
 import mediapipe as mp
 import numpy as np
-from keras.callbacks import EarlyStopping
 from pynput import mouse
 
 import utils
@@ -21,8 +20,42 @@ def setup_arg_parser():
     return args.image_count
 
 
+def start_predicting(event: threading.Event):
+    global is_running, model
+    is_running = True
+    while not event.isSet():
+        images = camera_handler.get_images()
+        x_coordinates = []
+        y_coordinates = []
+        failed = 0
+        for image in images:
+            both_eyes_image, eye_points = detect_eyes_from_image(image)
+            both_eyes_image = np.expand_dims(both_eyes_image, axis=0)
+            eye_points = np.expand_dims(eye_points, axis=0)
+            try:
+                if both_eyes_image.shape != (1, 36, 120, 3):
+                    failed += 1
+                    continue
+                x, y = model.predict([both_eyes_image, eye_points], verbose=0)[0]
+                x *= utils.screen_x
+                y *= utils.screen_y
+                x_coordinates.append(x)
+                y_coordinates.append(y)
+            except ValueError:
+                pass
+        count = len(x_coordinates) - failed
+        if count <= 0:
+            continue
+        x = sum(x_coordinates) / (len(x_coordinates) - failed)
+        y = sum(y_coordinates) / (len(y_coordinates) - failed)
+        utils.printToJava("{} {}".format(x, y), "EYETRACKING")
+
+
 global model
 global ignore_clicks
+global listener
+stop_event = threading.Event()
+
 points = []
 both_eyes = []
 max_image_count = setup_arg_parser()
@@ -33,6 +66,14 @@ is_running = False
 ignore_clicks = False
 camera_handler = CameraHandler()
 input_is_running = True
+
+
+def on_click(x, y, button, pressed):
+    global model, is_running, ignore_clicks
+    if not pressed or ignore_clicks:
+        return
+    click_thread = threading.Thread(target=threaded_click, args=(x, y,))
+    click_thread.start()
 
 
 def get_eye_rectangle(image, face_landmarks, keypoints):
@@ -48,32 +89,11 @@ def get_eye_rectangle(image, face_landmarks, keypoints):
     return min_x, min_y, max_x, max_y
 
 
-def start_predicting(model):
-    global is_running
-    is_running = True
-    while True:
-        images = camera_handler.get_images()
-        x_coordinates = []
-        y_coordinates = []
-        for image in images:
-            both_eyes_image, eye_points = detect_eyes_from_image(image)
-            both_eyes_image = np.expand_dims(both_eyes_image, axis=0)
-            eye_points = np.expand_dims(eye_points, axis=0)
-            try:
-                x, y = model.predict([both_eyes_image, eye_points], verbose=0)[0]
-                x *= 1920
-                y *= 1080
-                x_coordinates.append(x)
-                y_coordinates.append(y)
-            except ValueError:
-                print("Value Error:")
-        x = sum(x_coordinates) / len(x_coordinates)
-        y = sum(y_coordinates) / len(y_coordinates)
-        utils.printToJava("{} {}".format(x, y), "EYETRACKING")
-
-
 def detect_eyes_from_image(image):
-    image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    try:
+        image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    except cv2.error:
+        return np.array([0]), np.array([0])  # image was empty
     face_mesh_image = face_mesh.process(image)
     image = cv2.cvtColor(image_rgb, cv2.COLOR_RGB2BGR)
     both_eyes_image = ""
@@ -116,28 +136,21 @@ def reset_globals():
 
 
 def threaded_click(x, y):
-    global model, is_running, ignore_clicks
+    global model, is_running, ignore_clicks, listener
     images = camera_handler.get_images()
     for image in images:
         if image is None:
             return
-        if is_running:
-            both_eyes_image, eye_points = detect_eyes_from_image(image)
-            both_eyes_image = np.expand_dims(both_eyes_image, axis=0)
-            eye_points = np.expand_dims(eye_points, axis=0)
-            estimated = np.expand_dims(np.array([x / 1920, y / 1080]), axis=0)
-            callback = EarlyStopping(monitor='loss', patience=20, min_delta=0, restore_best_weights=True)
-            model.fit([both_eyes_image, eye_points], estimated, batch_size=32, epochs=100,
-                      callbacks=[callback], verbose=0)
-        else:
+        if not is_running:
             pre_length = len(both_eyes)
             _, eye_coordinates = detect_eyes_from_image(image)
+
             if pre_length < len(both_eyes):
-                print(len(both_eyes))
                 points.append(eye_coordinates)
-                estimated_positions.append([x / 1920, y / 1080])
+                estimated_positions.append([x / utils.screen_x, y / utils.screen_y])
+                utils.printToJava("{} {}".format(x / utils.screen_x, y / utils.screen_y), "EYETRACKING_CALLIBRATION")
             else:
-                print("INVALID")
+                print("INVALID IMAGE")
         if len(both_eyes) >= max_image_count:
             ignore_clicks = True
             estimated_positions_array = np.array(estimated_positions)
@@ -148,37 +161,38 @@ def threaded_click(x, y):
             model = fit_basic_model([both_eyes_array, points_array], estimated_positions_array, 10000)
             ignore_clicks = False
             utils.printToJava("End Fit")
-            start_predicting(model)
-
-
-def on_click(x, y, button, pressed):
-    global model, is_running, ignore_clicks
-    if not pressed or ignore_clicks:
-        return
-    click_thread = threading.Thread(target=threaded_click, args=(x, y,))
-    click_thread.start()
+            listener.stop()
+            predict_thread = threading.Thread(target=start_predicting, args=(stop_event,))
+            predict_thread.start()
 
 
 def threaded_input_handler():
-    global ignore_clicks, model
-    utils.printToJava("Eyetracker has started.","EYETRACKING_START")
-    start_callibration, stop_running = "", ""
+    global ignore_clicks, model, is_running, stop_event, listener
+
+    utils.printToJava("Eyetracker has started.", "EYETRACKING_RUNNING")
     ignore_clicks = True
     while input_is_running:
+        camera_handler.start_cameras()
+        listener = mouse.Listener(on_click=on_click)
+        listener.start()
+        start_callibration, end_callibrating, stop_running = "", "", ""
         while start_callibration != "start":
-            start_callibration = input("type 'start' to start callibration: ")
-            utils.printToJava(start_callibration)
-        utils.printToJava("Ready for Callibration", "EYETRACKING_CALLIBRATION")
+            start_callibration = input("type 'start' to start callibration: \n")
+        utils.printToJava("Ready for Callibration", "EYETRACKING_INFO")
         ignore_clicks = False
-        while stop_running != "stop":
-            stop_running = input("type 'stop' to stop Eyetracking: ")
+        while end_callibrating != "end" and end_callibrating != "stop":
+            end_callibrating = input("type 'end' to finish callibration: \n")
+        while stop_running != "stop" and end_callibrating != "stop":
+            stop_running = input("type 'stop' to stop Eyetracking:  \n")
         utils.printToJava("Stopping Eyetracking", "EYETRACKING_STOP")
+        is_running = False
+        stop_event.set()
+        camera_handler.release_all_camera()
+        stop_event = threading.Event()
         ignore_clicks = True
         reset_globals()
-        model =[]
+        model = []
 
 
 input_thread = threading.Thread(target=threaded_input_handler)
 input_thread.start()
-with mouse.Listener(on_click=on_click) as listener:
-    listener.join()

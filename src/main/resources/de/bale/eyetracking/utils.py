@@ -4,16 +4,17 @@ import time
 from datetime import datetime
 
 import cv2
-import dlib
+# import dlib
 import numpy as np
-import scipy.io as sio
-from matplotlib import pyplot as plt
+# import scipy.io as sio
+# from matplotlib import pyplot as plt
 
 params = cv2.SimpleBlobDetector_Params()
 params.filterByInertia = False
 params.filterByConvexity = False
 blob_detector = cv2.SimpleBlobDetector(params)
-
+screen_x = 1920
+screen_y = 1080
 # These are for the colored printing...
 os.system("")  # Allows Color Coding in Console
 color_dict = {
@@ -24,89 +25,89 @@ color_dict = {
     "magenta": '\033[95m'
 }
 
-def rotate_image(image, angle):
-    image_center = tuple(np.array(image.shape[1::-1]) / 2)
-    rot_mat = cv2.getRotationMatrix2D(image_center, angle, 1.0)
-    result = cv2.warpAffine(image, rot_mat, image.shape[1::-1], flags=cv2.INTER_LINEAR)
-    return result
+# def rotate_image(image, angle):
+#     image_center = tuple(np.array(image.shape[1::-1]) / 2)
+#     rot_mat = cv2.getRotationMatrix2D(image_center, angle, 1.0)
+#     result = cv2.warpAffine(image, rot_mat, image.shape[1::-1], flags=cv2.INTER_LINEAR)
+#     return result
 
 
-def annotate_annoationLine_gaze(line):
-    splittedLine = line.split(" ")
-    ret_val = dict()
-    ret_val['dim1'] = splittedLine[0]
-    ret_val['dim2'] = splittedLine[1]
-    ret_val['dim3'] = splittedLine[2]
-    ret_val['dim4'] = splittedLine[3]
-    ret_val['dim5'] = splittedLine[4]
-    ret_val['dim6'] = splittedLine[5]
-    ret_val['dim7'] = splittedLine[6]
-    ret_val['dim8'] = splittedLine[7]
-    ret_val['dim9'] = splittedLine[8]
-    ret_val['dim10'] = splittedLine[9]
-    ret_val['dim11'] = splittedLine[10]
-    ret_val['dim12'] = splittedLine[11]
-    ret_val['dim13'] = splittedLine[12]
-    ret_val['dim14'] = splittedLine[13]
-    ret_val['dim15'] = splittedLine[14]
-    ret_val['dim16'] = splittedLine[15]
-    ret_val['dim17'] = splittedLine[16]
-    ret_val['dim18'] = splittedLine[17]
-    ret_val['dim19'] = splittedLine[18]
-    ret_val['dim20'] = splittedLine[19]
-    ret_val['dim21'] = splittedLine[20]
-    ret_val['dim22'] = splittedLine[21]
-    ret_val['dim23'] = splittedLine[22]
-    ret_val['dim24'] = splittedLine[23]
-    ret_val['Screen X'] = splittedLine[24]
-    ret_val['Screen Y'] = splittedLine[25]
-    ret_val['3D GazeTarget X'] = splittedLine[26]
-    ret_val['3D GazeTarget Y'] = splittedLine[27]
-    ret_val['3D GazeTarget Z'] = splittedLine[28]
-    ret_val['dim30'] = splittedLine[29]
-    ret_val['dim31'] = splittedLine[30]
-    ret_val['dim32'] = splittedLine[31]
-    ret_val['dim33'] = splittedLine[32]
-    ret_val['dim34'] = splittedLine[33]
-    ret_val['dim35'] = splittedLine[34]
-    ret_val['dim36'] = splittedLine[35]
-    ret_val['dim37'] = splittedLine[36]
-    ret_val['dim38'] = splittedLine[37]
-    ret_val['dim39'] = splittedLine[38]
-    ret_val['dim40'] = splittedLine[39]
-    ret_val['dim41'] = splittedLine[40]
-    return ret_val
+# def annotate_annoationLine_gaze(line):
+#     splittedLine = line.split(" ")
+#     ret_val = dict()
+#     ret_val['dim1'] = splittedLine[0]
+#     ret_val['dim2'] = splittedLine[1]
+#     ret_val['dim3'] = splittedLine[2]
+#     ret_val['dim4'] = splittedLine[3]
+#     ret_val['dim5'] = splittedLine[4]
+#     ret_val['dim6'] = splittedLine[5]
+#     ret_val['dim7'] = splittedLine[6]
+#     ret_val['dim8'] = splittedLine[7]
+#     ret_val['dim9'] = splittedLine[8]
+#     ret_val['dim10'] = splittedLine[9]
+#     ret_val['dim11'] = splittedLine[10]
+#     ret_val['dim12'] = splittedLine[11]
+#     ret_val['dim13'] = splittedLine[12]
+#     ret_val['dim14'] = splittedLine[13]
+#     ret_val['dim15'] = splittedLine[14]
+#     ret_val['dim16'] = splittedLine[15]
+#     ret_val['dim17'] = splittedLine[16]
+#     ret_val['dim18'] = splittedLine[17]
+#     ret_val['dim19'] = splittedLine[18]
+#     ret_val['dim20'] = splittedLine[19]
+#     ret_val['dim21'] = splittedLine[20]
+#     ret_val['dim22'] = splittedLine[21]
+#     ret_val['dim23'] = splittedLine[22]
+#     ret_val['dim24'] = splittedLine[23]
+#     ret_val['Screen X'] = splittedLine[24]
+#     ret_val['Screen Y'] = splittedLine[25]
+#     ret_val['3D GazeTarget X'] = splittedLine[26]
+#     ret_val['3D GazeTarget Y'] = splittedLine[27]
+#     ret_val['3D GazeTarget Z'] = splittedLine[28]
+#     ret_val['dim30'] = splittedLine[29]
+#     ret_val['dim31'] = splittedLine[30]
+#     ret_val['dim32'] = splittedLine[31]
+#     ret_val['dim33'] = splittedLine[32]
+#     ret_val['dim34'] = splittedLine[33]
+#     ret_val['dim35'] = splittedLine[34]
+#     ret_val['dim36'] = splittedLine[35]
+#     ret_val['dim37'] = splittedLine[36]
+#     ret_val['dim38'] = splittedLine[37]
+#     ret_val['dim39'] = splittedLine[38]
+#     ret_val['dim40'] = splittedLine[39]
+#     ret_val['dim41'] = splittedLine[40]
+#     return ret_val
 
 
-def annotate_line_face_gaze(line):
-    splitted_line = line.split(" ")
-    ret_val = dict()
-    ret_val['image_path'] = splitted_line[0]
-    ret_val['image'] = splitted_line[2]
-    ret_val['y'] = splitted_line[3]
-    return ret_val
+# def annotate_line_face_gaze(line):
+#     splitted_line = line.split(" ")
+#     ret_val = dict()
+#     ret_val['image_path'] = splitted_line[0]
+#     ret_val['image'] = splitted_line[2]
+#     ret_val['y'] = splitted_line[3]
+#     return ret_val
 
 
-def format_time(time_passed):
-    ms = time_passed % 1
-    time_passed -= ms
-    ms = np.round(ms, 4)
-    m, s = divmod(int(time_passed), 60)
-    h, m = divmod(m, 60)
-    time_pretty = "{:d}h {:02d}min {:02d}s {}ms".format(h, m, s, ms)
-    return time_pretty
+# def format_time(time_passed):
+#     ms = time_passed % 1
+#     time_passed -= ms
+#     ms = np.round(ms, 4)
+#     m, s = divmod(int(time_passed), 60)
+#     h, m = divmod(m, 60)
+#     time_pretty = "{:d}h {:02d}min {:02d}s {}ms".format(h, m, s, ms)
+#     return time_pretty
 
 
-def get_screen_information(path_to_mat):
-    if path_to_mat != "":
-        ret_val = dict()
-        mat = sio.loadmat(path_to_mat)
-        ret_val['height_mm'] = np.round(mat['height_mm'][0][0], 2)
-        ret_val['height_px'] = mat['height_pixel'][0][0]
-        ret_val['width_mm'] = np.round(mat['width_mm'][0][0], 2)
-        ret_val['width_px'] = mat['width_pixel'][0][0]
-        ret_val['dpmm'] = mat['height_pixel'][0][0] / (mat['height_mm'][0][0])
-        return ret_val
+# def get_screen_information(path_to_mat):
+#     if path_to_mat != "":
+#         ret_val = dict()
+#         mat = sio.loadmat(path_to_mat)
+#         ret_val['height_mm'] = np.round(mat['height_mm'][0][0], 2)
+#         ret_val['height_px'] = mat['height_pixel'][0][0]
+#         ret_val['width_mm'] = np.round(mat['width_mm'][0][0], 2)
+#         ret_val['width_px'] = mat['width_pixel'][0][0]
+#         ret_val['dpmm'] = mat['height_pixel'][0][0] / (mat['height_mm'][0][0])
+#         return ret_val
 
 
 def printToJava(text, type="PLAIN"):
@@ -114,72 +115,72 @@ def printToJava(text, type="PLAIN"):
     sys.stdout.flush()
 
 
-def shape_to_np(shape, dtype="int"):
-    # initialize the list of (image, y)-coordinates
-    coords = np.zeros((68, 2), dtype=dtype)
-    # loop over the 68 facial landmarks and convert them
-    # to a 2-tuple of (image, y)-coordinates
-    for i in range(0, 68):
-        coords[i] = (shape.part(i).x, shape.part(i).y)
-    # return the list of (image, y)-coordinates
-    return coords
+# def shape_to_np(shape, dtype="int"):
+#     # initialize the list of (image, y)-coordinates
+#     coords = np.zeros((68, 2), dtype=dtype)
+#     # loop over the 68 facial landmarks and convert them
+#     # to a 2-tuple of (image, y)-coordinates
+#     for i in range(0, 68):
+#         coords[i] = (shape.part(i).x, shape.part(i).y)
+#     # return the list of (image, y)-coordinates
+#     return coords
 
 
-def convert_tuple(tup):
-    x = "X: " + np.format_float_positional(tup[0], precision=2) + " "
-    y = "Y: " + np.format_float_positional(tup[1], precision=2) + " "
-    z = "Z: " + np.format_float_positional(tup[2], precision=2) + " "
-    str = x + y + z
-    return str
+# def convert_tuple(tup):
+#     x = "X: " + np.format_float_positional(tup[0], precision=2) + " "
+#     y = "Y: " + np.format_float_positional(tup[1], precision=2) + " "
+#     z = "Z: " + np.format_float_positional(tup[2], precision=2) + " "
+#     str = x + y + z
+#     return str
 
 
-def print_text_in_image(image, text, row=0, column=0, x_abs=-1, y_abs=-1):
-    if x_abs > 0 and y_abs > 0:
-        cv2.putText(image, text, (x_abs, y_abs), font, 1,
-                    (255, 255, 255), 2, cv2.LINE_AA)
-    else:
-        x_pos = row * row_height + image_offset
-        y_pos = column * column_width
-        cv2.putText(image, text, (y_pos, x_pos), font, 1,
-                    (255, 255, 255), 2, cv2.LINE_AA)
+# def print_text_in_image(image, text, row=0, column=0, x_abs=-1, y_abs=-1):
+#     if x_abs > 0 and y_abs > 0:
+#         cv2.putText(image, text, (x_abs, y_abs), font, 1,
+#                     (255, 255, 255), 2, cv2.LINE_AA)
+#     else:
+#         x_pos = row * row_height + image_offset
+#         y_pos = column * column_width
+#         cv2.putText(image, text, (y_pos, x_pos), font, 1,
+#                     (255, 255, 255), 2, cv2.LINE_AA)
 
 
-class Timer(object):
-    def __init__(self, name=None):
-        self.name = name
-        self.tround = 0
-        self.total_delta = 0
-        self.number_of_rounds = 0
+# class Timer(object):
+#     def __init__(self, name=None):
+#         self.name = name
+#         self.tround = 0
+#         self.total_delta = 0
+#         self.number_of_rounds = 0
+#
+#     def start(self):
+#         print("Start", self.name, end="")
+#         start_time = datetime.now()
+#         formated_time = start_time.strftime("  %d.%m.%Y %H:%M:%S")
+#         print(formated_time)
+#         self.tstart = time.time()
+#         self.tround = self.tstart
+#
+#     def timestamp(self):
+#         my_time = time.time()
+#         delta = my_time - self.tround
+#         self.tround = my_time
+#         self.total_delta += delta
+#         self.number_of_rounds += 1
+#         return delta
+#
+#     def average_round_time(self):
+#         return int(self.total_delta / self.number_of_rounds)
+#
+#     def time_since_start(self):
+#         return time.time() - self.tstart
 
-    def start(self):
-        print("Start", self.name, end="")
-        start_time = datetime.now()
-        formated_time = start_time.strftime("  %d.%m.%Y %H:%M:%S")
-        print(formated_time)
-        self.tstart = time.time()
-        self.tround = self.tstart
 
-    def timestamp(self):
-        my_time = time.time()
-        delta = my_time - self.tround
-        self.tround = my_time
-        self.total_delta += delta
-        self.number_of_rounds += 1
-        return delta
-
-    def average_round_time(self):
-        return int(self.total_delta / self.number_of_rounds)
-
-    def time_since_start(self):
-        return time.time() - self.tstart
-
-
-def color_print(color_code, string, end="\n"):
-    if color_code in color_dict:
-        code = color_dict[color_code]
-    else:
-        code = ""
-    print(code, string + '\033[0m', end=end)
+# def color_print(color_code, string, end="\n"):
+#     if color_code in color_dict:
+#         code = color_dict[color_code]
+#     else:
+#         code = ""
+#     print(code, string + '\033[0m', end=end)
 
 
 # def normalize(image):

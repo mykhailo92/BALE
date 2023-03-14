@@ -121,4 +121,5 @@
 .bottom-progress-indicator {
     -fx-max-height: 2em;
     -fx-max-width: 2em;
+    -fx-progress-color: -fx-mainButtonBackgroundColor;
 }

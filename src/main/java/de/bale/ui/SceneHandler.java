@@ -50,6 +50,10 @@ public class SceneHandler {
     public void printToEyeTracker(String text) {
         eyetracker.answerToPython(text);
     }
+
+    public boolean eyetrackerIsRunning() {
+        return eyetracker.isRunning();
+    }
     private void closeAllOnExit() {
         Platform.runLater(() -> primaryStage.setOnCloseRequest(e -> {
             eyetracker.destroyProcess();

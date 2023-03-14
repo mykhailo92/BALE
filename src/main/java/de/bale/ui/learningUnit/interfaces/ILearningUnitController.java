@@ -4,4 +4,6 @@ public interface ILearningUnitController {
     void setModel(ILearningUnitModel learningUnitModel);
 
     void newEyePosition(int x, int y);
+
+    void notifyCallibration(float clickX, float clickY);
 }

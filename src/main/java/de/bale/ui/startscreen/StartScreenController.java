@@ -3,7 +3,7 @@ package de.bale.ui.startscreen;
 import com.google.common.eventbus.Subscribe;
 import de.bale.language.Localizations;
 import de.bale.logger.Logger;
-import de.bale.messages.EyetrackingStartMessage;
+import de.bale.messages.eyetracking.EyetrackingRunningMessage;
 import de.bale.messages.InitMessage;
 import de.bale.messages.SceneChangeMessage;
 import de.bale.messages.TaskDoneMessage;
@@ -65,7 +65,7 @@ public class StartScreenController implements IStartScreenController {
     }
 
     @Subscribe
-    public void gotEyetrackingStart(EyetrackingStartMessage startMessage) {
+    public void gotEyetrackingStart(EyetrackingRunningMessage startMessage) {
         openLearningUnitButton.setDisable(false);
         progressIndicator.setVisible(false);
     }
@@ -87,7 +87,7 @@ public class StartScreenController implements IStartScreenController {
     }
 
     /**
-     * Sets up the Labels and learningUnitTable properties
+     * Sets up the Labels and learningUnitTable properties, also checks if the Eyetracker is already Running
      */
     @FXML
     private void initialize() {
@@ -96,6 +96,11 @@ public class StartScreenController implements IStartScreenController {
         learningUnitTable.widthProperty().addListener((source, oldWidth, newWidth) -> {
             TableHeaderRow header = (TableHeaderRow) learningUnitTable.lookup("TableHeaderRow");
             header.reorderingProperty().addListener((observable, oldValue, newValue) -> header.setReordering(false));
+        });
+        Platform.runLater(() -> {
+            if (SceneHandler.getInstance().eyetrackerIsRunning()) {
+                Logger.getInstance().post(new EyetrackingRunningMessage("Eyetracker is already running"));
+            }
         });
     }
 
