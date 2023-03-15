@@ -1,10 +1,4 @@
 
-function changeBgColor() {
-    document.body.style.backgroundColor = document.getElementById('color').value;
-    document.getElementsByTagName('aufgabe');
-    return 'test';
-}
-
 /**
  * @return: All Sections in the current HTML
  */

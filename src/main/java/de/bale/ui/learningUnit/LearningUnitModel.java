@@ -1,5 +1,7 @@
 package de.bale.ui.learningUnit;
 
+import de.bale.repository.FeedbackRepository;
+import de.bale.repository.feedback.Feedback;
 import de.bale.ui.interfaces.Listener;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitModel;
 import org.w3c.dom.Element;
@@ -120,4 +122,9 @@ public class LearningUnitModel implements ILearningUnitModel {
     public int getExperimentID() { return experimentID; }
     @Override
     public void setExperimentID(int experimentID) { this.experimentID = experimentID; }
+
+    @Override
+    public void saveFeedback(Feedback feedback) {
+        new FeedbackRepository().save(feedback);
+    }
 }

@@ -1,5 +1,6 @@
 package de.bale.ui.learningUnit.interfaces;
 
+import de.bale.repository.feedback.Feedback;
 import de.bale.ui.interfaces.Listener;
 import org.w3c.dom.Element;
 
@@ -46,5 +47,7 @@ public interface ILearningUnitModel {
     int getExperimentID();
 
     void setExperimentID(int i);
+
+    void saveFeedback(Feedback feedback);
 
 }

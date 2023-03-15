@@ -5,7 +5,6 @@ import de.bale.logger.Logger;
 import de.bale.messages.InitMessage;
 import de.bale.messages.SectionMessage;
 import de.bale.messages.TaskDoneMessage;
-import de.bale.repository.FeedbackRepository;
 import de.bale.repository.feedback.Feedback;
 import de.bale.ui.JSBridge;
 import de.bale.ui.SceneHandler;
@@ -195,7 +194,8 @@ public class LearningUnitController implements ILearningUnitController {
             model.setContainerIndicator(model.getContainerIndicator() + 1);
             logger.post(new SectionMessage("Displaying new Section"));
             Element currentContainer = model.getContainer()[model.getContainerIndicator()];
-            if (LearningUnitUtils.getClasses(model.getContainer()[model.getContainerIndicator() - 1]).contains("diashow")) {
+            if (LearningUnitUtils.getClasses(model.getContainer()[model.getContainerIndicator() - 1])
+                    .contains("diashow")) {
                 model.setCurrentSlideIndicator(model.getCurrentSlideIndicator() + 1);
                 logger.post(new SectionMessage( "Displaying Diashow"));
             } else if (LearningUnitUtils.getClasses(currentContainer).contains("info-and-slide")) {
@@ -203,9 +203,9 @@ public class LearningUnitController implements ILearningUnitController {
                 logger.post(new SectionMessage( "Displaying info-and-slide"));
             }
             listener.notifyMyself();
-            Feedback feedback = new Feedback(model.getExperimentID(), "Next Button", getCurrentDateTime(),
-                    0, "");
-            new FeedbackRepository().save(feedback);
+            model.saveFeedback(new Feedback(model.getExperimentID(), "Next Button", getCurrentDateTime(),
+                    0, currentContainer.getAttribute("class") + " "
+                    + model.getContainerIndicator()));
         }
     }
 
@@ -214,9 +214,8 @@ public class LearningUnitController implements ILearningUnitController {
      */
     @FXML
     private void closeApp() {
-        Feedback feedback = new Feedback(model.getExperimentID(), "Beendet", getCurrentDateTime(), 0,
-                "App closed");
-        new FeedbackRepository().save(feedback);
+        model.saveFeedback(new Feedback(model.getExperimentID(), "Beendet", getCurrentDateTime(), 0,
+                "App closed"));
         Platform.exit();
     }
 
