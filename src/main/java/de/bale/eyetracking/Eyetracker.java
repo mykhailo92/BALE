@@ -18,6 +18,7 @@ public class Eyetracker {
     Thread consoleThread;
     ProcessBuilder processBuilder;
     boolean running = false;
+    private EyetrackerPythonWriter eyetrackerPythonWriter;
 
     public Eyetracker() {
         Logger.getInstance().post(new InitMessage("CREATING PROCESS BUILDER"));
@@ -40,6 +41,8 @@ public class Eyetracker {
         if (!running) {
             try {
                 process = processBuilder.start();
+                eyetrackerPythonWriter = new EyetrackerPythonWriter(process);
+                Logger.getInstance().register(eyetrackerPythonWriter);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -47,13 +50,6 @@ public class Eyetracker {
         } else {
             Logger.getInstance().post(new ErrorMessage("Trying to start Eyetracking but Eyetracking is already running"));
         }
-    }
-
-    public void answerToPython(String text) {
-        OutputStream os = process.getOutputStream();
-        PrintWriter writer = new PrintWriter(os);
-        writer.write(text + "\n");
-        writer.flush();
     }
 
     public void destroyProcess() {

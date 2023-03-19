@@ -1,8 +1,8 @@
 const gridCount = 6;
-const clicksToFinishPoint = 1;
+const clicksToFinishPoint = 5;
 const viewportHeight = window.innerHeight;
 const viewportWidth = window.innerWidth;
-const xOffset = viewportWidth * 0.1;
+const xOffset = viewportWidth * 0.05;
 const yOffset = viewportHeight * 0.1;
 const displayHeight = viewportHeight - yOffset;
 const displayWidth = viewportWidth - xOffset;

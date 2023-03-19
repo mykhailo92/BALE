@@ -3,6 +3,7 @@ package de.bale.ui.learningUnit;
 import de.bale.language.Localizations;
 import de.bale.logger.Logger;
 import de.bale.messages.*;
+import de.bale.messages.eyetracking.WriteToPythonMessage;
 import de.bale.ui.JSBridge;
 import de.bale.ui.SceneHandler;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitController;
@@ -65,7 +66,7 @@ public class LearningUnitController implements ILearningUnitController {
     @FXML
     private void initialize() {
         learningUnit.setContextMenuEnabled(false);
-        SceneHandler.getInstance().printToEyeTracker("start");
+        Logger.getInstance().post(new WriteToPythonMessage("start"));
         engine = learningUnit.getEngine();
         logger.post(new InitMessage("Loading LearningUnit: " + startPage + "..."));
         engine.load(startPage);
@@ -229,7 +230,7 @@ public class LearningUnitController implements ILearningUnitController {
         sceneHandler.changeScene(new StartScreenController(), "startscreen.fxml", "selectionTitle");
         ((StartScreenController) sceneHandler.getController()).setModel(new StartScreenModel());
         sceneHandler.setStageFullScreen(false);
-        SceneHandler.getInstance().printToEyeTracker("stop");
+        Logger.getInstance().post(new WriteToPythonMessage("stop"));
     }
 
 

@@ -24,5 +24,5 @@ module de.bale {
     opens de.bale.ui.learningUnit.interfaces to javafx.fxml;
     opens de.bale.ui.dialogs to javafx.base, javafx.fxml;
     exports de.bale.ui.startscreen to com.google.common;
-    exports de.bale.eyetracking to javafx.graphics;
+    exports de.bale.eyetracking to com.google.common, javafx.graphics;
 }

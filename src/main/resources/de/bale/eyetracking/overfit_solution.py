@@ -151,19 +151,22 @@ def threaded_click(x, y):
                 utils.printToJava("{} {}".format(x / utils.screen_x, y / utils.screen_y), "EYETRACKING_CALLIBRATION")
             else:
                 print("INVALID IMAGE")
-        if len(both_eyes) >= max_image_count:
-            ignore_clicks = True
-            estimated_positions_array = np.array(estimated_positions)
-            both_eyes_array = np.array(both_eyes)
-            points_array = np.array(points)
-            reset_globals()
-            utils.printToJava("Start Fit", "EYETRACKING_FIT")
-            model = fit_basic_model([both_eyes_array, points_array], estimated_positions_array, 10000)
-            ignore_clicks = False
-            utils.printToJava("End Fit")
-            listener.stop()
-            predict_thread = threading.Thread(target=start_predicting, args=(stop_event,))
-            predict_thread.start()
+
+
+def prepare_and_start_eyetracking():
+    global ignore_clicks, model
+    ignore_clicks = True
+    estimated_positions_array = np.array(estimated_positions)
+    both_eyes_array = np.array(both_eyes)
+    points_array = np.array(points)
+    reset_globals()
+    utils.printToJava("Start Fit", "EYETRACKING_FIT")
+    model = fit_basic_model([both_eyes_array, points_array], estimated_positions_array, 10000)
+    ignore_clicks = False
+    utils.printToJava("End Fit")
+    listener.stop()
+    predict_thread = threading.Thread(target=start_predicting, args=(stop_event,))
+    predict_thread.start()
 
 
 def threaded_input_handler():
@@ -182,6 +185,8 @@ def threaded_input_handler():
         ignore_clicks = False
         while end_callibrating != "end" and end_callibrating != "stop":
             end_callibrating = input("type 'end' to finish callibration: \n")
+        if end_callibrating == "end":
+            prepare_and_start_eyetracking()
         while stop_running != "stop" and end_callibrating != "stop":
             stop_running = input("type 'stop' to stop Eyetracking:  \n")
         utils.printToJava("Stopping Eyetracking", "EYETRACKING_STOP")

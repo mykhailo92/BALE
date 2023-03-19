@@ -25,8 +25,8 @@ public class SceneHandler {
     private static SceneHandler instance;
     private String themeName;
     private Scene primaryScene;
-    private Eyetracker eyetracker;
-    private ArrayList<String> allowedThemes = new ArrayList<>() {{
+    private final Eyetracker eyetracker;
+    private final ArrayList<String> allowedThemes = new ArrayList<>() {{
         add("default");
         add("darcula");
     }};
@@ -45,10 +45,6 @@ public class SceneHandler {
             instance.closeAllOnExit();
         }
         return instance;
-    }
-
-    public void printToEyeTracker(String text) {
-        eyetracker.answerToPython(text);
     }
 
     public boolean eyetrackerIsRunning() {
