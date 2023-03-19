@@ -1,11 +1,11 @@
-const gridCount = 6;
-const clicksToFinishPoint = 5;
+const gridCount = 5;
+const clicksToFinishPoint = 4;
 const viewportHeight = window.innerHeight;
 const viewportWidth = window.innerWidth;
 const xOffset = viewportWidth * 0.05;
-const yOffset = viewportHeight * 0.1;
-const displayHeight = viewportHeight - yOffset;
-const displayWidth = viewportWidth - xOffset;
+const yOffset = viewportHeight * 0.05;
+const displayHeight = viewportHeight;
+const displayWidth = viewportWidth;
 const clickedArray = []
 
 for (let index = 0; index < gridCount * gridCount; index++) {
@@ -41,6 +41,15 @@ function checkIfCallibrationIsDone() {
         sum += point
     })
     if (sum <= 0) {
+        document.getElementById("callibration-box").remove();
+        let waitingElement = document.createElement("div");
+        waitingElement.setAttribute("id", "waiting-box");
+        waitingElement.classList.add("modal");
+        waitingElement.style.cssText += "display:block;";
+        let loadingSymbol = document.createElement("div");
+        loadingSymbol.classList.add("loading-symbol");
+        waitingElement.appendChild(loadingSymbol)
+        document.body.prepend(waitingElement);
         window.javaBridge.callibrationDone();
     }
 }
@@ -48,25 +57,17 @@ function checkIfCallibrationIsDone() {
 function drawCallibrationPoints() {
     const y_step_per_grid = displayHeight / gridCount;
     const x_step_per_grid = displayWidth / gridCount;
-    // document.getElementById("test").innerText += "" +
-    //     "ViewHeight: " + viewportHeight + "\n" +
-    //     "ViewWidth: " + viewportWidth + "\n" +
-    //     "STEP X: " + x_step_per_grid + "\n" +
-    //     "STEP Y: " + y_step_per_grid + "\n" +
-    //     "X Offset: " + x_offset + "\n" +
-    //     "Y Offset: " + y_offset + "\n" +
-    //     "display x: " + displayWidth + "\n" +
-    //     "display y: " + displayHeight + "\n"
     let id = 0
+
     for (let grid_index_x = 0; grid_index_x < gridCount; grid_index_x++) {
         for (let grid_index_y = 0; grid_index_y < gridCount; grid_index_y++) {
-            top_pos = yOffset + (grid_index_y) * y_step_per_grid;
-            left_pos = xOffset + (grid_index_x) * x_step_per_grid;
-            // document.getElementById("test").innerText += top_pos + "  " + left_pos + "\n"
-            drawCallibrationPoint(top_pos, left_pos, id);
+            var topPos = (grid_index_y) * y_step_per_grid;
+            var leftPos = (grid_index_x) * x_step_per_grid;
+            var normalizedTopPosition = (topPos) / (displayHeight - yOffset * 2) * (displayHeight - yOffset) + yOffset;
+            var normalizedLeftPosition = (leftPos) / (displayWidth - xOffset * 2) * (displayWidth - xOffset) + xOffset;
+            drawCallibrationPoint(normalizedTopPosition, normalizedLeftPosition, id);
             id++;
         }
-
     }
 }
 

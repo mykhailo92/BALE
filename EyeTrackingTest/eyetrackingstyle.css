@@ -23,8 +23,6 @@ html, body {
 .circle {
     width: 1.5vw;
     height: 1.5vw;
-    /*text-align: center;*/
-    /*align-items: center;*/
     position: absolute;
     background: red;
     display: flex;
@@ -40,10 +38,6 @@ html, body {
 }
 
 .cross {
-    /*background: orange;*/
-    /*width: 100px;*/
-    /*height: 100px;*/
-    /*position: absolute;*/
     font-weight: bold;
     font-size: 1.5vw;
     -webkit-user-select: none;
@@ -62,6 +56,34 @@ html, body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 50%);
     z-index: 10;
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
+}
+
+.loading-symbol {
+    width: 1.5vw;
+    height: 1.5vw;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    /*background: red;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+    animation: rotation 1s infinite linear;
+    cursor: pointer;
 }
