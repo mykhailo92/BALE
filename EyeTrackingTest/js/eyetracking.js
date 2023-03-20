@@ -14,7 +14,7 @@ for (let index = 0; index < gridCount * gridCount; index++) {
 
 function drawCallibrationPoint(top, left, id) {
     let circle = document.createElement('div');
-    circle.classList.add("circle");
+    circle.classList.add("callibration-circle");
     let cross = document.createElement("div")
     circle.style.cssText += "top:  " + top + "px;left:" + left + "px;";//transform: translate(-50%, -50%);";
     circle.setAttribute("pointID", id)

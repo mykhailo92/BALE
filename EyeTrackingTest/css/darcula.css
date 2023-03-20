@@ -1,0 +1,37 @@
+:root {
+    --backgroundColor: #282a36;
+    --globalFontColor: #f8f8f2;
+
+    --mainButtonBackgroundColor: #ffb86c;
+    --mainButtonHovorColor: #ff9320;
+    --mainButtonTextColor: 	#282a36;
+    --mainButtonShadowColor: #6272a4;
+
+    --textFontSize: 1.5em;
+    --textFontFamily: 'Optima', cursive;
+
+    --taskFontSize: 1.2em;
+    --taskBackgroundColor: 	#bd93f9;
+    --taskBorderColor: #914bf5;
+
+    --textAreaFontSize: 16px;
+    --textAreaBackgroundColor: #44475a;
+    --textAreaBorderColor: #914bf5;
+
+    --informationBackgroundColor: #ff79c6;
+    --informationBorderColor: 	#bd93f9;
+
+    --readingFontSize: 14px;
+
+    --saveFontSize: 20px;
+
+    --navButtonFontSize: 14px;
+
+    --dragableCardBackgroundColor: #50fa7b;
+    --dragableCardFontSize: 30px;
+
+    --dragableFieldFontSize: 35px;
+
+    --chapterSelectFontSize: 1.3em;
+    --chapterSelectFontColor: #8be9fd;
+}

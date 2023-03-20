@@ -36,7 +36,8 @@ def start_predicting(event: threading.Event):
                 if both_eyes_image.shape != (1, 36, 120, 3):
                     failed += 1
                     continue
-                x, y = model.predict([both_eyes_image, eye_points], verbose=0)[0]
+                # x, y = model.predict([both_eyes_image, eye_points], verbose=0)[0]
+                x, y = model.predict(both_eyes_image, verbose=0)[0]
                 x *= utils.screen_x
                 y *= utils.screen_y
                 x_coordinates.append(x)
