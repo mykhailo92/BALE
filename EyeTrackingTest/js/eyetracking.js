@@ -1,5 +1,5 @@
-const gridCount = 5;
-const clicksToFinishPoint = 4;
+const gridCount = 8;
+const clicksToFinishPoint = 2;
 const viewportHeight = window.innerHeight;
 const viewportWidth = window.innerWidth;
 const xOffset = viewportWidth * 0.05;
@@ -49,6 +49,8 @@ function checkIfCallibrationIsDone() {
         let loadingSymbol = document.createElement("div");
         loadingSymbol.classList.add("loading-symbol");
         waitingElement.appendChild(loadingSymbol)
+        var canvas = document.getElementById("circles");
+        canvas.style.cssText += "display:block";
         document.body.prepend(waitingElement);
         window.javaBridge.callibrationDone();
     }
@@ -63,8 +65,8 @@ function drawCallibrationPoints() {
         for (let grid_index_y = 0; grid_index_y < gridCount; grid_index_y++) {
             var topPos = (grid_index_y) * y_step_per_grid;
             var leftPos = (grid_index_x) * x_step_per_grid;
-            var normalizedTopPosition = (topPos) / (displayHeight - yOffset * 2) * (displayHeight - yOffset) + yOffset;
-            var normalizedLeftPosition = (leftPos) / (displayWidth - xOffset * 2) * (displayWidth - xOffset) + xOffset;
+            var normalizedTopPosition = (topPos) / (displayHeight - yOffset * 2) * (displayHeight - yOffset*2) + yOffset;
+            var normalizedLeftPosition = (leftPos) / (displayWidth - xOffset * 2) * (displayWidth - xOffset*2) + xOffset;
             drawCallibrationPoint(normalizedTopPosition, normalizedLeftPosition, id);
             id++;
         }

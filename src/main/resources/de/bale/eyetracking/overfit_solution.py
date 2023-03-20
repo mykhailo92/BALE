@@ -58,6 +58,8 @@ stop_event = threading.Event()
 
 points = []
 both_eyes = []
+left_eyes = []
+right_eyes = []
 max_image_count = setup_arg_parser()
 estimated_positions = []
 mp_face_mesh = mp.solutions.face_mesh
@@ -123,6 +125,8 @@ def detect_eyes_from_image(image):
 
             left_eye_image = utils.normalize(left_eye_image)
             right_eye_image = utils.normalize(right_eye_image)
+            left_eyes.append(left_eye_image)
+            right_eyes.append(right_eye_image)
             left_eye_array = np.array(left_eye_image)
             right_eye_array = np.array(right_eye_image)
             both_eyes_image = np.concatenate((left_eye_array, right_eye_array), axis=1)
@@ -159,9 +163,12 @@ def prepare_and_start_eyetracking():
     estimated_positions_array = np.array(estimated_positions)
     both_eyes_array = np.array(both_eyes)
     points_array = np.array(points)
+    left_eyes_array = np.array(left_eyes)
+    right_eyes_array = np.array(right_eyes)
     reset_globals()
     utils.printToJava("Start Fit", "EYETRACKING_FIT")
     model = fit_basic_model([both_eyes_array, points_array], estimated_positions_array, 10000)
+    # model = fit_basic_model([left_eyes_array, right_eyes_array], estimated_positions_array, 10000)
     ignore_clicks = False
     utils.printToJava("End Fit")
     listener.stop()
@@ -192,7 +199,7 @@ def threaded_input_handler():
         utils.printToJava("Stopping Eyetracking", "EYETRACKING_STOP")
         is_running = False
         stop_event.set()
-        camera_handler.release_all_camera()
+        camera_handler.release_cameras()
         stop_event = threading.Event()
         ignore_clicks = True
         reset_globals()

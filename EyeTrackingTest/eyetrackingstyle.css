@@ -20,6 +20,10 @@ html, body {
     z-index: 2;
 }
 
+.circles {
+    display: none;
+}
+
 .circle {
     width: 1.5vw;
     height: 1.5vw;
@@ -85,5 +89,4 @@ html, body {
     border-top: 2px solid black;
     border-right: 2px solid black;
     animation: rotation 1s infinite linear;
-    cursor: pointer;
 }

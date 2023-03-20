@@ -24,6 +24,7 @@ color_dict = {
     "blue": '\033[94m',
     "magenta": '\033[95m'
 }
+base_dir = os.path.dirname(__file__)
 
 # def rotate_image(image, angle):
 #     image_center = tuple(np.array(image.shape[1::-1]) / 2)
