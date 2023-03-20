@@ -26,7 +26,7 @@ public class EyetrackerPythonWriter {
     }
 
     public void answerToPython(String text) {
-        System.out.println("PRINTING TO PYTHON: " + text);
+//        System.out.println("PRINTING TO PYTHON: " + text);
         OutputStream os = process.getOutputStream();
         PrintWriter writer = new PrintWriter(os);
         writer.write(text + "\n");
