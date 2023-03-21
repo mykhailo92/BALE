@@ -1,4 +1,4 @@
 @echo off
-javaw -jar "%cd%\bale.jar"
-
+start javaw -jar "%cd%\bale.jar" "%cd%\Lerneinheit\example.html"
 echo %errorlevel%
+exit
