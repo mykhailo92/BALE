@@ -98,6 +98,11 @@ function showVideo(video) {
     videoElem.setAttribute('autoplay', 'autoplay');
     window.javaBridge.saveFeedback("Demo-video",getDateTime(),0,"Start playing");
 
+    /* Listen for the 'ended' event and close the modal window */
+      videoElem.addEventListener('ended', function() {
+        modal.style.display = "none";
+        window.javaBridge.saveFeedback("Demo-video",getDateTime(),0,"Video played");
+      });
 
     /* When the user clicks on <span> (x), close the modal */
     span.onclick = function() {
