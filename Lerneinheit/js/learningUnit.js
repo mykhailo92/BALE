@@ -93,21 +93,25 @@ function showVideo(video) {
     let modal = document.getElementById("modal-window-" + number);
     let span = document.getElementsByClassName("close")[number-1];
     let videoElem = document.getElementById('video-' + number);
+
     modal.style.display = "block";
-    videoElem.setAttribute('src', 'video/video-' + number + '.mp4');
-    videoElem.setAttribute('autoplay', 'autoplay');
-    window.javaBridge.saveFeedback("Demo-video",getDateTime(),0,"Start playing");
+    //window.javaBridge.saveFeedback("Demo-video",getDateTime(),0,"Start playing");
+
+    videoElem.play();
 
     /* Listen for the 'ended' event and close the modal window */
-      videoElem.addEventListener('ended', function() {
+    videoElem.addEventListener('ended', function() {
         modal.style.display = "none";
-        window.javaBridge.saveFeedback("Demo-video",getDateTime(),0,"Video played");
+        videoElem.pause();
+        videoElem.currentTime = 0;
       });
 
     /* When the user clicks on <span> (x), close the modal */
-      span.onclick = function() {
+    span.onclick = function() {
+        //window.javaBridge.saveFeedback("Demo-video",getDateTime(),0,"Stop playing");
         modal.style.display = "none";
-        window.javaBridge.saveFeedback("Demo-video",getDateTime(),0,"Stop playing");
+        videoElem.pause();
+        videoElem.currentTime = 0;
     }
 }
 
