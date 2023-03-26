@@ -94,25 +94,21 @@ function showVideo(video) {
     let span = document.getElementsByClassName("close")[number-1];
     let videoElem = document.getElementById('video-' + number);
 
-    modal.style.display = "block";
-    //window.javaBridge.saveFeedback("Demo-video",getDateTime(),0,"Start playing");
-
-    videoElem.play();
-
     /* Listen for the 'ended' event and close the modal window */
     videoElem.addEventListener('ended', function() {
         modal.style.display = "none";
         videoElem.pause();
-        videoElem.currentTime = 0;
       });
 
     /* When the user clicks on <span> (x), close the modal */
     span.onclick = function() {
-        //window.javaBridge.saveFeedback("Demo-video",getDateTime(),0,"Stop playing");
-        modal.style.display = "none";
         videoElem.pause();
-        videoElem.currentTime = 0;
+        modal.style.display = "none";
+        window.javaBridge.saveFeedback("Demo-video",getDateTime(),0,"Stop playing");
     }
+
+    modal.style.display = "block";
+    window.javaBridge.saveFeedback("Demo-video",getDateTime(),0,"Start playing");
 }
 
 function enableNextButton() {
