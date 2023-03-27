@@ -94,11 +94,13 @@ function showVideo(video) {
     let span = document.getElementsByClassName("close")[number-1];
     let videoElem = document.getElementById('video-' + number);
 
-    /* Listen for the 'ended' event and close the modal window */
+    /* Listen for the 'ended' event and close the modal window
     videoElem.addEventListener('ended', function() {
         modal.style.display = "none";
         videoElem.pause();
+        videoElem.currentTime = 0;
       });
+      */
 
     /* When the user clicks on <span> (x), close the modal */
     span.onclick = function() {
