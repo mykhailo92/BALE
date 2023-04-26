@@ -245,8 +245,6 @@ public class LearningUnitController implements ILearningUnitController {
      */
     @FXML
     private void closeApp() {
-//        Window window = closeButton.getScene().getWindow();  // Get the primary stage from your Application class
-//        window.fireEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSE_REQUEST));
         Logger.getInstance().post(new SceneChangeMessage("Startscreen"));
         Logger.getInstance().post(new AoiMapMessage(model.getAoiMap()));
         SceneHandler sceneHandler = SceneHandler.getInstance();

@@ -5,11 +5,20 @@ import de.bale.logger.Logger;
 import java.util.Map;
 
 public class AoiMapMessage {
+    String jsonString;
+
     public AoiMapMessage(Map<String, Long> aoiMap) {
-        String returnString = "";
+        StringBuilder returnString = new StringBuilder();
+        jsonString = "{";
         for (String key : aoiMap.keySet()) {
-            returnString += "Key: " + key + " View Duration: " + aoiMap.get(key) + " ";
+            returnString.append("Key: ").append(key).append(" View Duration: ").append(aoiMap.get(key)).append(" ");
+            jsonString += "\"" + key + "\": \"" + aoiMap.get(key) + "\",";
         }
-        Logger.getInstance().post(new AoiStringMessage(returnString));
+        if (jsonString.substring(jsonString.length() - 1).equals(",")) {
+            jsonString = jsonString.substring(0, jsonString.length() - 1);
+        }
+        jsonString += "}";
+        Logger.getInstance().post(new AoiStringMessage(returnString.toString()));
+        Logger.getInstance().post(new AoiStringMessage(jsonString));
     }
 }
