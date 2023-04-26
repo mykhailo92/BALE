@@ -17,15 +17,18 @@ public class EyetrackingRepository implements IEyetracking {
     }
     @Override
     public void save(Eyetracking eyetracking) {
-        String insert = "INSERT INTO " + Const.FEEDBACK_TABLE +
-                "("+ Const.EXPERIMENT_ID + "," + Const.DESCRIPTION + "," + Const.FEEDBACK_TABLE + "," + Const.ANSWER_ATTEMPTS +")"
-                + "VALUES (?, ?, ?, ?)";
+        String insert = "INSERT INTO " + Const.EYETRACKING_TABLE +
+                "("+ Const.EXPERIMENT_ID + "," + Const.BLICK_ID + "," + Const.TIMESTAMP + "," + Const.X + ","
+                + Const.Y + "," + Const.ELEMENT +")"
+                + "VALUES (?, ?, ?, ?, ?, ?)";
         try {
             stmt = dbConnection.prepareStatement(insert);
             stmt.setInt(1, eyetracking.getExperimentID());
-            stmt.setString(2, eyetracking.getDescription());
-            stmt.setString(3, eyetracking.getAnswer());
-            stmt.setInt(4, eyetracking.getSolutionAttempts());
+            stmt.setInt(2, eyetracking.getBlickID());
+            stmt.setString(3, eyetracking.getTimeStamp());
+            stmt.setInt(4, eyetracking.getX());
+            stmt.setInt(5, eyetracking.getY());
+            stmt.setString(6, eyetracking.getElement());
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
