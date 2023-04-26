@@ -5,7 +5,7 @@ public class Eyetracking {
     private int experimentID;
     private int blickID;
     private int x;
-    private  int y;
+    private int y;
     private String timeStamp;
     private String element;
 
@@ -18,29 +18,17 @@ public class Eyetracking {
         this.element = element;
     }
 
-    public int getExperimentID() {
-        return experimentID;
-    }
+    public int getExperimentID() { return experimentID; }
 
-    public void setExperimentID(int experimentID) {
-        this.experimentID = experimentID;
-    }
+    public void setExperimentID(int experimentID) { this.experimentID = experimentID; }
 
-    public int getBlickID() {
-        return blickID;
-    }
+    public int getBlickID() { return blickID; }
 
-    public void setBlickID(int blickID) {
-        this.blickID = blickID;
-    }
+    public void setBlickID(int blickID) { this.blickID = blickID; }
 
-    public int getX() {
-        return x;
-    }
+    public int getX() { return x; }
 
-    public void setX(int x) {
-        this.x = x;
-    }
+    public void setX(int x) { this.x = x; }
 
     public int getY() {
         return y;
@@ -54,9 +42,7 @@ public class Eyetracking {
         return timeStamp;
     }
 
-    public void setTimeStamp(String timeStamp) {
-        this.timeStamp = timeStamp;
-    }
+    public void setTimeStamp(String timeStamp) { this.timeStamp = timeStamp; }
 
     public String getElement() {
         return element;
