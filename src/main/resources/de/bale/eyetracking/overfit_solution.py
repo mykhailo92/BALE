@@ -15,6 +15,7 @@ def setup_arg_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument("--image_count", type=int, default=50,
                         help="How many images should be used to callibrate the camera.")
+
     args = parser.parse_args()
 
     return args.image_count
@@ -167,11 +168,11 @@ def prepare_and_start_eyetracking():
     left_eyes_array = np.array(left_eyes)
     right_eyes_array = np.array(right_eyes)
     reset_globals()
-    utils.printToJava("Start Fit", "EYETRACKING_FIT")
+    utils.printToJava("Start Fit", "EYETRACKING_FIT_START")
     model = fit_basic_model([both_eyes_array, points_array], estimated_positions_array, 10000)
-    # model = fit_basic_model([left_eyes_array, right_eyes_array], estimated_positions_array, 10000)
+    # model = fit_basic_model([flleft_eyes_array, right_eyes_array], estimated_positions_array, 10000)
     ignore_clicks = False
-    utils.printToJava("End Fit")
+    utils.printToJava("End Fit", "EYETRACKING_FIT_STOP")
     listener.stop()
     predict_thread = threading.Thread(target=start_predicting, args=(stop_event,))
     predict_thread.start()
@@ -204,7 +205,7 @@ def threaded_input_handler():
         stop_event = threading.Event()
         ignore_clicks = True
         reset_globals()
-        model = []
+        model = None
 
 
 input_thread = threading.Thread(target=threaded_input_handler)

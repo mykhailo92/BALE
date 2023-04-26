@@ -1,5 +1,5 @@
-const gridCount = 8;
-const clicksToFinishPoint = 2;
+const gridCount = 2;
+const clicksToFinishPoint = 1;
 const viewportHeight = window.innerHeight;
 const viewportWidth = window.innerWidth;
 const xOffset = viewportWidth * 0.05;
@@ -48,9 +48,10 @@ function checkIfCallibrationIsDone() {
         waitingElement.style.cssText += "display:block;";
         let loadingSymbol = document.createElement("div");
         loadingSymbol.classList.add("loading-symbol");
+        loadingSymbol.id = "loading-screen";
         waitingElement.appendChild(loadingSymbol)
-        var canvas = document.getElementById("circles");
-        canvas.style.cssText += "display:block";
+        // var canvas = document.getElementById("circles");
+        // canvas.style.cssText += "display:block";
         document.body.prepend(waitingElement);
         window.javaBridge.callibrationDone();
     }
@@ -65,13 +66,18 @@ function drawCallibrationPoints() {
         for (let grid_index_y = 0; grid_index_y < gridCount; grid_index_y++) {
             var topPos = (grid_index_y) * y_step_per_grid;
             var leftPos = (grid_index_x) * x_step_per_grid;
-            var normalizedTopPosition = (topPos) / (displayHeight - yOffset * 2) * (displayHeight - yOffset*2) + yOffset;
-            var normalizedLeftPosition = (leftPos) / (displayWidth - xOffset * 2) * (displayWidth - xOffset*2) + xOffset;
+            var normalizedTopPosition = (topPos) / (displayHeight - yOffset * 2) * (displayHeight - yOffset * 2) + yOffset;
+            var normalizedLeftPosition = (leftPos) / (displayWidth - xOffset * 2) * (displayWidth - xOffset * 2) + xOffset;
             drawCallibrationPoint(normalizedTopPosition, normalizedLeftPosition, id);
             id++;
         }
     }
 }
+
+function delay(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+}
+
 
 var waiting = document.createElement('div');
 waiting.classList.add("modal")
@@ -79,12 +85,32 @@ document.body.appendChild(waiting);
 
 drawCallibrationPoints()
 
+
+function fitDone() {
+    let loading_screen = document.getElementById("waiting-box")
+    loading_screen.style.cssText += "display:none;";
+}
+
+function getElementFromPosition(x, y) {
+    let element = document.elementFromPoint(x, y);
+    if (element.tagName === "BODY") {
+        return
+    }
+    let old_color;
+    if (element.style.backgroundColor !== "red") {
+        old_color = element.style.backgroundColor;
+    }
+    element.style.backgroundColor = "red";
+    element.style.backgroundColor = old_color;
+    return element;
+}
+
 function drawCircleAtPosition(x, y) {
-    var canvas = document.getElementById("circles");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    var ctx = canvas.getContext("2d");
-    ctx.beginPath();
-    ctx.arc(x, y, 30, 0, 2 * Math.PI);
-    ctx.stroke();
+    // var canvas = document.getElementById("circles");
+    // canvas.width = window.innerWidth;
+    // canvas.height = window.innerHeight;
+    // var ctx = canvas.getContext("2d");
+    // ctx.beginPath();
+    // ctx.arc(x, y, 30, 0, 2 * Math.PI);
+    // ctx.stroke();
 }

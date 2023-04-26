@@ -1,8 +1,8 @@
 package de.bale.ui.learningUnit;
 
 import com.google.common.eventbus.Subscribe;
+import de.bale.messages.EyetrackingFitDoneMessage;
 import de.bale.messages.eyetracking.EyeTrackingDataMessage;
-import de.bale.messages.eyetracking.EyetrackingCallibrationMessage;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitController;
 
 public class EyeTrackerListener {
@@ -23,7 +23,7 @@ public class EyeTrackerListener {
     }
 
     @Subscribe
-    public void gotCallibrationPoint(EyetrackingCallibrationMessage eyetrackingCallibrationMessage) {
-        controller.notifyCallibration(eyetrackingCallibrationMessage.getClickX(),eyetrackingCallibrationMessage.getClickY());
+    public void gotEyetrackingFitDone(EyetrackingFitDoneMessage eyetrackingFitDoneMessage) {
+        controller.eyetrackingFitIsDone();
     }
 }

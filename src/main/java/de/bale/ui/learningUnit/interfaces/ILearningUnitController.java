@@ -5,5 +5,5 @@ public interface ILearningUnitController {
 
     void newEyePosition(int x, int y);
 
-    void notifyCallibration(float clickX, float clickY);
+    void eyetrackingFitIsDone();
 }

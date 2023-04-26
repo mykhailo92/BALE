@@ -4,8 +4,11 @@ import de.bale.ui.interfaces.Listener;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitModel;
 import org.w3c.dom.Element;
 
+import java.time.Instant;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class LearningUnitModel implements ILearningUnitModel {
     private int containerIndicator = -1;
@@ -17,7 +20,10 @@ public class LearningUnitModel implements ILearningUnitModel {
     private Element[] chapterMarks; //First Element should be the Container of the Elements
     private Element[] slides;
     private int currentSlideIndicator = 0;
-    private String closeButtonText="";
+    private String closeButtonText = "";
+    private Instant lastEyetrackingTime;
+    private Element lastAoi;
+    private Map<String, Long> viewTimeMap = new HashMap<>();
 
     @Override
     public void addListener(Listener listener) {
@@ -45,7 +51,9 @@ public class LearningUnitModel implements ILearningUnitModel {
     }
 
     @Override
-    public void setContainer(Element[] containerArray) { this.container = containerArray; }
+    public void setContainer(Element[] containerArray) {
+        this.container = containerArray;
+    }
 
 
     @Override
@@ -92,13 +100,19 @@ public class LearningUnitModel implements ILearningUnitModel {
     }
 
     @Override
-    public void setSlides(Element[] slidesArray) { this.slides = slidesArray; }
+    public void setSlides(Element[] slidesArray) {
+        this.slides = slidesArray;
+    }
 
     @Override
-    public Element[] getSlides() { return slides; }
+    public Element[] getSlides() {
+        return slides;
+    }
 
     @Override
-    public int getCurrentSlideIndicator() { return currentSlideIndicator; }
+    public int getCurrentSlideIndicator() {
+        return currentSlideIndicator;
+    }
 
     @Override
     public void setCurrentSlideIndicator(int currentSlideIndicator) {
@@ -110,9 +124,43 @@ public class LearningUnitModel implements ILearningUnitModel {
     public String getCloseButtonText() {
         return closeButtonText;
     }
+
     @Override
     public void setCloseButtonText(String closeButtonText) {
         this.closeButtonText = closeButtonText;
         notifyObserver();
+    }
+
+    @Override
+    public void setLastAoi(Element domElement) {
+        lastAoi = domElement;
+    }
+
+    public Element getLastAoi() {
+        return lastAoi;
+    }
+
+    @Override
+    public Instant getLastEyetrackingTime() {
+        return lastEyetrackingTime;
+    }
+
+    @Override
+    public void setLastEyetrackingTime(Instant now) {
+        lastEyetrackingTime = now;
+    }
+
+    @Override
+    public void addToAreaOfInterestMap(String areaOfInterestAttribute, long durationToAdd) {
+        long currentViewTime = 0;
+        if (viewTimeMap.containsKey(areaOfInterestAttribute)) {
+            currentViewTime = viewTimeMap.get(areaOfInterestAttribute);
+        }
+        viewTimeMap.put(areaOfInterestAttribute, currentViewTime + durationToAdd);
+    }
+
+    @Override
+    public Map<String, Long> getAoiMap() {
+        return viewTimeMap;
     }
 }

@@ -3,6 +3,8 @@ package de.bale.ui.learningUnit;
 import de.bale.language.Localizations;
 import de.bale.logger.Logger;
 import de.bale.messages.*;
+import de.bale.messages.eyetracking.AoiMapMessage;
+import de.bale.messages.eyetracking.EyetrackingAOIMessage;
 import de.bale.messages.eyetracking.WriteToPythonMessage;
 import de.bale.ui.JSBridge;
 import de.bale.ui.SceneHandler;
@@ -16,10 +18,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import netscape.javascript.JSException;
 import netscape.javascript.JSObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 
 public class LearningUnitController implements ILearningUnitController {
@@ -44,16 +49,33 @@ public class LearningUnitController implements ILearningUnitController {
     }
 
     public void newEyePosition(int x, int y) {
-        Platform.runLater(()-> {
+        Platform.runLater(() -> {
             engine.executeScript("drawCircleAtPosition(" + x + "," + y + ");");
+            try {
+                Instant end = Instant.now();
+                Object object = engine.executeScript("getElementFromPosition(" + x + "," + y + ");");
+                Element areaOfInterest = (Element) object;
+                String areaOfInterestAttribute = areaOfInterest.getAttribute("aoi");
+                long timeDifference = Duration.between(model.getLastEyetrackingTime(), end).toMillis();
+                model.addToAreaOfInterestMap(areaOfInterestAttribute, timeDifference);
+                if (areaOfInterestAttribute != null) {
+                    model.setLastAoi(areaOfInterest);
+                    Logger.getInstance().post(new EyetrackingAOIMessage(areaOfInterestAttribute + " Last AoI was looked at  for: " + timeDifference + "ms"));
+                }
+                model.setLastEyetrackingTime(Instant.now());
+            } catch (ClassCastException | JSException ignored) {
+            } //In case something that no Element is looked at or the JavaScript could not find an Element
         });
-
     }
 
     @Override
-    public void notifyCallibration(float clickX, float clickY) {
-        System.out.println(clickX);
-        System.out.println(clickY);
+    public void eyetrackingFitIsDone() {
+        Platform.runLater(() -> {
+            engine.executeScript("fitDone();");
+            model.setNextButtonDisabled(false);
+            model.setLastEyetrackingTime(Instant.now());
+        });
+
     }
 
     /**
@@ -226,6 +248,7 @@ public class LearningUnitController implements ILearningUnitController {
 //        Window window = closeButton.getScene().getWindow();  // Get the primary stage from your Application class
 //        window.fireEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSE_REQUEST));
         Logger.getInstance().post(new SceneChangeMessage("Startscreen"));
+        Logger.getInstance().post(new AoiMapMessage(model.getAoiMap()));
         SceneHandler sceneHandler = SceneHandler.getInstance();
         sceneHandler.changeScene(new StartScreenController(), "startscreen.fxml", "selectionTitle");
         ((StartScreenController) sceneHandler.getController()).setModel(new StartScreenModel());

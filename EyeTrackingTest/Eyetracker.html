@@ -10,6 +10,10 @@
 </head>
 <body>
 
+<div id="chapter-select">
+    <h1 id="index"></h1>
+</div>
+
 <div class="preamble" id="preamble">
     <div class="text">
         Hallo alle zusammen, dies ist ein Test für die Bachelorarbeit für digitale Lerninhalte!
@@ -17,10 +21,265 @@
     <button class="nav-button preamble-button" onclick="javaBridge.disablePreamble();">Verstanden!</button>
 </div>
 <div id="callibration-box"></div>
-<canvas id="circles"></canvas>
 <div class="chapter">
-    <div class="section">Test</div>
+    <div class="clearfix">
+        <div class="section">
+            <img class="wrap-figure tim" src="images/Tim.png" alt="" aoi="P1">
+            <div class="text-tim" aoi="T1">Das ist Tim.</div>
+        </div>
+        <div class="section">
+            <button class="reading" id="reading-button-0" onclick="playAudio(this)" track-number="0">Vorlesen</button>
+            <div class="text" aoi="T2">
+                Tim ist 10 Jahre alt und geht in die 4. Klasse. Er sitzt im Klassenraum in der letzten Reihe. Er hat oft
+                Kopfschmerzen. Ständig kneift er die Augen zusammen. Seine Lehrerin bittet ihn, zum Augenarzt zu gehen.
+            </div>
+        </div>
+    </div>
 </div>
+
+<!--<div class="chapter">-->
+<div class="section" onVisible="disableNextButton">
+    <div class="task">
+        Warum soll Tim zum Augenarzt gehen? Schreibe auf.
+    </div>
+
+    <img src="images/keyboard.png" style="max-width:100px" alt="">
+    <br>
+    <form>
+        <label>
+            <textarea class="text-area" id="text-area-0" placeholder="Bitte schreibe deine Antwort hier mit der Tastatur"></textarea>
+        </label>
+    </form>
+    <br>
+    <input class="submit save" type="submit" value="Speichern" onclick="saveText(this)" number="0">
+</div>
+<!--</div>-->
+
+<div class="chapter">
+    <div class="section" onVisible="renameCloseButton;Das ist ein Test">
+        <h1>1 Der Aufbau des menschlichen Auges</h1>
+        <img class="eye-small" src="images/eye.png" alt=""/>
+    </div>
+    <div class="watermark">
+        <div class="section">
+            <div class="text">
+                <button class="reading" id="reading-button-1-1" onclick="playAudio(this)" track-number="1-1">Vorlesen
+                </button>
+                <br>
+                Zu Hause steht Tim vor dem Spiegel und beobachtet seine Augen. Seine grünen Augen sehen aus wie immer.
+                Er
+                überlegt, wie das Sehen funktioniert: Ganz klar, zum Sehen brauchen wir unsere Augen. Licht muss auch da
+                sein,
+                weil wir im Dunkeln nicht sehen können.
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="section">
+            <div class="text">
+                <button class="reading" id="reading-button-1-2" onclick="playAudio(this)" track-number="1-2">Vorlesen
+                </button>
+                <br>
+                Tim erkennt seine grüne Iris. Außerdem sieht er seine Pupille,
+                die eigentlich nur ein Loch in der Iris ist. Durch die Pupille fällt Licht in das Auge ein. Tim sieht
+                auch
+                den
+                weißen Teil seines Auges. Dieser Teil heißt Lederhaut. Das gesamte Auge wird auch als Augapfel
+                bezeichnet.
+            </div>
+        </div>
+    </div>
+    <div class="section" onVisible="disableNextButton">
+        <div class="task">
+            <div class="wrap-text">
+                <img src="icons/Draggable-Card.svg" class="task-icon" alt=""/>
+                <button class="demo-video" id="video-demo-1" onclick="showVideo(this)" track-number="1">Demo-Video
+                </button>
+                <div id="modal-window-1" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <video class="video" id="video-1" type="video/mp4" loop></video>
+                    </div>
+                </div>
+                Ordne die Begriffe zu. <br> Klicke auf das Wort und ziehe es an die richtige Stelle:
+                <div class="drop-start">
+                    <img class="draggable-card" id="drag-1" draggable="true" src="testImages/lederhaut.png" alt="">
+                </div>
+                <div class="drop-start">
+                    <img class="draggable-card" id="drag-2" draggable="true" src="testImages/pupille.png" alt="">
+                </div>
+                <div class="drop-start">
+                    <img class="draggable-card" id="drag-3" draggable="true" src="testImages/iris.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="task-image">
+            <div class="drop-field" id="drop-1"></div>
+            <div class="drop-field" id="drop-2"></div>
+            <div class="drop-field" id="drop-3"></div>
+        </div>
+        <input class="submit save" id="drag-and-drop-save-button" type="submit" value="Speichern" onclick="save()">
+    </div>
+    <br>
+    <div class="section">
+        <div class="information">
+            <div class="wrap-text">
+                <div style="display: block">
+                    <div>
+                        <div class="text">
+                            <img src="icons/lightbulb.png" class="task-icon" alt="">
+                            Damit das Sehen funktioniert, sind besonders die Iris und die Pupille, die Linse und die
+                            Netzhaut erforderlich. Die Linse und die Netzhaut sind von außen nicht sichtbar.
+                        </div>
+                    </div>
+                    <div class="diashow">
+                        <div class="slide">
+                            <img src="images/eye_structure.png" alt=""/>
+                        </div>
+                        <div class="slide">
+                            <img src="images/eye_structure_1.png" alt=""/>
+                        </div>
+                        <div class="slide">
+                            <img src="images/eye_structure_2.png" alt=""/>
+                        </div>
+                        <div class="slide">
+                            <img src="images/eye_structure_3.png" alt=""/>
+                        </div>
+                    </div>
+                    <div class="info-and-slide">
+                        <div class="text">
+                            In dem Querschnitt des Augapfels ist die Pupille als Loch in der Iris deutlich zu erkennen.
+                        </div>
+                    </div>
+                    <div class="info-and-slide">
+                        <div class="text">
+                            Hinter der Pupille befindet sich die Linse, die dafür sorgt, dass wir Gegenstände deutlich
+                            sehen
+                            können.
+                        </div>
+                    </div>
+
+                    <div class="info-and-slide">
+                        <div class="text">
+                            Die Netzhaut ist dafür zuständig, das gesehene Bild wahrzunehmen und die Informationen über
+                            den Sehnerv an das Gehirn weiterzuleiten. Der Sehnerv ist ebenfalls von außen nicht sichtbar.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="chapter">
+    <div class="section">
+        <h1>2 Ausbreitung von Licht</h1>
+        <div class="text">
+            <button class="reading" id="reading-button-2" onclick="playAudio(this)" track-number="2">Vorlesen</button>
+            <br> Tim wacht in der Nacht auf und möchte sich etwas zu trinken holen. In seinem Zimmer ist es dunkel.
+            Seine Lampe ist kaputt. Er hat aber eine Taschenlampe auf seinem Nachttisch stehen,
+            mit der er den Weg zur Tür ganz einfach finden kann.
+            <img class="lamp" src="images/lamp.png" alt=""/>
+        </div>
+    </div>
+    <div class="section">
+        <div class="information">
+            <div>
+                <div class="light-bulb">
+                    <img src="icons/lightbulb.png" class="task-icon" alt="">
+                </div>
+                <img class="forest" src="images/forest.png" alt=""/>
+                <div class="section">
+                    <div class="forest-text">
+                        Licht breitet sich immer geradlinig aus.
+                        Das kann man besonders gut beobachten, wenn die Lichtstrahlen der Sonne durch die Bäume eines
+                        Waldes
+                        fallen.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="chapter">
+    <div class="section">
+        <h1>3 Der Weg des Lichts</h1>
+        <div class="text">
+            <button class="reading" id="reading-button-3" onclick="playAudio(this)" track-number="3">Vorlesen</button>
+            <br>
+            Auch das Licht der Taschenlampe breitet sich geradlinig aus. Alles, was Tim nicht mit dem Lichtstrahl
+            anleuchtet, kann er nicht sehen. Die Gegenstände, die von der Taschenlampe angestrahlt werden, werfen
+            das
+            Licht
+            zurück. Dieses Zurückwerfen des Lichts nennt man Reflexion. Aus dem Grund kann Tim zum Beispiel seine
+            Zimmertür
+            sehen.
+        </div>
+    </div>
+    <div class="section" onVisible="disableNextButton">
+        <div class="task">
+            Welchen Weg nimmt das Licht von der Taschenlampe zur Tür und von dort zurück zu Tim? Wähle aus in welche
+            Richtung der Lichtstrahl geht.<br>
+        </div>
+        <div class="task-img">
+            <img class="tim-lamp" src="images/Tim_lamp.png" alt=""/>
+            <div class="dropdown" id="dropdown-1">
+                <input class="text-box" id="text-box-1" type="image"
+                       alt="Klicke hier und wähle die Richtung des Lichts">
+                <div class="options">
+                    <div class="options-answer" onclick="show(this)" direction="right" number="1" isCorrect="false">
+                        <img src="icons/arrow-right.png" class="arrow-icon" id="right" alt="">
+                    </div>
+                    <div class="options-answer" onclick="show(this)" direction="left" number="1" isCorrect="true">
+                        <img src="icons/arrow-left.png" class="arrow-icon" id="left" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown" id="dropdown-2">
+                <input class="text-box" id="text-box-2" type="image"
+                       alt="Klicke hier und wähle die Richtung des Lichts">
+                <div class="options">
+                    <div class="options-answer" onclick="show(this)" direction="right" number="2" isCorrect="true">
+                        <img src="icons/arrow-right.png" class="arrow-icon" alt="">
+                    </div>
+                    <div class="options-answer" onclick="show(this)" direction="left" number="2" isCorrect="false">
+                        <img src="icons/arrow-left.png" class="arrow-icon" alt="">
+                    </div>
+                </div>
+            </div>
+            <img class="door" src="images/door.png" alt=""/>
+        </div>
+        <input class="submit save" id="dropdown-save-button" type="submit" value="Speichern" track-number="2"
+               onclick="checkAnswer(); showVideo(this)">
+        <div id="modal-window-2" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <video class="video" id="video-2" type="video/mp4" loop></video>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="information">
+            <div class="text">
+                <img src="icons/lightbulb.png" class="task-icon" alt=""/> Unsere Augen sind Lichtempfänger. Wir
+                sehen unsere Umwelt, weil die Gegenstände das Licht
+                reflektieren
+                und das Licht von den Gegenständen auf unsere Augen trifft.
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="chapter">
+    <div class="section" onVisible="renameCloseButton;Beenden">
+        <img class="wrap-figure tim" src="images/Tim_with_glasses.png" alt="">
+    </div>
+    <div class="section" onVisible="disableNextButton">
+
+    </div>
+</div>
+
+</body>
 </html>
 <script src="js/learningUnit.js"></script>
 <script src="js/dragAndDrop.js"></script>

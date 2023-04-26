@@ -24,7 +24,7 @@ public class JSBridge {
                     Element preamble = engine.getDocument().getElementById("preamble");
                     preamble.setAttribute("style", "display:none");
                     model.setContainerIndicator(model.getContainerIndicator() + 1);
-                    model.setNextButtonDisabled(false);
+//                    model.setNextButtonDisabled(false);
                 });
             } catch (NullPointerException npe) {
                 System.err.println("Preamble not found!");

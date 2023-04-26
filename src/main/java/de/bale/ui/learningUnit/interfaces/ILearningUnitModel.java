@@ -3,6 +3,9 @@ package de.bale.ui.learningUnit.interfaces;
 import de.bale.ui.interfaces.Listener;
 import org.w3c.dom.Element;
 
+import java.time.Instant;
+import java.util.Map;
+
 public interface ILearningUnitModel {
 
     int getContainerIndicator();
@@ -42,4 +45,14 @@ public interface ILearningUnitModel {
     String getCloseButtonText();
 
     void setCloseButtonText(String closeButtonText);
+
+    void setLastAoi(Element dom);
+
+    Instant getLastEyetrackingTime();
+
+    void setLastEyetrackingTime(Instant now);
+
+    void addToAreaOfInterestMap(String areaOfInterestAttribute, long timeDifference);
+
+    Map<String, Long> getAoiMap();
 }
