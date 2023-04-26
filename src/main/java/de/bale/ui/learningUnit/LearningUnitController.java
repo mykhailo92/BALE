@@ -2,16 +2,14 @@ package de.bale.ui.learningUnit;
 
 import de.bale.language.Localizations;
 import de.bale.logger.Logger;
-import de.bale.messages.*;
-import de.bale.messages.eyetracking.AoiMapMessage;
+import de.bale.messages.InitMessage;
+import de.bale.messages.SectionMessage;
+import de.bale.messages.TaskDoneMessage;
 import de.bale.messages.eyetracking.EyetrackingAOIMessage;
-import de.bale.messages.eyetracking.WriteToPythonMessage;
 import de.bale.ui.JSBridge;
 import de.bale.ui.SceneHandler;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitController;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitModel;
-import de.bale.ui.startscreen.StartScreenController;
-import de.bale.ui.startscreen.StartScreenModel;
 import javafx.application.Platform;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
@@ -229,7 +227,8 @@ public class LearningUnitController implements ILearningUnitController {
             model.setContainerIndicator(model.getContainerIndicator() + 1);
             logger.post(new SectionMessage("Displaying new Section"));
             Element currentContainer = model.getContainer()[model.getContainerIndicator()];
-            if (LearningUnitUtils.getClasses(model.getContainer()[model.getContainerIndicator() - 1]).contains("diashow")) {
+            if (LearningUnitUtils.getClasses(model.getContainer()[model.getContainerIndicator() - 1])
+                    .contains("diashow")) {
                 model.setCurrentSlideIndicator(model.getCurrentSlideIndicator() + 1);
                 logger.post(new SectionMessage("Displaying Diashow"));
             } else if (LearningUnitUtils.getClasses(currentContainer).contains("info-and-slide")) {
@@ -237,6 +236,9 @@ public class LearningUnitController implements ILearningUnitController {
                 logger.post(new SectionMessage("Displaying info-and-slide"));
             }
             listener.notifyMyself();
+            model.saveFeedback(new Feedback(model.getExperimentID(), "Next Button", getCurrentDateTime(),
+                    0, currentContainer.getAttribute("class") + " "
+                    + model.getContainerIndicator()));
         }
     }
 
@@ -252,6 +254,9 @@ public class LearningUnitController implements ILearningUnitController {
         ((StartScreenController) sceneHandler.getController()).setModel(new StartScreenModel());
         sceneHandler.setStageFullScreen(false);
         Logger.getInstance().post(new WriteToPythonMessage("stop"));
+        model.saveFeedback(new Feedback(model.getExperimentID(), "Beendet", getCurrentDateTime(), 0,
+                "App closed"));
+//        Platform.exit();
     }
 
 
@@ -289,6 +294,10 @@ public class LearningUnitController implements ILearningUnitController {
         });
     }
 
+    private String getCurrentDateTime() {
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"));
+    }
+
     private void setInvisible(Element disableElement) {
         disableElement.setAttribute("style", "display:none");
     }
@@ -300,7 +309,6 @@ public class LearningUnitController implements ILearningUnitController {
     /**
      * Executes JavaScript to smoothly scroll to the Bottom of the Webview
      */
-    public void scrollToBottom() {
-        engine.executeScript("scrollToBottom();");
-    }
+    public void scrollToBottom() { engine.executeScript("scrollToBottom();"); }
+
 }

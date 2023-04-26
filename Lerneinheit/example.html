@@ -13,12 +13,17 @@
     <h1 id="index"></h1>
 </div>
 
-<div class="preamble" id="preamble">
-    <div class="text">
-        Hallo alle zusammen, dies ist ein Test für die Bachelorarbeit für digitale Lerninhalte!
+<div class="container">
+    <div class="preamble" id="preamble">
+        <div class="text">Hallo alle zusammen, dies ist ein Test für die Bachelorarbeit für digitale Lerninhalte!</div>
+        <label>
+            <input type="text" id="schoolchild-name" placeholder="Bitte geben Sie die Name hier ein"/>
+        </label>
+        <button class="nav-button preamble-button" description="Verstanden Taste"
+                onclick="disablePreamble()">Verstanden!</button>
     </div>
-    <button class="nav-button preamble-button" onclick="javaBridge.disablePreamble();">Verstanden!</button>
 </div>
+
 <div class="chapter">
     <div class="clearfix">
         <div class="section">
@@ -26,7 +31,8 @@
             <div class="text-tim">Das ist Tim.</div>
         </div>
         <div class="section">
-            <button class="reading" id="reading-button-0" onclick="playAudio(this)" track-number="0">Vorlesen</button>
+            <button class="reading" id="reading-button-0" onclick="playAudio(this)"
+                    track-number="0" description="Vorlesen Kapitel 0'">Vorlesen</button>
             <div class="text">
                 Tim ist 10 Jahre alt und geht in die 4. Klasse. Er sitzt im Klassenraum in der letzten Reihe. Er hat oft
                 Kopfschmerzen. Ständig kneift er die Augen zusammen. Seine Lehrerin bittet ihn, zum Augenarzt zu gehen.
@@ -45,23 +51,26 @@
     <br>
     <form>
         <label>
-            <textarea class="text-area" id="text-area-0" placeholder="Bitte schreibe deine Antwort hier mit der Tastatur"></textarea>
+            <textarea class="text-area" id="text-area-0"
+                      placeholder="Bitte schreibe deine Antwort hier mit der Tastatur"></textarea>
         </label>
     </form>
     <br>
-    <input class="submit save" type="submit" value="Speichern" onclick="saveText(this)" number="0">
+    <input class="submit save" type="submit" value="Speichern" onclick="saveText(this)" number="0"
+           description="Speichern Text-Antwort">
 </div>
 <!--</div>-->
 
 <div class="chapter">
-    <div class="section" onVisible="renameCloseButton;Das ist ein Test">
+    <div class="section" onVisible="renameCloseButton;Beenden">
         <h1>1 Der Aufbau des menschlichen Auges</h1>
         <img class="eye-small" src="images/eye.png" alt=""/>
     </div>
     <div class="watermark">
         <div class="section">
             <div class="text">
-                <button class="reading" id="reading-button-1-1" onclick="playAudio(this)" track-number="1-1">Vorlesen
+                <button class="reading" id="reading-button-1-1" onclick="playAudio(this)"
+                        track-number="1-1" description="Vorlesen 'Kapitel 1, Text 1'">Vorlesen
                 </button>
                 <br>
                 Zu Hause steht Tim vor dem Spiegel und beobachtet seine Augen. Seine grünen Augen sehen aus wie immer.
@@ -75,7 +84,8 @@
     <div>
         <div class="section">
             <div class="text">
-                <button class="reading" id="reading-button-1-2" onclick="playAudio(this)" track-number="1-2">Vorlesen
+                <button class="reading" id="reading-button-1-2" onclick="playAudio(this)"
+                        track-number="1-2" description="Vorlesen 'Kapitel 1, Text 2'">Vorlesen
                 </button>
                 <br>
                 Tim erkennt seine grüne Iris. Außerdem sieht er seine Pupille,
@@ -91,23 +101,26 @@
         <div class="task">
             <div class="wrap-text">
                 <img src="icons/Draggable-Card.svg" class="task-icon" alt=""/>
-                <button class="demo-video" id="video-demo-1" onclick="showVideo(this)" track-number="1">Demo-Video
+                <button class="demo-video" id="video-demo-1" onclick="showVideo(this)"
+                        track-number="1" description="Demo-Video Drag&Drop">Demo-Video
                 </button>
                 <div id="modal-window-1" class="modal">
                     <div class="modal-content">
                         <span class="close">&times;</span>
-                        <video class="video" id="video-1" type="video/mp4" loop></video>
+                        <video class="video" id="video-1" src="video/video-1.mp4" type="video/mp4"
+                               controls preload="auto">
+                        </video>
                     </div>
                 </div>
                 Ordne die Begriffe zu. <br> Klicke auf das Wort und ziehe es an die richtige Stelle:
                 <div class="drop-start">
-                    <img class="draggable-card" id="drag-1" draggable="true" src="testImages/lederhaut.png" alt="">
+                    <img class="draggable-card" id="drag-1" draggable="true" src="icons/lederhaut.png" alt="">
                 </div>
                 <div class="drop-start">
-                    <img class="draggable-card" id="drag-2" draggable="true" src="testImages/pupille.png" alt="">
+                    <img class="draggable-card" id="drag-2" draggable="true" src="icons/pupille.png" alt="">
                 </div>
                 <div class="drop-start">
-                    <img class="draggable-card" id="drag-3" draggable="true" src="testImages/iris.png" alt="">
+                    <img class="draggable-card" id="drag-3" draggable="true" src="icons/iris.png" alt="">
                 </div>
             </div>
         </div>
@@ -116,7 +129,8 @@
             <div class="drop-field" id="drop-2"></div>
             <div class="drop-field" id="drop-3"></div>
         </div>
-        <input class="submit save" id="drag-and-drop-save-button" type="submit" value="Speichern" onclick="save()">
+        <input class="submit save" id="drag-and-drop-save-button" type="submit" value="Speichern"
+               description="Speichern Drag&Drop" onclick="save()">
     </div>
     <br>
     <div class="section">
@@ -172,7 +186,8 @@
     <div class="section">
         <h1>2 Ausbreitung von Licht</h1>
         <div class="text">
-            <button class="reading" id="reading-button-2" onclick="playAudio(this)" track-number="2">Vorlesen</button>
+            <button class="reading" id="reading-button-2" onclick="playAudio(this)"
+                    track-number="2" description="Vorlesen Kapitel 2">Vorlesen</button>
             <br> Tim wacht in der Nacht auf und möchte sich etwas zu trinken holen. In seinem Zimmer ist es dunkel.
             Seine Lampe ist kaputt. Er hat aber eine Taschenlampe auf seinem Nachttisch stehen,
             mit der er den Weg zur Tür ganz einfach finden kann.
@@ -203,7 +218,8 @@
     <div class="section">
         <h1>3 Der Weg des Lichts</h1>
         <div class="text">
-            <button class="reading" id="reading-button-3" onclick="playAudio(this)" track-number="3">Vorlesen</button>
+            <button class="reading" id="reading-button-3" onclick="playAudio(this)"
+                    track-number="3" description="Vorlesen Kapitel 3">Vorlesen</button>
             <br>
             Auch das Licht der Taschenlampe breitet sich geradlinig aus. Alles, was Tim nicht mit dem Lichtstrahl
             anleuchtet, kann er nicht sehen. Die Gegenstände, die von der Taschenlampe angestrahlt werden, werfen
@@ -216,7 +232,7 @@
     </div>
     <div class="section" onVisible="disableNextButton">
         <div class="task">
-            Welchen Weg nimmt das Licht von der Taschenlampe zur Tür und von dort zurück zu Tim? Wähle aus in welche
+            Welchen Weg nimmt das Licht von der Taschenlampe zur Tür und von dort zurück zu Tim? Wähle aus, in welche
             Richtung der Lichtstrahl geht.<br>
         </div>
         <div class="task-img">
@@ -248,11 +264,12 @@
             <img class="door" src="images/door.png" alt=""/>
         </div>
         <input class="submit save" id="dropdown-save-button" type="submit" value="Speichern" track-number="2"
-               onclick="checkAnswer(); showVideo(this)">
+              description="Speichern DropDown Aufgabe" onclick="checkAnswer(); showVideo(this)">
         <div id="modal-window-2" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <video class="video" id="video-2" type="video/mp4" loop></video>
+                <video class="video" id="video-2" src="video/video-2.mp4" type="video/mp4" controls preload="auto">
+                </video>
             </div>
         </div>
     </div>
@@ -269,11 +286,10 @@
 </div>
 
 <div class="chapter">
-    <div class="section" onVisible="renameCloseButton;Beenden">
-        <img class="wrap-figure tim" src="images/Tim_with_glasses.png" alt="">
-    </div>
     <div class="section" onVisible="disableNextButton">
-
+        <div class="text">
+            Danke für die Teilnahme!
+        </div>
     </div>
 </div>
 </body>

@@ -7,11 +7,12 @@ let buttons = document.querySelectorAll('.reading');
 function playAudio(reading) {
     let index = reading.getAttribute("track-number");
     if (audio.autoplay && index === currentTrack) {
-        stopAudioPlaying();
+        stopAudioPlaying(reading);
     } else if (audio.autoplay && index !== currentTrack) {
         return;
     } else {
         startAudioPlaying(index);
+        window.javaBridge.saveFeedback(reading.getAttribute('description'),getDateTime(),0,"Reading started");
     }
 
     audio.addEventListener("ended", function () {
@@ -41,7 +42,7 @@ function startAudioPlaying(index) {
     });
 }
 
-function stopAudioPlaying() {
+function stopAudioPlaying(elem) {
     let delayInMilliseconds = 200;
     setTimeout(function() {
         audio.pause();
@@ -50,5 +51,6 @@ function stopAudioPlaying() {
         document.getElementById('reading-button-' + currentTrack).innerText = "Vorlesen";
         buttons.forEach(elem => elem.disabled = false);
         enableNextButton();
+        window.javaBridge.saveFeedback(elem.getAttribute('description'), getDateTime(), 0, "Reading stopped");
     }, delayInMilliseconds);
 }

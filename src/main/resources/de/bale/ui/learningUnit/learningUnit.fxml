@@ -17,7 +17,11 @@
         <Button styleClass="bottom-nav-button" fx:id="nextButton" onMousePressed="#displayNextSection" disable="true">
             Weiter
         </Button>
-        <Button styleClass="bottom-nav-button" fx:id="closeButton" onMousePressed="#closeApp">Beenden (TEMPORÄR)</Button>
-        <Button styleClass="bottom-nav-button" fx:id="scrollDownButton" onMousePressed="#scrollToBottom">Nach unten</Button>
+        <Button styleClass="bottom-nav-button" fx:id="closeButton" onMousePressed="#closeApp">
+            Beenden
+        </Button>
+        <Button styleClass="bottom-nav-button" fx:id="scrollDownButton" onMousePressed="#scrollToBottom">
+            Nach unten
+        </Button>
     </HBox>
 </GridPane>

@@ -1,5 +1,7 @@
 package de.bale.ui.learningUnit;
 
+import de.bale.repository.FeedbackRepository;
+import de.bale.repository.feedback.Feedback;
 import de.bale.ui.interfaces.Listener;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitModel;
 import org.w3c.dom.Element;
@@ -20,6 +22,8 @@ public class LearningUnitModel implements ILearningUnitModel {
     private Element[] chapterMarks; //First Element should be the Container of the Elements
     private Element[] slides;
     private int currentSlideIndicator = 0;
+    private String closeButtonText="";
+    private int experimentID;
     private String closeButtonText = "";
     private Instant lastEyetrackingTime;
     private Element lastAoi;
@@ -162,5 +166,14 @@ public class LearningUnitModel implements ILearningUnitModel {
     @Override
     public Map<String, Long> getAoiMap() {
         return viewTimeMap;
+    }
+    @Override
+    public int getExperimentID() { return experimentID; }
+    @Override
+    public void setExperimentID(int experimentID) { this.experimentID = experimentID; }
+
+    @Override
+    public void saveFeedback(Feedback feedback) {
+        new FeedbackRepository().save(feedback);
     }
 }
