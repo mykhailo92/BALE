@@ -2,12 +2,12 @@ package de.bale.repository;
 
 import de.bale.db.DatabaseHandler;
 import de.bale.db.Const;
-import de.bale.repository.eyetracking.IEyetracking;
+import de.bale.repository.eyetracking.IEyetrackingRepository;
 import de.bale.repository.eyetracking.Eyetracking;
 
 import java.sql.*;
 
-public class EyetrackingRepository implements IEyetracking {
+public class EyetrackingRepository implements IEyetrackingRepository {
 
     public Connection dbConnection;
     private PreparedStatement stmt;

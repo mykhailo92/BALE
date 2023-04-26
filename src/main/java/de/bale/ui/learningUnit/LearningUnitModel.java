@@ -125,6 +125,6 @@ public class LearningUnitModel implements ILearningUnitModel {
 
     @Override
     public void saveFeedback(Feedback feedback) {
-        new FeedbackRepository().save(feedback);
+        new FeedbackRepository().saveFeedback(feedback);
     }
 }
