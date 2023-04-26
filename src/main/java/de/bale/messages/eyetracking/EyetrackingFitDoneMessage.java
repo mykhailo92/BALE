@@ -1,4 +1,4 @@
-package de.bale.messages;
+package de.bale.messages.eyetracking;
 
 import de.bale.messages.base.AbstractMessage;
 

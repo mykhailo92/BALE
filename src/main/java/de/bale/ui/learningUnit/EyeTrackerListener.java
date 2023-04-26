@@ -1,7 +1,7 @@
 package de.bale.ui.learningUnit;
 
 import com.google.common.eventbus.Subscribe;
-import de.bale.messages.EyetrackingFitDoneMessage;
+import de.bale.messages.eyetracking.EyetrackingFitDoneMessage;
 import de.bale.messages.eyetracking.EyeTrackingDataMessage;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitController;
 

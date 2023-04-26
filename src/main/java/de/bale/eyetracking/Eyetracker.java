@@ -2,7 +2,7 @@ package de.bale.eyetracking;
 
 import de.bale.logger.Logger;
 import de.bale.messages.ErrorMessage;
-import de.bale.messages.EyetrackingFitDoneMessage;
+import de.bale.messages.eyetracking.EyetrackingFitDoneMessage;
 import de.bale.messages.InitMessage;
 import de.bale.messages.PythonAnswerMessage;
 import de.bale.messages.eyetracking.EyeTrackingDataMessage;
