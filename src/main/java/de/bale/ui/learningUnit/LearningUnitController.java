@@ -55,7 +55,6 @@ public class LearningUnitController implements ILearningUnitController {
 
     public void newEyePosition(int x, int y) {
         Platform.runLater(() -> {
-            engine.executeScript("drawCircleAtPosition(" + x + "," + y + ");");
             try {
                 Instant end = Instant.now();
                 Object object = engine.executeScript("getElementFromPosition(" + x + "," + y + ");");
@@ -70,6 +69,7 @@ public class LearningUnitController implements ILearningUnitController {
                 Eyetracking eyetracking = new Eyetracking(model.getExperimentID(), model.getViewID(), x, y, "test", areaOfInterestAttribute, timeDifference);
                 EyetrackingRepository eyetrackingRepository = new EyetrackingRepository();
                 eyetrackingRepository.save(eyetracking);
+                model.incrementCurrentViewID();
                 Logger.getInstance().post(new EyetrackingAOIMessage(areaOfInterestAttribute + " Last AoI was looked at  for: " + timeDifference + "ms"));
 
                 model.setLastEyetrackingTime(Instant.now());

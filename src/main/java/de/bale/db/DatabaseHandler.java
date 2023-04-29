@@ -45,9 +45,9 @@ public class DatabaseHandler extends Configs {
             stmt.executeUpdate(sqlFeedback);
 
             String sqlEyetracking = "CREATE TABLE IF NOT EXISTS " + Const.EYETRACKING_TABLE +
-                    " (" + Const.EXPERIMENT_ID + " INT NOT NULL, " + Const.BLICK_ID + " INT AUTO_INCREMENT NOT NULL," +
-                    Const.TIMESTAMP + " TIMESTAMP," + Const.X + " INT," + Const.Y + " INT," + Const.ELEMENT +
-                    " VARCHAR(50)," + Const.VIEW_DURATION + " BIGINT," + "PRIMARY KEY (" + Const.BLICK_ID + "), FOREIGN KEY (" +
+                    " (" + Const.EXPERIMENT_ID + " INT NOT NULL, " + Const.BLICK_ID + " BIGINT AUTO_INCREMENT NOT NULL," +
+                    Const.TIMESTAMP + " TIMESTAMP," + Const.FIXATION_COUNT + " INT," + Const.X + " INT," + Const.Y + " INT," + Const.ELEMENT +
+                    " VARCHAR(50)," + Const.VIEW_DURATION + " INT," + "PRIMARY KEY (" + Const.BLICK_ID + "), FOREIGN KEY (" +
                     Const.EXPERIMENT_ID + ") REFERENCES " + Const.EXPERIMENT_TABLE + "(" + Const.EXPERIMENT_ID + ")" +
                     " ON DELETE CASCADE)";
             stmt.executeUpdate(sqlEyetracking);

@@ -21,7 +21,7 @@ public class EyetrackingRepository implements IEyetrackingRepository {
     @Override
     public void save(Eyetracking eyetracking) {
         String insert = "INSERT INTO " + Const.EYETRACKING_TABLE +
-                "(" + Const.EXPERIMENT_ID + "," + Const.BLICK_ID + "," + Const.X + ","
+                "(" + Const.EXPERIMENT_ID + "," + Const.FIXATION_COUNT + "," + Const.X + ","
                 + Const.Y + "," + Const.ELEMENT + "," + Const.VIEW_DURATION + ")"
                 + "VALUES (?, ?, ?, ?,?,?)";
 //        String insert = "INSERT INTO " + Const.EYETRACKING_TABLE +
@@ -31,7 +31,7 @@ public class EyetrackingRepository implements IEyetrackingRepository {
         try {
             stmt = dbConnection.prepareStatement(insert);
             stmt.setInt(1, eyetracking.getExperimentID());
-            stmt.setInt(2, eyetracking.getBlickID());
+            stmt.setInt(2, eyetracking.getViewID());
 //            stmt.setString(3, eyetracking.getTimeStamp());
             stmt.setInt(3, eyetracking.getX());
             stmt.setInt(4, eyetracking.getY());

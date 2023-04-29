@@ -3,16 +3,16 @@ package de.bale.repository.eyetracking;
 
 public class Eyetracking {
     private int experimentID;
-    private int blickID;
+    private int viewID;
     private int x;
     private int y;
     private String timeStamp;
     private String element;
     private long durationInMS;
 
-    public Eyetracking(int id, int blickid, int x, int y, String timeStamp, String element, long durationInMs) {
+    public Eyetracking(int id, int viewID, int x, int y, String timeStamp, String element, long durationInMs) {
         this.experimentID = id;
-        this.blickID = blickID;
+        this.viewID = viewID;
         this.x = x;
         this.y = y;
         this.timeStamp = timeStamp;
@@ -28,12 +28,12 @@ public class Eyetracking {
         this.experimentID = experimentID;
     }
 
-    public int getBlickID() {
-        return blickID;
+    public int getViewID() {
+        return viewID;
     }
 
-    public void setBlickID(int blickID) {
-        this.blickID = blickID;
+    public void setViewID(int viewID) {
+        this.viewID = viewID;
     }
 
     public int getX() {

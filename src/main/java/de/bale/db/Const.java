@@ -19,4 +19,5 @@ public class Const {
     public static final String DATE_TIME = "date_time";
     public static final String COMMENTS = "comments";
     public static final String VIEW_DURATION = "view_duration_ms";
+    public static final String FIXATION_COUNT = "fixation_count";
 }
