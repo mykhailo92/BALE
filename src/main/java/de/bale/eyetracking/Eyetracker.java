@@ -28,7 +28,7 @@ public class Eyetracker {
         Logger.getInstance().post(new InitMessage("CREATING PROCESS BUILDER"));
         long pid = ProcessHandle.current().pid(); // Get Process ID to Monitor in Python
         processBuilder = new ProcessBuilder("conda", "run", "--no-capture-output", "-n", "bale", "python",
-                "src/main/resources/de/bale/eyetracking/overfit_solution.py");
+                "python/overfit_solution.py");
         processBuilder.redirectErrorStream(true);
         consoleThread = new Thread(() -> {
             try {
@@ -70,7 +70,7 @@ public class Eyetracker {
         String line;
         while (process.isAlive()) {
             line = reader.readLine();
-//            System.out.println(line);
+            System.out.println(line);
             if (line != null) {
                 String[] splittedLine = line.split("::");
                 switch (splittedLine[0]) {

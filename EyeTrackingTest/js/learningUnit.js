@@ -1,10 +1,4 @@
 
-function changeBgColor() {
-    document.body.style.backgroundColor = document.getElementById('color').value;
-    document.getElementsByTagName('aufgabe');
-    return 'test';
-}
-
 /**
  * @return: All Sections in the current HTML
  */
@@ -54,17 +48,39 @@ function getControlLabels() {
     return document.querySelectorAll(".reading,.save,.preamble-button");
 }
 
+function getTitle() {
+    return document.head.querySelector('title').textContent;
+}
+
 function changeInnerTextById(id, text) {
     document.getElementById(id).innerText = text;
 }
 
+function getSchoolchildName() {
+    return document.getElementById("schoolchild-name").value;
+}
+
+function getDateTime() {
+    const date = new Date(Date.now());
+    const options = {year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit',
+        second:'2-digit', hour12: false};
+    return date.toLocaleString('de-DE', options).replace(',', '');
+}
+
+let attempts = 0;
 function saveText (element) {
+
     let number = element.getAttribute('number');
     let target = document.getElementById("text-area-" + number);
     let text = target.value;
+    let description = element.getAttribute('description');
+    attempts++
 
     if (text.length > 0) {
+        text = 'Answer: ' + text;
+        window.javaBridge.saveFeedback(description,getDateTime(),attempts,text);
         enableNextButton();
+        attempts = 0;
         target.disabled = true;
         element.disabled = true;
     } else {
@@ -77,21 +93,24 @@ function showVideo(video) {
     let modal = document.getElementById("modal-window-" + number);
     let span = document.getElementsByClassName("close")[number-1];
     let videoElem = document.getElementById('video-' + number);
-    modal.style.display = "block";
-    videoElem.setAttribute('src', 'video/video-' + number + '.mp4');
-    videoElem.setAttribute('autoplay', 'autoplay');
+
+    /* Listen for the 'ended' event and close the modal window
+    videoElem.addEventListener('ended', function() {
+        modal.style.display = "none";
+        videoElem.pause();
+        videoElem.currentTime = 0;
+      });
+      */
 
     /* When the user clicks on <span> (x), close the modal */
     span.onclick = function() {
+        videoElem.pause();
         modal.style.display = "none";
+        window.javaBridge.saveFeedback("Demo-video",getDateTime(),0,"Stop playing");
     }
 
-    /* When the user clicks anywhere outside the modal, close it */
-    window.onclick = function(event) {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    }
+    modal.style.display = "block";
+    window.javaBridge.saveFeedback("Demo-video",getDateTime(),0,"Start playing");
 }
 
 function enableNextButton() {
@@ -100,4 +119,8 @@ function enableNextButton() {
 
 function disableNextButton() {
     window.javaBridge.setNextButtonDisabled(true);
+}
+
+function disablePreamble() {
+    window.javaBridge.disablePreamble(getSchoolchildName(), getDateTime(), getTitle());
 }

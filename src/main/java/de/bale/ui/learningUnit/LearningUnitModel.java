@@ -22,12 +22,12 @@ public class LearningUnitModel implements ILearningUnitModel {
     private Element[] chapterMarks; //First Element should be the Container of the Elements
     private Element[] slides;
     private int currentSlideIndicator = 0;
-    private String closeButtonText="";
-    private int experimentID;
     private String closeButtonText = "";
+    private int experimentID;
     private Instant lastEyetrackingTime;
     private Element lastAoi;
     private Map<String, Long> viewTimeMap = new HashMap<>();
+    private int viewID = 0;
 
     @Override
     public void addListener(Listener listener) {
@@ -167,10 +167,27 @@ public class LearningUnitModel implements ILearningUnitModel {
     public Map<String, Long> getAoiMap() {
         return viewTimeMap;
     }
+
     @Override
-    public int getExperimentID() { return experimentID; }
+    public void incrementCurrentViewID() {
+        viewID += 1;
+        notifyObserver();
+    }
+
     @Override
-    public void setExperimentID(int experimentID) { this.experimentID = experimentID; }
+    public int getViewID() {
+        return viewID;
+    }
+
+    @Override
+    public int getExperimentID() {
+        return experimentID;
+    }
+
+    @Override
+    public void setExperimentID(int experimentID) {
+        this.experimentID = experimentID;
+    }
 
     @Override
     public void saveFeedback(Feedback feedback) {

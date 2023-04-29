@@ -30,6 +30,7 @@ function show(element) {
 
 function checkAnswer() {
     let count = 0;
+    attempts++
     textBox.forEach(function (value) {
             if (!value.hasAttribute('src')) {
                 value.setAttribute("style", "background-color: #d51c00");
@@ -43,6 +44,8 @@ function checkAnswer() {
                 if (count === textBox.length) {
                     enableNextButton();
                     document.getElementById('dropdown-save-button').disabled = true;
+                    window.javaBridge.saveFeedback("Drop-down task",getDateTime(),attempts,"Done");
+                    attempts = 0;
                 }
             }
         })

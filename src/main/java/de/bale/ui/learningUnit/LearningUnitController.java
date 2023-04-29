@@ -2,14 +2,19 @@ package de.bale.ui.learningUnit;
 
 import de.bale.language.Localizations;
 import de.bale.logger.Logger;
-import de.bale.messages.InitMessage;
-import de.bale.messages.SectionMessage;
-import de.bale.messages.TaskDoneMessage;
+import de.bale.messages.*;
+import de.bale.messages.eyetracking.AoiMapMessage;
 import de.bale.messages.eyetracking.EyetrackingAOIMessage;
+import de.bale.messages.eyetracking.WriteToPythonMessage;
+import de.bale.repository.EyetrackingRepository;
+import de.bale.repository.eyetracking.Eyetracking;
+import de.bale.repository.feedback.Feedback;
 import de.bale.ui.JSBridge;
 import de.bale.ui.SceneHandler;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitController;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitModel;
+import de.bale.ui.startscreen.StartScreenController;
+import de.bale.ui.startscreen.StartScreenModel;
 import javafx.application.Platform;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
@@ -23,6 +28,8 @@ import org.w3c.dom.Element;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class LearningUnitController implements ILearningUnitController {
@@ -56,10 +63,15 @@ public class LearningUnitController implements ILearningUnitController {
                 String areaOfInterestAttribute = areaOfInterest.getAttribute("aoi");
                 long timeDifference = Duration.between(model.getLastEyetrackingTime(), end).toMillis();
                 model.addToAreaOfInterestMap(areaOfInterestAttribute, timeDifference);
-                if (areaOfInterestAttribute != null) {
-                    model.setLastAoi(areaOfInterest);
-                    Logger.getInstance().post(new EyetrackingAOIMessage(areaOfInterestAttribute + " Last AoI was looked at  for: " + timeDifference + "ms"));
+                if (areaOfInterestAttribute == null) {
+                    areaOfInterestAttribute = "undefined";
                 }
+                model.setLastAoi(areaOfInterest);
+                Eyetracking eyetracking = new Eyetracking(model.getExperimentID(), model.getViewID(), x, y, "test", areaOfInterestAttribute, timeDifference);
+                EyetrackingRepository eyetrackingRepository = new EyetrackingRepository();
+                eyetrackingRepository.save(eyetracking);
+                Logger.getInstance().post(new EyetrackingAOIMessage(areaOfInterestAttribute + " Last AoI was looked at  for: " + timeDifference + "ms"));
+
                 model.setLastEyetrackingTime(Instant.now());
             } catch (ClassCastException | JSException ignored) {
             } //In case something that no Element is looked at or the JavaScript could not find an Element
@@ -309,6 +321,8 @@ public class LearningUnitController implements ILearningUnitController {
     /**
      * Executes JavaScript to smoothly scroll to the Bottom of the Webview
      */
-    public void scrollToBottom() { engine.executeScript("scrollToBottom();"); }
+    public void scrollToBottom() {
+        engine.executeScript("scrollToBottom();");
+    }
 
 }

@@ -8,27 +8,41 @@ public class Eyetracking {
     private int y;
     private String timeStamp;
     private String element;
+    private long durationInMS;
 
-    public Eyetracking(int id, int blickID, int x, int y, String timeStamp, String element) {
+    public Eyetracking(int id, int blickid, int x, int y, String timeStamp, String element, long durationInMs) {
         this.experimentID = id;
         this.blickID = blickID;
         this.x = x;
         this.y = y;
         this.timeStamp = timeStamp;
         this.element = element;
+        this.durationInMS = durationInMs;
     }
 
-    public int getExperimentID() { return experimentID; }
+    public int getExperimentID() {
+        return experimentID;
+    }
 
-    public void setExperimentID(int experimentID) { this.experimentID = experimentID; }
+    public void setExperimentID(int experimentID) {
+        this.experimentID = experimentID;
+    }
 
-    public int getBlickID() { return blickID; }
+    public int getBlickID() {
+        return blickID;
+    }
 
-    public void setBlickID(int blickID) { this.blickID = blickID; }
+    public void setBlickID(int blickID) {
+        this.blickID = blickID;
+    }
 
-    public int getX() { return x; }
+    public int getX() {
+        return x;
+    }
 
-    public void setX(int x) { this.x = x; }
+    public void setX(int x) {
+        this.x = x;
+    }
 
     public int getY() {
         return y;
@@ -42,7 +56,9 @@ public class Eyetracking {
         return timeStamp;
     }
 
-    public void setTimeStamp(String timeStamp) { this.timeStamp = timeStamp; }
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
+    }
 
     public String getElement() {
         return element;
@@ -50,5 +66,13 @@ public class Eyetracking {
 
     public void setElement(String element) {
         this.element = element;
+    }
+
+    public long getViewDurationInMS() {
+        return durationInMS;
+    }
+
+    public void setViewDurationInMS(long durationInMS) {
+        this.durationInMS = durationInMS;
     }
 }

@@ -9,7 +9,6 @@ module de.bale {
     requires jdk.jsobject;
     requires javafx.media;
     requires com.google.common;
-    requires guava;
     requires java.sql;
     requires mysql.connector.java;
     exports de.bale.logger;

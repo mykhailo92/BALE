@@ -62,4 +62,8 @@ public interface ILearningUnitModel {
     void addToAreaOfInterestMap(String areaOfInterestAttribute, long timeDifference);
 
     Map<String, Long> getAoiMap();
+
+    void incrementCurrentViewID();
+
+    int getViewID();
 }

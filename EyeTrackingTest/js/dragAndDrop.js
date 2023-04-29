@@ -96,8 +96,11 @@ function save() {
             document.getElementById(key).style.background = '#d51c00';
         }
     }
+    attempts++
     if (count === answersMap.size) {
         enableNextButton();
         document.getElementById('drag-and-drop-save-button').disabled = true;
+        window.javaBridge.saveFeedback("Drag & drop task",getDateTime(),attempts,"Done");
+        attempts = 0;
     }
 }
