@@ -8,9 +8,10 @@ module de.bale {
     requires javafx.web;
     requires jdk.jsobject;
     requires javafx.media;
-    requires com.google.common;
+//    requires com.google.common;
     requires java.sql;
     requires mysql.connector.java;
+    requires guava;
     exports de.bale.logger;
     opens de.bale.ui to javafx.fxml;
     exports de.bale.ui;
@@ -26,6 +27,8 @@ module de.bale {
     exports de.bale.ui.learningUnit.interfaces;
     opens de.bale.ui.learningUnit.interfaces to javafx.fxml;
     opens de.bale.ui.dialogs to javafx.base, javafx.fxml;
-    exports de.bale.ui.startscreen to com.google.common;
-    exports de.bale.eyetracking to com.google.common, javafx.graphics;
+//    exports de.bale.ui.startscreen to com.google.common;
+//    exports de.bale.eyetracking to com.google.common, javafx.graphics;
+    exports de.bale.eyetracking to guava;
+    exports de.bale.ui.startscreen to guava;
 }
