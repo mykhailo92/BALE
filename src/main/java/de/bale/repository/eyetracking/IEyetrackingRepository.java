@@ -1,6 +1,6 @@
 package de.bale.repository.eyetracking;
 
-public interface IEyetracking {
+public interface IEyetrackingRepository {
     void save(Eyetracking answers);
 
 }

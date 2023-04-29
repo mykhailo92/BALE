@@ -27,8 +27,8 @@ public class JSBridge {
             if (name.length() > 0) {
                 Experiment experiment = new Experiment(name, date, title);
                 ExperimentRepository er = new ExperimentRepository();
-                er.save(experiment);
-                
+                er.saveExperiment(experiment);
+
                 try {
                     Platform.runLater(() -> {
                         Element preamble = engine.getDocument().getElementById("preamble");
@@ -54,7 +54,7 @@ public class JSBridge {
 
         public void saveFeedback(String des, String date, int attempts, String comments) {
             Feedback fdb = new Feedback(model.getExperimentID(), des, date, attempts, comments);
-            new FeedbackRepository().save(fdb);
+            new FeedbackRepository().saveFeedback(fdb);
         }
     }
 

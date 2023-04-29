@@ -3,46 +3,52 @@ package de.bale.repository.eyetracking;
 
 public class Eyetracking {
     private int experimentID;
-    private String description;
-    private String answer;
-    private int solutionAttempts;
+    private int blickID;
+    private int x;
+    private int y;
+    private String timeStamp;
+    private String element;
 
-    public Eyetracking(int id, String description, String answer, int attempts) {
+    public Eyetracking(int id, int blickID, int x, int y, String timeStamp, String element) {
         this.experimentID = id;
-        this.description = description;
-        this.answer = answer;
-        this.solutionAttempts = attempts;
+        this.blickID = blickID;
+        this.x = x;
+        this.y = y;
+        this.timeStamp = timeStamp;
+        this.element = element;
     }
 
-    public int getExperimentID() {
-        return experimentID;
+    public int getExperimentID() { return experimentID; }
+
+    public void setExperimentID(int experimentID) { this.experimentID = experimentID; }
+
+    public int getBlickID() { return blickID; }
+
+    public void setBlickID(int blickID) { this.blickID = blickID; }
+
+    public int getX() { return x; }
+
+    public void setX(int x) { this.x = x; }
+
+    public int getY() {
+        return y;
     }
 
-    public void setExperimentID(int experimentID) {
-        this.experimentID = experimentID;
+    public void setY(int y) {
+        this.y = y;
     }
 
-    public String getDescription() {
-        return description;
+    public String getTimeStamp() {
+        return timeStamp;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setTimeStamp(String timeStamp) { this.timeStamp = timeStamp; }
+
+    public String getElement() {
+        return element;
     }
 
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
-
-    public int getSolutionAttempts() {
-        return solutionAttempts;
-    }
-
-    public void setSolutionAttempts(int solutionAttempts) {
-        this.solutionAttempts = solutionAttempts;
+    public void setElement(String element) {
+        this.element = element;
     }
 }

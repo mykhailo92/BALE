@@ -2,14 +2,14 @@ package de.bale.repository;
 
 import de.bale.db.DatabaseHandler;
 import de.bale.db.Const;
-import de.bale.repository.feedback.IFeedback;
+import de.bale.repository.feedback.IFeedbackRepository;
 import de.bale.repository.feedback.Feedback;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class FeedbackRepository implements IFeedback {
+public class FeedbackRepository implements IFeedbackRepository {
     public Connection dbConnection;
     private PreparedStatement stmt;
 
@@ -17,7 +17,7 @@ public class FeedbackRepository implements IFeedback {
         dbConnection = DatabaseHandler.getInstance().dbConnection;
     }
     @Override
-    public void save(Feedback feedback) {
+    public void saveFeedback(Feedback feedback) {
         String insert = "INSERT INTO " + Const.FEEDBACK_TABLE +
                 "("+ Const.EXPERIMENT_ID + "," + Const.DESCRIPTION + "," + Const.DATE_TIME+ "," + Const.ANSWER_ATTEMPTS
                 + "," + Const.COMMENTS + ")"

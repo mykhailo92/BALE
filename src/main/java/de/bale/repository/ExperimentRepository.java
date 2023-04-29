@@ -3,7 +3,7 @@ package de.bale.repository;
 import de.bale.db.Const;
 import de.bale.db.DatabaseHandler;
 import de.bale.repository.experiment.Experiment;
-import de.bale.repository.experiment.IExperiment;
+import de.bale.repository.experiment.IExperimentRepository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class ExperimentRepository implements IExperiment {
+public class ExperimentRepository implements IExperimentRepository {
     public Connection dbConnection;
     private PreparedStatement stmt;
 
@@ -20,7 +20,7 @@ public class ExperimentRepository implements IExperiment {
     }
 
     @Override
-    public void save(Experiment experiment) {
+    public void saveExperiment(Experiment experiment) {
         String insert = "INSERT INTO " + Const.EXPERIMENT_TABLE +
                 "("+ Const.EXPERIMENT_ID + "," + Const.NAME + "," + Const.DATE + "," + Const.LE_TITLE +")"
                 + "VALUES (?, ?, ?, ?)";
