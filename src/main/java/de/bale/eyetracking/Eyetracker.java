@@ -1,14 +1,11 @@
 package de.bale.eyetracking;
 
+import de.bale.analyze.EyetrackingAnalyzer;
 import de.bale.logger.Logger;
 import de.bale.messages.ErrorMessage;
-import de.bale.messages.eyetracking.EyetrackingFitDoneMessage;
 import de.bale.messages.InitMessage;
 import de.bale.messages.PythonAnswerMessage;
-import de.bale.messages.eyetracking.EyeTrackingDataMessage;
-import de.bale.messages.eyetracking.EyetrackingInformationMessage;
-import de.bale.messages.eyetracking.EyetrackingRunningMessage;
-import de.bale.messages.eyetracking.EyetrackingStoppingMessage;
+import de.bale.messages.eyetracking.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,6 +20,7 @@ public class Eyetracker {
     ProcessBuilder processBuilder;
     boolean running = false;
     private EyetrackerPythonWriter eyetrackerPythonWriter;
+    private EyetrackingAnalyzer eyetrackingAnalyzer;
 
     public Eyetracker() {
         Logger.getInstance().post(new InitMessage("CREATING PROCESS BUILDER"));
@@ -30,6 +28,8 @@ public class Eyetracker {
         processBuilder = new ProcessBuilder("conda", "run", "--no-capture-output", "-n", "bale", "python",
                 "python/overfit_solution.py");
         processBuilder.redirectErrorStream(true);
+        eyetrackingAnalyzer = new EyetrackingAnalyzer();
+        Logger.getInstance().register(eyetrackingAnalyzer);
         consoleThread = new Thread(() -> {
             try {
                 int exitValue = startListeningToOutput();

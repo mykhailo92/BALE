@@ -1,13 +1,12 @@
 package de.bale.ui.learningUnit;
 
+import com.google.common.eventbus.Subscribe;
 import de.bale.language.Localizations;
 import de.bale.logger.Logger;
 import de.bale.messages.*;
-import de.bale.messages.eyetracking.AoiMapMessage;
-import de.bale.messages.eyetracking.EyetrackingAOIMessage;
+import de.bale.messages.eyetracking.EyetrackingAoIMessage;
+import de.bale.messages.eyetracking.EyetrackingHelpMessage;
 import de.bale.messages.eyetracking.WriteToPythonMessage;
-import de.bale.repository.EyetrackingRepository;
-import de.bale.repository.eyetracking.Eyetracking;
 import de.bale.repository.feedback.Feedback;
 import de.bale.ui.JSBridge;
 import de.bale.ui.SceneHandler;
@@ -26,7 +25,6 @@ import netscape.javascript.JSObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -47,6 +45,7 @@ public class LearningUnitController implements ILearningUnitController {
     private JSBridge bridge;
     private SectionVisibleListener listener;
     private Logger logger;
+    private EyeTrackerListener eyeTrackerListener;
 
     public LearningUnitController(String filePath) {
         startPage = "file:///" + filePath;
@@ -60,19 +59,7 @@ public class LearningUnitController implements ILearningUnitController {
                 Object object = engine.executeScript("getElementFromPosition(" + x + "," + y + ");");
                 Element areaOfInterest = (Element) object;
                 String areaOfInterestAttribute = areaOfInterest.getAttribute("aoi");
-                long timeDifference = Duration.between(model.getLastEyetrackingTime(), end).toMillis();
-                model.addToAreaOfInterestMap(areaOfInterestAttribute, timeDifference);
-                if (areaOfInterestAttribute == null) {
-                    areaOfInterestAttribute = "undefined";
-                }
-                model.setLastAoi(areaOfInterest);
-                Eyetracking eyetracking = new Eyetracking(model.getExperimentID(), model.getViewID(), x, y, "test", areaOfInterestAttribute, timeDifference);
-                EyetrackingRepository eyetrackingRepository = new EyetrackingRepository();
-                eyetrackingRepository.save(eyetracking);
-                model.incrementCurrentViewID();
-                Logger.getInstance().post(new EyetrackingAOIMessage(areaOfInterestAttribute + " Last AoI was looked at  for: " + timeDifference + "ms"));
-
-                model.setLastEyetrackingTime(Instant.now());
+                logger.post(new EyetrackingAoIMessage(areaOfInterestAttribute, x, y, model.getExperimentID()));
             } catch (ClassCastException | JSException ignored) {
             } //In case something that no Element is looked at or the JavaScript could not find an Element
         });
@@ -83,7 +70,6 @@ public class LearningUnitController implements ILearningUnitController {
         Platform.runLater(() -> {
             engine.executeScript("fitDone();");
             model.setNextButtonDisabled(false);
-            model.setLastEyetrackingTime(Instant.now());
         });
 
     }
@@ -98,7 +84,7 @@ public class LearningUnitController implements ILearningUnitController {
     @FXML
     private void initialize() {
         learningUnit.setContextMenuEnabled(false);
-        Logger.getInstance().post(new WriteToPythonMessage("start"));
+        logger.post(new WriteToPythonMessage("start"));
         engine = learningUnit.getEngine();
         logger.post(new InitMessage("Loading LearningUnit: " + startPage + "..."));
         engine.load(startPage);
@@ -118,7 +104,9 @@ public class LearningUnitController implements ILearningUnitController {
                     }
                 }
         );
-        Logger.getInstance().register(new EyeTrackerListener(this));
+        eyeTrackerListener = new EyeTrackerListener(this);
+        logger.register(eyeTrackerListener);
+        logger.register(this);
         createControlLabels();
     }
 
@@ -259,15 +247,16 @@ public class LearningUnitController implements ILearningUnitController {
      */
     @FXML
     private void closeApp() {
-        Logger.getInstance().post(new SceneChangeMessage("Startscreen"));
-        Logger.getInstance().post(new AoiMapMessage(model.getAoiMap()));
+        logger.post(new SceneChangeMessage("Startscreen"));
         SceneHandler sceneHandler = SceneHandler.getInstance();
         sceneHandler.changeScene(new StartScreenController(), "startscreen.fxml", "selectionTitle");
         ((StartScreenController) sceneHandler.getController()).setModel(new StartScreenModel());
         sceneHandler.setStageFullScreen(false);
-        Logger.getInstance().post(new WriteToPythonMessage("stop"));
+        logger.post(new WriteToPythonMessage("stop"));
         model.saveFeedback(new Feedback(model.getExperimentID(), "Beendet", getCurrentDateTime(), 0,
                 "App closed"));
+        logger.unregister(this);
+        logger.unregister(eyeTrackerListener);
 //        Platform.exit();
     }
 
@@ -301,7 +290,7 @@ public class LearningUnitController implements ILearningUnitController {
                     setInvisible(model.getSlides()[listenedModel.getCurrentSlideIndicator() - 1]);
                 }
             } catch (ArrayIndexOutOfBoundsException exception) {
-                Logger.getInstance().post(new ErrorMessage(exception.getMessage()));
+                logger.post(new ErrorMessage(exception.getMessage()));
             }
         });
     }
@@ -323,6 +312,11 @@ public class LearningUnitController implements ILearningUnitController {
      */
     public void scrollToBottom() {
         engine.executeScript("scrollToBottom();");
+    }
+
+    @Subscribe
+    public void gotEyeTrackingHelpMessage(EyetrackingHelpMessage eyetrackingHelpMessage) {
+        engine.executeScript("showHelpForAoI(\"" + eyetrackingHelpMessage.getAoiKey() + "\");");
     }
 
 }

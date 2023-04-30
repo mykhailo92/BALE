@@ -6,11 +6,8 @@ import de.bale.ui.interfaces.Listener;
 import de.bale.ui.learningUnit.interfaces.ILearningUnitModel;
 import org.w3c.dom.Element;
 
-import java.time.Instant;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 public class LearningUnitModel implements ILearningUnitModel {
     private int containerIndicator = -1;
@@ -24,10 +21,6 @@ public class LearningUnitModel implements ILearningUnitModel {
     private int currentSlideIndicator = 0;
     private String closeButtonText = "";
     private int experimentID;
-    private Instant lastEyetrackingTime;
-    private Element lastAoi;
-    private Map<String, Long> viewTimeMap = new HashMap<>();
-    private int viewID = 0;
 
     @Override
     public void addListener(Listener listener) {
@@ -135,49 +128,6 @@ public class LearningUnitModel implements ILearningUnitModel {
         notifyObserver();
     }
 
-    @Override
-    public void setLastAoi(Element domElement) {
-        lastAoi = domElement;
-    }
-
-    public Element getLastAoi() {
-        return lastAoi;
-    }
-
-    @Override
-    public Instant getLastEyetrackingTime() {
-        return lastEyetrackingTime;
-    }
-
-    @Override
-    public void setLastEyetrackingTime(Instant now) {
-        lastEyetrackingTime = now;
-    }
-
-    @Override
-    public void addToAreaOfInterestMap(String areaOfInterestAttribute, long durationToAdd) {
-        long currentViewTime = 0;
-        if (viewTimeMap.containsKey(areaOfInterestAttribute)) {
-            currentViewTime = viewTimeMap.get(areaOfInterestAttribute);
-        }
-        viewTimeMap.put(areaOfInterestAttribute, currentViewTime + durationToAdd);
-    }
-
-    @Override
-    public Map<String, Long> getAoiMap() {
-        return viewTimeMap;
-    }
-
-    @Override
-    public void incrementCurrentViewID() {
-        viewID += 1;
-        notifyObserver();
-    }
-
-    @Override
-    public int getViewID() {
-        return viewID;
-    }
 
     @Override
     public int getExperimentID() {

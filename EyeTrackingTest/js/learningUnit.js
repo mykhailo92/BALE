@@ -14,7 +14,7 @@ function getSlides() {
 document.querySelector('.submit').addEventListener('click', getInputText);
 
 function getInputText() {
-    document.getElementById('debug').textContent = document.querySelector('.text-area').value;
+    // document.getElementById('debug').textContent = document.querySelector('.text-area').value;
     return document.querySelector('.text-area').value;
 }
 

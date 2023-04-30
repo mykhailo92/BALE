@@ -3,9 +3,9 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <link rel="stylesheet" href="css/eyetrackingstyle.css">
     <link rel="stylesheet" href="css/learningUnit.css">
     <link rel="stylesheet" href="css/defaultTheme.css">
+    <link rel="stylesheet" href="css/eyetrackingstyle.css">
     <title>Document</title>
 </head>
 <body>
@@ -13,7 +13,7 @@
 <div id="chapter-select">
     <h1 id="index"></h1>
 </div>
-
+<div id="debug"></div>
 <div class="container">
     <div class="preamble" id="preamble">
         <div class="text">Hallo alle zusammen, dies ist ein Test für die Bachelorarbeit für digitale Lerninhalte!</div>
@@ -21,7 +21,8 @@
             <input type="text" id="schoolchild-name" placeholder="Bitte geben Sie die Name hier ein"/>
         </label>
         <button class="nav-button preamble-button" description="Verstanden Taste"
-                onclick="disablePreamble()">Verstanden!</button>
+                onclick="disablePreamble()">Verstanden!
+        </button>
     </div>
 </div>
 
@@ -31,6 +32,10 @@
         <div class="section">
             <img class="wrap-figure tim" src="images/Tim.png" alt="" aoi="P1">
             <div class="text-tim" aoi="T1">Das ist Tim.</div>
+            <button class="help-button nav-button" helpForAoI="T1">Hilfe Tim</button>
+            <div helpTextForAoI="T1" class="help-bubble">Das ist ein Test um zu sehen was mit sehr langen Hilfetexten passiert.
+            Aus diesem Grund wird hier ein sehr langer Hilfetext stehen. Zu Risiken und Nebenwirkungen bitte fragen sie ihren Informatiker oder Enkel.
+            Alternativ können sie auch Mykhailos Neffen fragen.</div>
         </div>
         <div class="section">
             <button class="reading" id="reading-button-0" onclick="playAudio(this)" track-number="0">Vorlesen</button>
@@ -38,12 +43,13 @@
                 Tim ist 10 Jahre alt und geht in die 4. Klasse. Er sitzt im Klassenraum in der letzten Reihe. Er hat oft
                 Kopfschmerzen. Ständig kneift er die Augen zusammen. Seine Lehrerin bittet ihn, zum Augenarzt zu gehen.
             </div>
+            <button class="help-button nav-button" helpForAoI="T2">Hilfe Tim 2</button>
         </div>
     </div>
 </div>
 
 <!--<div class="chapter">-->
-<div class="section" onVisible="disableNextButton">
+<div class="section" onVisible="disableNextButton" aoi="A1">
     <div class="task">
         Warum soll Tim zum Augenarzt gehen? Schreibe auf.
     </div>
@@ -52,11 +58,13 @@
     <br>
     <form>
         <label>
-            <textarea class="text-area" id="text-area-0" placeholder="Bitte schreibe deine Antwort hier mit der Tastatur"></textarea>
+            <textarea class="text-area" id="text-area-0"
+                      placeholder="Bitte schreibe deine Antwort hier mit der Tastatur"></textarea>
         </label>
     </form>
     <br>
     <input class="submit save" type="submit" value="Speichern" onclick="saveText(this)" number="0">
+    <button class="help-button nav-button" helpForAoI="A1">Hilfe A1</button>
 </div>
 <!--</div>-->
 
@@ -167,7 +175,8 @@
                     <div class="info-and-slide">
                         <div class="text">
                             Die Netzhaut ist dafür zuständig, das gesehene Bild wahrzunehmen und die Informationen über
-                            den Sehnerv an das Gehirn weiterzuleiten. Der Sehnerv ist ebenfalls von außen nicht sichtbar.
+                            den Sehnerv an das Gehirn weiterzuleiten. Der Sehnerv ist ebenfalls von außen nicht
+                            sichtbar.
                         </div>
                     </div>
                 </div>

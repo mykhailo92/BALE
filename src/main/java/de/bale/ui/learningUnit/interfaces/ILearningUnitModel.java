@@ -1,10 +1,8 @@
 package de.bale.ui.learningUnit.interfaces;
 
+import de.bale.repository.feedback.Feedback;
 import de.bale.ui.interfaces.Listener;
 import org.w3c.dom.Element;
-import de.bale.repository.feedback.Feedback;
-import java.time.Instant;
-import java.util.Map;
 
 public interface ILearningUnitModel {
 
@@ -52,18 +50,4 @@ public interface ILearningUnitModel {
 
     void saveFeedback(Feedback feedback);
 
-
-    void setLastAoi(Element dom);
-
-    Instant getLastEyetrackingTime();
-
-    void setLastEyetrackingTime(Instant now);
-
-    void addToAreaOfInterestMap(String areaOfInterestAttribute, long timeDifference);
-
-    Map<String, Long> getAoiMap();
-
-    void incrementCurrentViewID();
-
-    int getViewID();
 }

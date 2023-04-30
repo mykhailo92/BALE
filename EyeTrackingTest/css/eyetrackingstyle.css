@@ -89,3 +89,46 @@
     border-right: 2px solid black;
     animation: rotation 1s infinite linear;
 }
+
+.help-button {
+    background-color: var(--helpButtonBackgroundColor) !important;
+    position: absolute;
+    right: 5%;
+    display: none;
+}
+
+.help-button:hover {
+    background-color: var(--helpButtonBackgroundColor) !important;
+    filter: brightness(85%);
+}
+
+.help-bubble {
+    position: absolute;
+    background: var(--helpSectionBackgroundCOlor);
+    border-radius: .4em;
+    display: none;
+    width: 9vw;
+    overflow: auto;
+    word-break: break-word;
+    font-family: var(--textFontFamily);
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: .5vw;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

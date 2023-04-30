@@ -1,4 +1,4 @@
-const gridCount = 2;
+const gridCount = 3;
 const clicksToFinishPoint = 1;
 const viewportHeight = window.innerHeight;
 const viewportWidth = window.innerWidth;
@@ -74,15 +74,43 @@ function drawCallibrationPoints() {
     }
 }
 
-function delay(time) {
-    return new Promise(resolve => setTimeout(resolve, time));
+function setBubblePosition(parent, bubble) {
+    let rect = parent.getBoundingClientRect();
+    bubble.style.top = rect.top + rect.height * .2;
+    bubble.style.left = rect.right;
+    bubble.style.maxHeight = rect.height * .5;
+}
+
+function linkHelpButtons() {
+    let aoiHelpButtons = document.querySelectorAll("button[helpForAoI]");
+
+    for (let aoiHelpButton of aoiHelpButtons) {
+        if (typeof aoiHelpButton.onclick != "function") {
+            aoiHelpButton.onclick = function (event) {
+                var source = event.target;
+                aoiKey = source.getAttribute('helpforAoI');
+                let aoiHelpSections = document.querySelectorAll("[helpTextForAoI=\'" + aoiKey + "\']");
+                for (let aoiHelpSection of aoiHelpSections) {
+                    let aoi = document.querySelector("[aoi=\'" + aoiKey + "\']");
+                    setBubblePosition(aoi.parentNode, aoiHelpSection);
+                    if (aoiHelpSection.style.display === "block") {
+                        aoiHelpSection.style.display = "none";
+                    } else if (aoiHelpSection.style.display == "") {
+                        aoiHelpSection.style.display = "block";
+                    } else {
+                        aoiHelpSection.style.display = "block";
+                    }
+                }
+            }
+        }
+    }
 }
 
 
 var waiting = document.createElement('div');
 waiting.classList.add("modal")
 document.body.appendChild(waiting);
-
+linkHelpButtons()
 drawCallibrationPoints()
 
 
@@ -103,4 +131,13 @@ function getElementFromPosition(x, y) {
     element.style.backgroundColor = "red";
     element.style.backgroundColor = old_color;
     return element;
+}
+
+
+function showHelpForAoI(key) {
+    let aoiHelpList = document.querySelectorAll('[helpForAoI= \'' + key + '\']');
+    for (let aoiHelp of aoiHelpList) {
+        aoiHelp.style.display = "block";
+    }
+    return aoiHelpList;
 }
