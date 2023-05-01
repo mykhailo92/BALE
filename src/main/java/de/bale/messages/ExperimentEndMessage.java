@@ -8,7 +8,7 @@ public class ExperimentEndMessage extends AbstractMessage {
     private String childName;
 
     public ExperimentEndMessage(String experimentTitle, int experimentID, String childName) {
-        super("The experiment " + experimentTitle + "with ID: " + experimentID + " has ended.", 2);
+        super("The experiment titled: " + experimentTitle + " with ID: " + experimentID + " has ended.", 2);
         this.experimentID = experimentID;
         this.experimentTitle = experimentTitle;
         this.childName = childName;

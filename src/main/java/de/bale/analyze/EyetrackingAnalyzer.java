@@ -56,7 +56,8 @@ public class EyetrackingAnalyzer {
     @Subscribe
     public void gotExperimentEndMessage(ExperimentEndMessage experimentEndMessage) {
         ExcelWriter excelWriter = new ExcelWriter(experimentEndMessage.getExperimentTitle());
-        excelWriter.writeExcelSheet(experimentEndMessage.getExperimentID(), experimentEndMessage.getChildName(), eyetrackingRows, totalFixationDuration, viewID + 1, viewTimeMap);
+        excelWriter.writeExcelSheet(experimentEndMessage.getExperimentID(), experimentEndMessage.getChildName(),
+                eyetrackingRows, totalFixationDuration, viewID + 1, viewTimeMap);
     }
 
     private void analyzeCurrentEyetrackingData() {
