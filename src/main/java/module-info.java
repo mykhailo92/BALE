@@ -30,4 +30,5 @@ module de.bale {
     exports de.bale.eyetracking to guava;
     exports de.bale.ui.startscreen to guava;
     exports de.bale.analyze to guava;
+    requires org.apache.poi.ooxml;
 }

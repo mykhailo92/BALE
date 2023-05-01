@@ -1,4 +1,4 @@
-const gridCount = 3;
+const gridCount = 1 ;
 const clicksToFinishPoint = 1;
 const viewportHeight = window.innerHeight;
 const viewportWidth = window.innerWidth;

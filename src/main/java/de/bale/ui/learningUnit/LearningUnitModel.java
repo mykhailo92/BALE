@@ -21,6 +21,8 @@ public class LearningUnitModel implements ILearningUnitModel {
     private int currentSlideIndicator = 0;
     private String closeButtonText = "";
     private int experimentID;
+    private String experimentTitle;
+    private String childName;
 
     @Override
     public void addListener(Listener listener) {
@@ -142,5 +144,25 @@ public class LearningUnitModel implements ILearningUnitModel {
     @Override
     public void saveFeedback(Feedback feedback) {
         new FeedbackRepository().saveFeedback(feedback);
+    }
+
+    @Override
+    public void setExperimentTitle(String title) {
+        this.experimentTitle = title;
+    }
+
+    @Override
+    public String getExperimentTitle() {
+        return this.experimentTitle;
+    }
+
+    @Override
+    public String getChildName() {
+        return childName;
+    }
+
+    @Override
+    public void setChildName(String childName) {
+        this.childName =childName;
     }
 }

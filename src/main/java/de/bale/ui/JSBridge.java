@@ -35,8 +35,9 @@ public class JSBridge {
                         preamble.setAttribute("style", "display:none");
                         model.setContainerIndicator(model.getContainerIndicator() + 1);
                         model.setNextButtonDisabled(false);
-                        //                    model.setNextButtonDisabled(false); TODO
                         model.setExperimentID(er.getCurrentExperimentID());
+                        model.setExperimentTitle(title);
+                        model.setChildName(name);
                     });
                 } catch (NullPointerException npe) {
                     System.err.println("Preamble not found!");

@@ -247,6 +247,7 @@ public class LearningUnitController implements ILearningUnitController {
      */
     @FXML
     private void closeApp() {
+        logger.post(new ExperimentEndMessage(model.getExperimentTitle(), model.getExperimentID(), model.getChildName()));
         logger.post(new SceneChangeMessage("Startscreen"));
         SceneHandler sceneHandler = SceneHandler.getInstance();
         sceneHandler.changeScene(new StartScreenController(), "startscreen.fxml", "selectionTitle");

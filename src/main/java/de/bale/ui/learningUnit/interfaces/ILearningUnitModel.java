@@ -50,4 +50,11 @@ public interface ILearningUnitModel {
 
     void saveFeedback(Feedback feedback);
 
+    void setExperimentTitle(String title);
+
+    String getExperimentTitle();
+
+    String getChildName();
+
+    void setChildName(String childName);
 }

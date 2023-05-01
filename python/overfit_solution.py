@@ -1,9 +1,8 @@
 import argparse
-import threading
-
 import cv2
 import mediapipe as mp
 import numpy as np
+import threading
 from pynput import mouse
 
 import utils
@@ -56,8 +55,8 @@ def start_predicting(event: threading.Event):
 global model
 global ignore_clicks
 global listener
+global stopedMouseListener
 stop_event = threading.Event()
-
 points = []
 both_eyes = []
 left_eyes = []
@@ -74,6 +73,7 @@ input_is_running = True
 
 def on_click(x, y, button, pressed):
     global model, is_running, ignore_clicks
+    print(ignore_clicks)
     if not pressed or ignore_clicks:
         return
     click_thread = threading.Thread(target=threaded_click, args=(x, y,))
@@ -173,7 +173,6 @@ def prepare_and_start_eyetracking():
     # model = fit_basic_model([flleft_eyes_array, right_eyes_array], estimated_positions_array, 10000)
     ignore_clicks = False
     utils.printToJava("End Fit", "EYETRACKING_FIT_STOP")
-    listener.stop()
     predict_thread = threading.Thread(target=start_predicting, args=(stop_event,))
     predict_thread.start()
 
@@ -183,15 +182,16 @@ def threaded_input_handler():
 
     utils.printToJava("Eyetracker has started.", "EYETRACKING_RUNNING")
     ignore_clicks = True
+    listener = mouse.Listener(on_click=on_click)
+    listener.start()
     while input_is_running:
         camera_handler.start_cameras()
-        listener = mouse.Listener(on_click=on_click)
-        listener.start()
         start_callibration, end_callibrating, stop_running = "", "", ""
         while start_callibration != "start":
             start_callibration = input("type 'start' to start callibration: \n")
         utils.printToJava("Ready for Callibration", "EYETRACKING_INFO")
         ignore_clicks = False
+
         while end_callibrating != "end" and end_callibrating != "stop":
             end_callibrating = input("type 'end' to finish callibration: \n")
         if end_callibrating == "end":

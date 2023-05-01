@@ -70,6 +70,7 @@ public class Eyetracker {
         String line;
         while (process.isAlive()) {
             line = reader.readLine();
+            System.out.println(line);
             if (line != null) {
                 String[] splittedLine = line.split("::");
                 switch (splittedLine[0]) {
