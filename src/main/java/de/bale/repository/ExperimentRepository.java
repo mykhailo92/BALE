@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 
 public class ExperimentRepository implements IExperimentRepository {
@@ -20,7 +21,7 @@ public class ExperimentRepository implements IExperimentRepository {
     }
 
     @Override
-    public void saveExperiment(Experiment experiment) {
+    public void addExperiment(Experiment experiment) {
         String insert = "INSERT INTO " + Const.EXPERIMENT_TABLE +
                 "("+ Const.EXPERIMENT_ID + "," + Const.NAME + "," + Const.DATE + "," + Const.LE_TITLE +")"
                 + "VALUES (?, ?, ?, ?)";
@@ -58,5 +59,20 @@ public class ExperimentRepository implements IExperimentRepository {
             throw new RuntimeException(e);
         }
         return 0;
+    }
+
+    @Override
+    public void updateExperiment(Experiment experiment) {
+
+    }
+
+    @Override
+    public void deleteExperiment(int id) {
+
+    }
+
+    @Override
+    public List<Experiment> getAllExperiments() {
+        return null;
     }
 }

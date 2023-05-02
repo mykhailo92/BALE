@@ -8,6 +8,7 @@ import de.bale.repository.feedback.Feedback;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 public class FeedbackRepository implements IFeedbackRepository {
     public Connection dbConnection;
@@ -16,6 +17,7 @@ public class FeedbackRepository implements IFeedbackRepository {
     public FeedbackRepository() {
         dbConnection = DatabaseHandler.getInstance().dbConnection;
     }
+
     @Override
     public void saveFeedback(Feedback feedback) {
         String insert = "INSERT INTO " + Const.FEEDBACK_TABLE +
@@ -42,5 +44,25 @@ public class FeedbackRepository implements IFeedbackRepository {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public List<Feedback> getAllExperiments() {
+        return null;
+    }
+
+    @Override
+    public int getFeedbackByID(int id) {
+        return 0;
+    }
+
+    @Override
+    public void updateFeedback(Feedback feedback) {
+
+    }
+
+    @Override
+    public void deleteFeedback(int id) {
+
     }
 }

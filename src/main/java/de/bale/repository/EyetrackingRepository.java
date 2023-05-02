@@ -6,6 +6,7 @@ import de.bale.repository.eyetracking.IEyetrackingRepository;
 import de.bale.repository.eyetracking.Eyetracking;
 
 import java.sql.*;
+import java.util.List;
 
 public class EyetrackingRepository implements IEyetrackingRepository {
 
@@ -15,8 +16,9 @@ public class EyetrackingRepository implements IEyetrackingRepository {
     public EyetrackingRepository() {
         dbConnection = DatabaseHandler.getInstance().dbConnection;
     }
+
     @Override
-    public void save(Eyetracking eyetracking) {
+    public void addEyetracking(Eyetracking eyetracking) {
         String insert = "INSERT INTO " + Const.EYETRACKING_TABLE +
                 "("+ Const.EXPERIMENT_ID + "," + Const.BLICK_ID + "," + Const.TIMESTAMP + "," + Const.X + ","
                 + Const.Y + "," + Const.ELEMENT +")"
@@ -42,6 +44,26 @@ public class EyetrackingRepository implements IEyetrackingRepository {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public List<Eyetracking> getAllEyetrackings() {
+        return null;
+    }
+
+    @Override
+    public int getEyetrackingByID(int id) {
+        return 0;
+    }
+
+    @Override
+    public void updateEyetracking(Eyetracking eyetracking) {
+
+    }
+
+    @Override
+    public void deleteEyetracking(int id) {
+
     }
 
 }

@@ -26,7 +26,7 @@ public class JSBridge {
             if (name.length() > 0) {
                 Experiment experiment = new Experiment(name, date, title);
                 ExperimentRepository er = new ExperimentRepository();
-                er.saveExperiment(experiment);
+                er.addExperiment(experiment);
 
                 try {
                     Platform.runLater(() -> {
