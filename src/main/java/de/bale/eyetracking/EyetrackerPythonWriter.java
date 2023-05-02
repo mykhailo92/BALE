@@ -25,8 +25,11 @@ public class EyetrackerPythonWriter {
         answerToPython("end");
     }
 
+    /**
+     * Writes a String of Text to Python, so that the Python process can advance in States
+     * @param text
+     */
     public void answerToPython(String text) {
-//        System.out.println("PRINTING TO PYTHON: " + text);
         OutputStream os = process.getOutputStream();
         PrintWriter writer = new PrintWriter(os);
         writer.write(text + "\n");

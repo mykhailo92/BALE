@@ -43,6 +43,10 @@ public class Eyetracker {
     }
 
 
+    /**
+     * Starts the Eyetracking Process.
+     * If it is already running, it will Log an Errormessage without starting a new Process.
+     */
     public void startRunning() {
         if (!running) {
             try {
@@ -64,6 +68,14 @@ public class Eyetracker {
         process.destroy();
     }
 
+    /**
+     * Reads the InputStream of the Process in order receive Information from the Python Process.
+     * The Python Process gives Information in the form of TYPE :: Message, where the TYPE defines how this Method is
+     * handling the Message.
+     * @return Exit Status of the Process.
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public int startListeningToOutput() throws IOException, InterruptedException {
         InputStream is = process.getInputStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));

@@ -23,30 +23,31 @@
 
 .callibration-circle {
     width: 1.5vw !important;
-    height: 1.5vw !important;;
-    position: absolute;
-    background: red;
-    display: flex;
-    padding: 0;
-    align-items: center;
-    justify-content: center;
-    -moz-border-radius: 50px;
-    -webkit-border-radius: 50px;
-    border-radius: 50px;
-    border-style: solid;
-    border-width: 2px;
-    border-color: black;
-    cursor: pointer;
+    height: 1.5vw !important;
+    position: absolute !important;
+    background: red !important;
+    display: flex !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    align-items: center !important;
+    justify-content: center !important;
+    -moz-border-radius: 50px !important ;
+    -webkit-border-radius: 50px !important;
+    border-radius: 50px !important;
+    border-style: solid !important;
+    border-width: 2px !important;
+    border-color: black !important;
+    cursor: pointer !important;
 }
 
 .cross {
-    font-weight: bold;
-    font-size: 1.5vw;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    cursor: pointer;
+    font-weight: bold !important;
+    font-size: 1.5vw !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    cursor: pointer !important  ;
 
 }
 

@@ -10,6 +10,8 @@ from basic_model import fit_basic_model
 from camera_handler import CameraHandler
 
 
+# Not used in the Project, but when using the Eyetracker in pure Python it may be used to define how many Images
+# are to be taken before the model is fit.
 def setup_arg_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument("--image_count", type=int, default=50,
@@ -20,6 +22,7 @@ def setup_arg_parser():
     return args.image_count
 
 
+# Predicts the X and Y Position on the Screen using the trained model
 def start_predicting(event: threading.Event):
     global is_running, model
     is_running = True
@@ -71,6 +74,7 @@ camera_handler = CameraHandler()
 input_is_running = True
 
 
+# Start on Click, executes Threaded Image Save for creating Training Data
 def on_click(x, y, button, pressed):
     global model, is_running, ignore_clicks
     if not pressed or ignore_clicks:
@@ -79,6 +83,7 @@ def on_click(x, y, button, pressed):
     click_thread.start()
 
 
+# Gets the rectengular bounds of a single eye
 def get_eye_rectangle(image, face_landmarks, keypoints):
     img_h, img_w, img_c = image.shape
     min_x, min_y, max_x, max_y = img_w, img_h, 0, 0
@@ -92,6 +97,9 @@ def get_eye_rectangle(image, face_landmarks, keypoints):
     return min_x, min_y, max_x, max_y
 
 
+# Detects the Eyes from an Image using MediaPipe
+# returns double ([0],[0]) if an Error accured,
+# Else it returns the cut Eye Image of both eyes and points at which they were in the Image
 def detect_eyes_from_image(image):
     try:
         image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
@@ -140,6 +148,7 @@ def reset_globals():
     points, estimated_positions, both_eyes = [], [], []
 
 
+# Created Training Data when a click accured. Threaded for better Perfomance
 def threaded_click(x, y):
     global model, ignore_clicks, listener
     images = camera_handler.get_images()
@@ -158,6 +167,8 @@ def threaded_click(x, y):
             print("INVALID IMAGE")
 
 
+# Prepares and starts the Eyetracking using the collected training Data. Informs the Python -> Java Bridge that
+# Fitting has either started or stopped
 def prepare_and_start_eyetracking():
     global ignore_clicks, model
     ignore_clicks = True
@@ -175,6 +186,7 @@ def prepare_and_start_eyetracking():
     predict_thread.start()
 
 
+# This is the main part of the Java -> Python state machine. It regulates state dependend on the Input of the input Stream
 def threaded_input_handler():
     global ignore_clicks, model, is_running, stop_event, listener
 

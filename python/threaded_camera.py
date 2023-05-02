@@ -3,6 +3,7 @@ import threading
 import cv2
 
 
+# A Singular threaded Camera
 class Camera(threading.Thread):
 
     def run(self):

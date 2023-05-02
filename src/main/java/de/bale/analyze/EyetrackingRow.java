@@ -1,6 +1,10 @@
 package de.bale.analyze;
 
+/**
+ * A Row of Eyetracking Information which will be saved in an Excel sheet
+ */
 public class EyetrackingRow {
+
     private int posX, posY;
     private String aoi;
     private long duration;

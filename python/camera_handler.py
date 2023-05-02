@@ -1,6 +1,7 @@
 from threaded_camera import Camera
 
 
+# Handler for using multiple Cameras
 class CameraHandler:
     def __init__(self):
         self.camera_list = []

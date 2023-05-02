@@ -29,6 +29,12 @@ public class EyetrackingAnalyzer {
         setLastEyetrackingTime(Instant.now());
     }
 
+    /**
+     * Fired on receiving a EyetrackingAoIMessage.Its the main Method of this class, as it triggers al the other functions of
+     * his Class, such as analyzeCurrentEyetrackingData. It also keeps track of the fixation time and fixation count.
+     *
+     * @param eyetrackingAoIMessage
+     */
     @Subscribe
     public void gotNewAoIMessage(EyetrackingAoIMessage eyetrackingAoIMessage) {
         try {
@@ -53,6 +59,12 @@ public class EyetrackingAnalyzer {
         } //In case something that no Element is looked at or the JavaScript could not find an Element
     }
 
+    /**
+     * Fired on receiving an ExperimentEndMessage. It saves the Experiments information in an Excel Sheet in
+     * %PROGRAMM_DIRECTORY%/bale/%TITLE_OF_LEARNINGUNIT%.xlsx
+     *
+     * @param experimentEndMessage
+     */
     @Subscribe
     public void gotExperimentEndMessage(ExperimentEndMessage experimentEndMessage) {
         ExcelWriter excelWriter = new ExcelWriter(experimentEndMessage.getExperimentTitle());
@@ -86,7 +98,13 @@ public class EyetrackingAnalyzer {
         lastEyetrackingTime = now;
     }
 
-    public void addToAreaOfInterestMap(String areaOfInterestAttribute, long durationToAdd) {
+    /**
+     * Adds an Element to the AoI Map. Fixation Count is automatically generated and as such is not needed in the
+     * Signature
+     * @param areaOfInterestAttribute Name of the Area of Interest
+     * @param durationToAdd The Fixation Duration which is to be added to the Area of Interest
+     */
+    private void addToAreaOfInterestMap(String areaOfInterestAttribute, long durationToAdd) {
         long currentViewTime = 0;
         long currentFixationCount = 0;
         if (viewTimeMap.containsKey(areaOfInterestAttribute)) {

@@ -52,6 +52,12 @@ public class LearningUnitController implements ILearningUnitController {
         logger = Logger.getInstance();
     }
 
+    /**
+     * Used when the EyetrackingListener gets a new Screen Position
+     * Sends a EyetrackingAoIMessage with the Coordinates, ExperimentID and the Identifier of the AoI Element
+     * @param x Screen Position
+     * @param y Screen Position
+     */
     public void newEyePosition(int x, int y) {
         Platform.runLater(() -> {
             try {
@@ -243,7 +249,7 @@ public class LearningUnitController implements ILearningUnitController {
     }
 
     /**
-     * Temporary fix to close the App in Fullscreen-mode
+     * Closes the Experiment and initiates the saving of the Experiment Information such as Feedback and Eyetracking
      */
     @FXML
     private void closeApp() {
@@ -258,7 +264,6 @@ public class LearningUnitController implements ILearningUnitController {
                 "App closed"));
         logger.unregister(this);
         logger.unregister(eyeTrackerListener);
-//        Platform.exit();
     }
 
 
