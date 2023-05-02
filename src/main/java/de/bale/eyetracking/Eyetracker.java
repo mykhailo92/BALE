@@ -26,7 +26,7 @@ public class Eyetracker {
         Logger.getInstance().post(new InitMessage("CREATING PROCESS BUILDER"));
         long pid = ProcessHandle.current().pid(); // Get Process ID to Monitor in Python
         processBuilder = new ProcessBuilder("conda", "run", "--no-capture-output", "-n", "bale", "python",
-                "python/overfit_solution.py");
+                "python/main.py");
         processBuilder.redirectErrorStream(true);
         eyetrackingAnalyzer = new EyetrackingAnalyzer();
         Logger.getInstance().register(eyetrackingAnalyzer);

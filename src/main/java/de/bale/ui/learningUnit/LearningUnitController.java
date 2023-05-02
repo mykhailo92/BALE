@@ -92,6 +92,7 @@ public class LearningUnitController implements ILearningUnitController {
         learningUnit.setContextMenuEnabled(false);
         logger.post(new WriteToPythonMessage("start"));
         engine = learningUnit.getEngine();
+        engine.executeScript("");
         logger.post(new InitMessage("Loading LearningUnit: " + startPage + "..."));
         engine.load(startPage);
         engine.getLoadWorker().stateProperty().addListener(
@@ -149,8 +150,8 @@ public class LearningUnitController implements ILearningUnitController {
      * @return Array of all Chapter in the current Learning-unit in order of appearance
      */
     private Element[] getChapterFromDocument() {
-        JSObject sectionList = (JSObject) engine.executeScript("getChapter();");
-        return LearningUnitUtils.createArrayFromJSObject(sectionList);
+        JSObject chapterList = (JSObject) engine.executeScript("getChapter();");
+        return LearningUnitUtils.createArrayFromJSObject(chapterList);
     }
 
     /**

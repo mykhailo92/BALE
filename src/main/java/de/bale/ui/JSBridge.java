@@ -21,7 +21,7 @@ public class JSBridge {
     /**
      * Public Class which holds function that can be called from JavaScript
      */
-    public class Bridge {
+        public class Bridge {
 
         public void disablePreamble(String name, String date, String title) {
             if (name.length() > 0) {
