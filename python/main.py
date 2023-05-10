@@ -218,6 +218,6 @@ def threaded_input_handler():
         reset_globals()
         model = None
 
-
+    
 input_thread = threading.Thread(target=threaded_input_handler)
 input_thread.start()

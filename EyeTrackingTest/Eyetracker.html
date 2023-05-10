@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Optik (Eyetracking)</title>
     <link rel="stylesheet" href="css/defaultTheme.css">
     <link rel="stylesheet" href="css/learningUnit.css">
     <link rel="stylesheet" href="css/eyetrackingstyle.css">
@@ -36,7 +37,7 @@
             <button class="help-button nav-button" helpForAoI="T1">Hilfe Tim</button>
             <div helpTextForAoI="T1" class="help-bubble">Das ist ein Test um zu sehen was mit sehr langen Hilfetexten passiert.
             Aus diesem Grund wird hier ein sehr langer Hilfetext stehen. Zu Risiken und Nebenwirkungen bitte fragen sie ihren Informatiker oder Enkel.
-            Alternativ können sie auch Mykhailos Neffen fragen.</div>
+            </div>
         </div>
         <div class="section">
             <button class="reading" id="reading-button-0" onclick="playAudio(this)" track-number="0">Vorlesen</button>
@@ -45,19 +46,22 @@
                 Kopfschmerzen. Ständig kneift er die Augen zusammen. Seine Lehrerin bittet ihn, zum Augenarzt zu gehen.
             </div>
             <button class="help-button nav-button" helpForAoI="T2">Hilfe Tim 2</button>
+            <div helpTextForAoI="T2" class="help-bubble">Das ist ein Test um zu sehen was mit sehr langen Hilfetexten passiert.
+                Aus diesem Grund wird hier ein sehr langer Hilfetext stehen. Zu Risiken und Nebenwirkungen bitte fragen sie ihren Informatiker oder Enkel.
+                </div>
         </div>
     </div>
 </div>
 
 <!--<div class="chapter">-->
-<div class="section" onVisible="disableNextButton" aoi="A1">
+<div class="section" onVisible="disableNextButton" >
     <div class="task">
         Warum soll Tim zum Augenarzt gehen? Schreibe auf.
     </div>
 
-    <img src="images/keyboard.png" style="max-width:100px" alt="">
+    <img src="images/keyboard.png" style="max-width:100px" alt="" >
     <br>
-    <form>
+    <form aoi="A1">
         <label>
             <textarea class="text-area" id="text-area-0"
                       placeholder="Bitte schreibe deine Antwort hier mit der Tastatur"></textarea>
@@ -66,6 +70,9 @@
     <br>
     <input class="submit save" type="submit" value="Speichern" onclick="saveText(this)" number="0">
     <button class="help-button nav-button" helpForAoI="A1">Hilfe A1</button>
+    <div helpTextForAoI="A1" class="help-bubble">Das ist ein Test um zu sehen was mit sehr langen Hilfetexten passiert.
+        Aus diesem Grund wird hier ein sehr langer Hilfetext stehen. Zu Risiken und Nebenwirkungen bitte fragen sie ihren Informatiker oder Enkel.
+        </div>
 </div>
 <!--</div>-->
 

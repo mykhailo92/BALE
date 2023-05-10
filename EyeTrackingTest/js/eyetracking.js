@@ -1,4 +1,4 @@
-const gridCount = 1 ;
+const gridCount = 5;
 const clicksToFinishPoint = 1;
 const viewportHeight = window.innerHeight;
 const viewportWidth = window.innerWidth;
@@ -22,6 +22,7 @@ function drawCallibrationPoint(top, left, id) {
     cross.innerText = "+";
     circle.addEventListener('click', function (event) {
         let pointID = this.getAttribute("pointID");
+        console.log(clickedArray[pointID]);
         if (clickedArray[pointID] > 0) {
             clickedArray[pointID] -= 1
         }
@@ -39,6 +40,7 @@ function checkIfCallibrationIsDone() {
     let sum = 0
     clickedArray.forEach((point) => {
         sum += point
+        console.log(sum)
     })
     if (sum <= 0) {
         document.getElementById("callibration-box").remove();
