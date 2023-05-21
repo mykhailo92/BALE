@@ -29,7 +29,7 @@ def create_basic_model():
 
 
 # Creates and trains the basic Model
-# @returns the trained Model
+# @returns the trained Model    
 def fit_basic_model(images_and_coordinates, positions, epochs):
     model = create_basic_model()
     callback = EarlyStopping(monitor='loss', patience=20, min_delta=0.001, verbose=1, restore_best_weights=True)
