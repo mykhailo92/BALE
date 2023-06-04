@@ -34,8 +34,20 @@ In Order for the Programm to work correctly you need the following Folder Struct
  |- run_bale.jar
 ```
 
-## Using the Programm
+## Local MySQL Server
+
+In Order for this Programm to work with its current settings you need to have a local
+MySQL Server such as XAMPP or MAMP with the following settings:
 ```
+Database_Name: "bale"
+Database_Host: "localhost"
+Database_Port: "8889"
+Database_User: "root"
+Database_Password: "root"
+```
+
+## Using the Programm
+
 In Order to start the Program, either start run_bale.bat or use
     java -jar "bale.jar"
 to start the program. 
