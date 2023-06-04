@@ -1,25 +1,5 @@
 # BALE
 
-
-
-## Getting started
-
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://gitlab.uni-oldenburg.de/zake5362/bale.git
-git branch -M main
-git push -uf origin main
-```
-
 ## How to Build jar (Intellij)
  
 ```
@@ -34,4 +14,37 @@ Drag & Drop the Maven Libraries into the bale.jar in the left column
 Click OK
 In the Intellij Menu select "Build->Build Artifacts..." and choose Build if prompted
 The JAR will be generated in the "out" Folder
+```
+
+## How to prepare Python Environment
+```
+This Projekt is intended to be installed using Anaconda.
+If you conda is added to your System Path, run this in console:
+    conda env create -f bale.yml
+This will automatically create the conda virtual environment "bale" which is used for the Eyetracking   
+```
+
+## Compiled Folder Structure
+In Order for the Programm to work correctly you need the following Folder Structure:
+```
+-- <any_name>
+ |- bale
+ |- python
+ |- bale.jar
+ |- run_bale.jar
+```
+
+## Using the Programm
+```
+In Order to start the Program, either start run_bale.bat or use
+    java -jar "bale.jar"
+to start the program. 
+On the first Screen, next to the open button, a spinning wheel is shown. This wheel indicates, that the 
+Eyetracker is currently not started. The first start-up of the Eyetracker may take up several Minutes, as 
+Libraries are needed to be loaded into the memory.
+Together with this code you should find two folder with example Learningunits. The "Lerneinheit" one 
+contains a Learning Unit which does not utilize Eyetracking. The second one "EyeTrackingTest" uses 
+Eyetracking to generate Data and Feedback. Due to the Eyetracking being not accurate enough, only the 
+first chapter of the Learningunit possesses the required Tagadditions as well as Helptexts.
+To add these Learningunits to your List click on the "New" Button in the starting screen.
 ```

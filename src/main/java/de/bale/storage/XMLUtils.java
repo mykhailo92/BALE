@@ -2,6 +2,7 @@ package de.bale.storage;
 
 import de.bale.Utils;
 import de.bale.logger.Logger;
+import de.bale.messages.ErrorMessage;
 import de.bale.messages.InitMessage;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -52,8 +53,12 @@ public class XMLUtils extends Utils {
         try {
             domDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(getSettingsDir() + "/" + filepath);
         } catch (FileNotFoundException e) {
-            System.err.println("File not found: " + getSettingsDir() + "/" + filepath);
-            return null;
+            Logger.getInstance().post(new ErrorMessage("File not found: " + getSettingsDir() + "/" + filepath));
+            domDoc = createDocument();
+            Element rootElement = domDoc.createElement("LearningUnitEntries");
+            domDoc.appendChild(rootElement);
+            XMLUtils.writeXML(domDoc, "learningUnitTable.xml");
+            return domDoc;
         } catch (SAXException | IOException | ParserConfigurationException e) {
             throw new RuntimeException(e);
         }
