@@ -31,7 +31,7 @@
     padding-right: 0 !important;
     align-items: center !important;
     justify-content: center !important;
-    -moz-border-radius: 50px !important ;
+    -moz-border-radius: 50px !important;
     -webkit-border-radius: 50px !important;
     border-radius: 50px !important;
     border-style: solid !important;
@@ -47,7 +47,7 @@
     -moz-user-select: none !important;
     -ms-user-select: none !important;
     user-select: none !important;
-    cursor: pointer !important  ;
+    cursor: pointer !important;
 
 }
 
@@ -132,4 +132,47 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+
+#draw_canvas {
+    position: absolute;
+    z-index: 1;
+}
+
+#debug {
+    position: fixed;
+    top: 500px;
+    left: 10px;
+}
+
+button {
+    position: relative;
+    z-index: 1;
+}
+
+input {
+    position: relative;
+    z-index: 1;
+}
+
+textarea {
+    position: relative;
+    z-index: 1;
+}
+
+.draggable-card {
+    position: relative;
+    z-index: 1;
+}
+.drop-field {
+    position: relative;
+    z-index: 1;
+}
+.task-img {
+    position: relative;
+    z-index: 1;
+}
+video {
+    position: relative;
+    z-index: 1;
 }

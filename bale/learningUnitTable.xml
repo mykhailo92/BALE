@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <LearningUnitEntries>
     <LearningUnitEntry>
-        <name>Optik (Florian)</name>
-        <path>D:\Uni\ba\bale\Lerneinheit\example.html</path>
-    </LearningUnitEntry>
-    <LearningUnitEntry>
-        <name>Optik (Mac-Mykhailo)</name>
-        <path>\Users\mykhailoievreinov\IdeaProjects\BALE\Lerneinheit\example.html</path>
-    </LearningUnitEntry>
-    <LearningUnitEntry>
-        <name>Optik (Lenovo-Mykhailo)</name>
-        <path>C:\Users\uol\IdeaProjects\bale\Lerneinheit\example.html</path>
-    </LearningUnitEntry>
-    <LearningUnitEntry>
         <name>EyeTrackerTest (FL)</name>
         <path>D:\Uni\ba\bale\EyeTrackingTest\Eyetracker.html</path>
     </LearningUnitEntry>

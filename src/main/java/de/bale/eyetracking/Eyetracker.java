@@ -84,6 +84,7 @@ public class Eyetracker {
             line = reader.readLine();
             if (line != null) {
                 String[] splittedLine = line.split("::");
+                System.out.println(line);
                 switch (splittedLine[0]) {
                     case "EYETRACKING_INFO":
                         if (splittedLine.length >= 2) {

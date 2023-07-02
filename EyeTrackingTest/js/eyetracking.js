@@ -12,6 +12,14 @@ for (let index = 0; index < gridCount * gridCount; index++) {
     clickedArray[index] = clicksToFinishPoint;
 }
 
+var body = document.body,
+    html = document.documentElement;
+var debug = document.getElementById("debug");
+var canvas = document.getElementById("draw_canvas");
+const context = canvas.getContext('2d');
+canvas.width = window.innerWidth * 0.8;
+canvas.height = window.innerHeight;
+context.globalCompositeOperation='destination-over';
 function drawCallibrationPoint(top, left, id) {
     let circle = document.createElement('div');
     circle.classList.add("callibration-circle");
@@ -121,8 +129,25 @@ function fitDone() {
     loading_screen.style.cssText += "display:none;";
 }
 
+function drawPointForDemo(x, y, scroll) {
+    const radius = 10;
+    canvas.height = Math.max(body.getBoundingClientRect().height, html.getBoundingClientRect().height);
+    // debug.innerText= "X: " + x + ", Y:" + y +", Scroll: "+scroll+"\n Height: "+canvas.height;
+    context.beginPath();
+    context.arc(x, (y+scroll), radius, 0, 2 * Math.PI, false);
+    context.fillStyle = 'rgba(0,252,0,0.5)';
+    context.fill();
+    context.lineWidth = 5;
+    context.strokeStyle = 'rgba(0,107,0,0.50)';
+    context.stroke();
+}
+
+
 function getElementFromPosition(x, y) {
+    let doc = document.documentElement;
     let element = document.elementFromPoint(x, y);
+    var scroll_top = (window.scrollY || doc.scrollTop)  - (doc.clientTop || 0);
+    drawPointForDemo(x, y, scroll_top);
     if (element.tagName === "BODY") {
         return
     }
