@@ -17,7 +17,7 @@ var body = document.body,
 var debug = document.getElementById("debug");
 var canvas = document.getElementById("draw_canvas");
 const context = canvas.getContext('2d');
-canvas.width = window.innerWidth * 0.8;
+canvas.width = window.innerWidth*0.9;
 canvas.height = window.innerHeight;
 context.globalCompositeOperation='destination-over';
 function drawCallibrationPoint(top, left, id) {
@@ -132,7 +132,7 @@ function fitDone() {
 function drawPointForDemo(x, y, scroll) {
     const radius = 10;
     canvas.height = Math.max(body.getBoundingClientRect().height, html.getBoundingClientRect().height);
-    // debug.innerText= "X: " + x + ", Y:" + y +", Scroll: "+scroll+"\n Height: "+canvas.height;
+    debug.innerText= "X: " + x + ", Y:" + y +", Scroll: "+scroll+"\n Height: "+canvas.height;
     context.beginPath();
     context.arc(x, (y+scroll), radius, 0, 2 * Math.PI, false);
     context.fillStyle = 'rgba(0,252,0,0.5)';
