@@ -6,9 +6,9 @@ body {
 }
 
 * {
-    /*padding-left: 10px;*/
-    /*padding-right: 15px;*/
-    /*margin: 0;*/
+    padding-left: 10px;
+    padding-right: 15px;
+    margin: 0;
 }
 
 :root {
@@ -256,17 +256,27 @@ input[type=submit]:disabled {
     transform: translateY(2px);;
 }
 
+
 .preamble {
     position: absolute;
     left: 0;
-    width: 100%;
     height: 100%;
-    padding: 0;
     background-color: var(--backgroundColor);
-    display: flex;
+    width: 80vw;
     align-items: center;
     justify-content: center;
-    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 0 250px;
+    z-index: 3;
+}
+
+#schoolchild-name {
+    width: 380px;
+    text-align: center;
+    font-size: 19px;
+    padding: 4px;
 }
 
 .draggable-card {
